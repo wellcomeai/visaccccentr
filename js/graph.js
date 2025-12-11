@@ -21,15 +21,59 @@ const flagUrls = {
 const nodesData = [
   { id: 'center', label: 'visatoyou', type: 'center', x: 50, y: 50, description: 'Ваш надёжный визовый партнёр', price: null, icon: '🌍', logo: 'https://i.ibb.co/9kVnKdnZ/visa.png' },
   { id: 'schengen', label: 'Шенген', type: 'category', x: 25, y: 32, description: 'Визы в страны Шенгенской зоны', price: null, icon: '🇪🇺', flag: 'EU' },
-  { id: 'portugal', label: 'Португалия', type: 'country', x: 10, y: 18, description: 'Туристическая виза в Португалию. Срок оформления от 7 дней.', price: '18 000 ₽', icon: '🇵🇹', flag: 'PT', features: ['Мультивиза', '7-14 дней'] },
-  { id: 'italy', label: 'Италия', type: 'country', x: 8, y: 38, description: 'Виза в солнечную Италию. Москва и СПб от 13 000 ₽, регионы от 25 000 ₽.', price: 'от 13 000 ₽', icon: '🇮🇹', flag: 'IT', features: ['Туризм', 'Бизнес'] },
-  { id: 'france', label: 'Франция', type: 'country', x: 12, y: 55, description: 'Виза во Францию с возможностью удалённой подачи по доверенности.', price: '25 000 ₽', icon: '🇫🇷', flag: 'FR', features: ['Удалённо', 'До 5 лет'] },
-  { id: 'germany', label: 'Германия', type: 'country', x: 25, y: 12, description: 'Виза в Германию по приглашению. Необходимы выкупленные билеты.', price: '15 000 ₽', icon: '🇩🇪', flag: 'DE', features: ['Приглашение', '5-10 дней'] },
-  { id: 'greece', label: 'Греция', type: 'country', x: 38, y: 15, description: 'Быстрое оформление визы в Грецию. Необходимы выкупленные билеты.', price: '15 000 ₽', icon: '🇬🇷', flag: 'GR', features: ['Быстро', 'Туризм'] },
-  { id: 'hungary', label: 'Венгрия', type: 'country', x: 40, y: 35, description: 'Виза в Венгрию — отличный вариант для первого Шенгена. Нужны билеты и отель.', price: '15 000 ₽', icon: '🇭🇺', flag: 'HU', features: ['Первый Шенген', '98% одобрений'] },
-  { id: 'usa', label: 'США', type: 'premium', x: 78, y: 22, description: 'Полное сопровождение B1/B2, F1: документы, DS-160, подготовка к собеседованию.', price: '35 000 ₽', icon: '🇺🇸', flag: 'US', features: ['Собеседование', 'Гарантия'] },
-  { id: 'uk', label: 'Великобритания', type: 'premium', x: 85, y: 42, description: 'Туристическая, студенческая и рабочая виза в UK. Перевод документов включён.', price: '37 000 ₽', icon: '🇬🇧', flag: 'GB', features: ['Все типы виз', 'Сопровождение'] },
-  { id: 'canada', label: 'Канада', type: 'premium', x: 80, y: 62, description: 'Туристическая виза в Канаду. Помощь с биометрией и оплатой.', price: '30 000 ₽', icon: '🇨🇦', flag: 'CA', features: ['Биометрия', 'До 10 лет'] },
+  { id: 'portugal', label: 'Португалия', type: 'country', x: 10, y: 18, description: 'Туристическая виза в Португалию. Срок оформления от 7 дней.', price: '18 000 ₽', icon: '🇵🇹', flag: 'PT', features: ['Мультивиза', '7-14 дней'], tariff: 'gold' },
+  { 
+    id: 'italy', 
+    label: 'Италия', 
+    type: 'country', 
+    x: 8, 
+    y: 38, 
+    description: 'Виза в солнечную Италию для туризма и бизнеса.',
+    icon: '🇮🇹', 
+    flag: 'IT',
+    hasTariffs: true,
+    tariffs: {
+      gold: {
+        price: 'от 13 000 ₽',
+        description: 'Москва, СПб и СЗ регионы — от 13 000 ₽. Регионы — 25 000 ₽ + сервисный сбор.',
+        features: ['Туризм', 'Бизнес', 'Личная подача']
+      },
+      premium: {
+        price: '55 000 ₽',
+        description: 'Удалённая подача без вашего присутствия при наличии биометрии за 5 лет. Все сборы включены.',
+        features: ['Удалённо', 'Всё включено', 'Доставка по РФ']
+      }
+    }
+  },
+  { 
+    id: 'france', 
+    label: 'Франция', 
+    type: 'country', 
+    x: 12, 
+    y: 55, 
+    description: 'Виза во Францию с возможностью удалённой подачи.',
+    icon: '🇫🇷', 
+    flag: 'FR',
+    hasTariffs: true,
+    tariffs: {
+      gold: {
+        price: '25 000 ₽',
+        description: 'Стандартное оформление визы + сервисный сбор 35 евро.',
+        features: ['Туризм', 'До 5 лет', 'Личная подача']
+      },
+      premium: {
+        price: '55 000 ₽',
+        description: 'Удалённая подача по доверенности без вашего присутствия. Все сборы включены.',
+        features: ['Удалённо', 'Всё включено', 'Доставка по РФ']
+      }
+    }
+  },
+  { id: 'germany', label: 'Германия', type: 'country', x: 25, y: 12, description: 'Виза в Германию по приглашению. Необходимы выкупленные билеты.', price: '15 000 ₽', icon: '🇩🇪', flag: 'DE', features: ['Приглашение', '5-10 дней'], tariff: 'gold' },
+  { id: 'greece', label: 'Греция', type: 'country', x: 38, y: 15, description: 'Быстрое оформление визы в Грецию. Необходимы выкупленные билеты.', price: '15 000 ₽', icon: '🇬🇷', flag: 'GR', features: ['Быстро', 'Туризм'], tariff: 'gold' },
+  { id: 'hungary', label: 'Венгрия', type: 'country', x: 40, y: 35, description: 'Виза в Венгрию — отличный вариант для первого Шенгена. Нужны билеты и отель.', price: '15 000 ₽', icon: '🇭🇺', flag: 'HU', features: ['Первый Шенген', '98% одобрений'], tariff: 'gold' },
+  { id: 'usa', label: 'США', type: 'premium', x: 78, y: 22, description: 'Полное сопровождение B1/B2, F1: документы, DS-160, подготовка к собеседованию. Консульский сбор $185 оплачивается отдельно.', price: '35 000 ₽', icon: '🇺🇸', flag: 'US', features: ['Собеседование', 'Запись ботом', 'Гарантия'] },
+  { id: 'uk', label: 'Великобритания', type: 'premium', x: 85, y: 42, description: 'Туристическая, студенческая и рабочая виза в UK. Перевод документов включён. Консульский сбор £127.', price: '37 000 ₽', icon: '🇬🇧', flag: 'GB', features: ['Все типы виз', 'Перевод', 'Сопровождение'] },
+  { id: 'canada', label: 'Канада', type: 'premium', x: 80, y: 62, description: 'Туристическая виза в Канаду. Помощь с биометрией и оплатой. Консульский сбор CAD $100.', price: '30 000 ₽', icon: '🇨🇦', flag: 'CA', features: ['Биометрия', 'До 10 лет', 'Перевод'] },
   { id: 'services', label: 'Услуги', type: 'category', x: 32, y: 75, description: 'Что входит в стоимость наших услуг', price: null, icon: '⭐' },
   { id: 'forms', label: 'Анкеты', type: 'service', x: 15, y: 85, description: 'Профессиональное заполнение анкет на любом языке', price: null, icon: '📝' },
   { id: 'booking', label: 'Запись', type: 'service', x: 28, y: 90, description: 'Запись в визовый центр на удобную дату (с ботом или без)', price: null, icon: '📅' },
@@ -300,8 +344,9 @@ class SmartGraph {
     return position;
   }
 
-  showTooltip(node, e) {
+  showTooltip(node, e, selectedTariff = 'gold') {
     this.hoveredNode = node;
+    this.currentTariff = selectedTariff;
     
     // Highlight connected lines
     this.lines.forEach(line => {
@@ -319,6 +364,20 @@ class SmartGraph {
     // Get flag URL if available
     const flagUrl = node.flag ? flagUrls[node.flag] : null;
     
+    // Get tariff data if available
+    let price, description, features;
+    
+    if (node.hasTariffs) {
+      const tariffData = node.tariffs[selectedTariff];
+      price = tariffData.price;
+      description = tariffData.description;
+      features = tariffData.features;
+    } else {
+      price = node.price;
+      description = node.description;
+      features = node.features;
+    }
+    
     // Build tooltip content
     let html = `
       <div class="tooltip-header">
@@ -327,24 +386,39 @@ class SmartGraph {
         </div>
         <div class="tooltip-title">${node.label}</div>
       </div>
-      <div class="tooltip-desc">${node.description}</div>
     `;
+    
+    // Add tariff toggle for Italy and France
+    if (node.hasTariffs) {
+      html += `
+        <div class="tooltip-tariff-toggle" data-node-id="${node.id}">
+          <button class="tariff-btn ${selectedTariff === 'gold' ? 'active' : ''}" data-tariff="gold">
+            <span class="tariff-icon">⭐</span> Gold
+          </button>
+          <button class="tariff-btn ${selectedTariff === 'premium' ? 'active' : ''}" data-tariff="premium">
+            <span class="tariff-icon">💎</span> Premium
+          </button>
+        </div>
+      `;
+    }
+    
+    html += `<div class="tooltip-desc">${description}</div>`;
 
     // Features
-    if (node.features && node.features.length) {
+    if (features && features.length) {
       html += `<div class="tooltip-features">`;
-      node.features.forEach(feature => {
+      features.forEach(feature => {
         html += `<span class="tooltip-feature"><span class="tooltip-feature-icon">✓</span> ${feature}</span>`;
       });
       html += `</div>`;
     }
 
     // Price
-    if (node.price) {
+    if (price) {
       html += `
         <div class="tooltip-price">
           <span class="tooltip-price-dot"></span>
-          ${node.price}
+          ${price}
         </div>
       `;
     }
@@ -364,6 +438,18 @@ class SmartGraph {
     }
 
     this.tooltip.innerHTML = html;
+    
+    // Add event listeners for tariff toggle buttons
+    if (node.hasTariffs) {
+      const toggleBtns = this.tooltip.querySelectorAll('.tariff-btn');
+      toggleBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const newTariff = btn.dataset.tariff;
+          this.showTooltip(node, e, newTariff);
+        });
+      });
+    }
 
     // Position tooltip
     if (!this.isMobile) {
