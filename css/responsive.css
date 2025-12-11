@@ -130,12 +130,23 @@
     margin-top: 24px;
   }
 
+  /* ========================================
+     FIX #1: Центрирование статистики Hero
+     ======================================== */
   .stat-card {
     padding: 16px 14px;
+    text-align: center;
   }
 
   .stat-num {
     font-size: 26px;
+    display: block;
+    text-align: center;
+  }
+
+  .stat-label {
+    display: block;
+    text-align: center;
   }
 
   /* Airplane Mobile */
@@ -239,7 +250,9 @@
     background: linear-gradient(90deg, rgba(184, 149, 108, 0.3), transparent);
   }
 
-  /* Mobile Nodes Row */
+  /* ========================================
+     FIX #3: Индикатор горизонтального скролла
+     ======================================== */
   .mobile-nodes-row {
     display: flex;
     gap: 8px;
@@ -247,13 +260,47 @@
     padding: 4px 0 8px;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
+    position: relative;
+    /* Добавляем padding справа для fade эффекта */
+    padding-right: 20px;
+    margin-right: -16px;
+    padding-left: 2px;
+    /* Scroll snap для плавной прокрутки */
+    scroll-snap-type: x proximity;
+    scroll-padding: 0 16px;
   }
 
   .mobile-nodes-row::-webkit-scrollbar {
     display: none;
   }
 
-  /* Mobile Node */
+  /* Fade-gradient справа, показывающий что есть ещё контент */
+  .mobile-category {
+    position: relative;
+  }
+
+  .mobile-category::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 8px;
+    width: 48px;
+    height: 52px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9) 70%);
+    pointer-events: none;
+    border-radius: 0 12px 12px 0;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Скрываем fade когда докрутили до конца */
+  .mobile-category.scrolled-end::after {
+    opacity: 0;
+  }
+
+  /* ========================================
+     FIX #2: Индикатор кликабельности нодов
+     ======================================== */
   .mobile-node {
     background: #fff;
     padding: 10px 14px;
@@ -264,17 +311,66 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     flex-shrink: 0;
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.3s ease;
     -webkit-tap-highlight-color: transparent;
+    /* Добавляем рамку для визуального акцента */
+    border: 1.5px solid rgba(184, 149, 108, 0.15);
+    /* Scroll snap */
+    scroll-snap-align: start;
+    /* Минимальная ширина для консистентности */
+    min-width: fit-content;
+    position: relative;
+    padding-right: 28px; /* Место для стрелки */
+  }
+
+  /* Стрелка-индикатор кликабельности */
+  .mobile-node::after {
+    content: '›';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--color-accent);
+    opacity: 0.6;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .mobile-node:hover::after,
+  .mobile-node:active::after {
+    opacity: 1;
+    transform: translateY(-50%) translateX(2px);
+  }
+
+  /* Пульсация для первых нескольких нодов */
+  @keyframes nodePulse {
+    0%, 100% {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 0 0 0 rgba(184, 149, 108, 0);
+    }
+    50% {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 0 0 3px rgba(184, 149, 108, 0.15);
+    }
+  }
+
+  /* Пульсация только для первого нода в каждой категории пока не было взаимодействия */
+  .mobile-nodes-row:not(.interacted) .mobile-node:first-child {
+    animation: nodePulse 2s ease-in-out infinite;
   }
 
   .mobile-node:active {
     transform: scale(0.97);
+    border-color: var(--color-accent);
   }
 
   .mobile-node-premium {
     border: 1.5px solid var(--color-accent);
     background: linear-gradient(135deg, #fff, #faf8f5);
+  }
+
+  .mobile-node-premium::after {
+    color: var(--color-accent-dark);
+    opacity: 0.8;
   }
 
   .mobile-node-flag {
@@ -297,9 +393,60 @@
     display: none;
   }
 
-  /* Mobile Graph Hint - VISIBLE ON MOBILE */
+  /* ========================================
+     FIX #2: Улучшенная текстовая подсказка
+     ======================================== */
   .graph-hint-mobile {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 20px;
+    margin: 0 16px 24px;
+    background: linear-gradient(135deg, rgba(184, 149, 108, 0.12), rgba(184, 149, 108, 0.06));
+    border: 1px solid rgba(184, 149, 108, 0.25);
+    border-radius: 14px;
+    font-size: 14px;
+    color: var(--color-text);
+    /* Более заметная анимация */
+    animation: hintGlow 2.5s ease-in-out infinite;
+    box-shadow: 0 2px 12px rgba(184, 149, 108, 0.1);
+  }
+
+  @keyframes hintGlow {
+    0%, 100% {
+      box-shadow: 0 2px 12px rgba(184, 149, 108, 0.1);
+      border-color: rgba(184, 149, 108, 0.25);
+    }
+    50% {
+      box-shadow: 0 4px 20px rgba(184, 149, 108, 0.25);
+      border-color: rgba(184, 149, 108, 0.4);
+    }
+  }
+
+  .graph-hint-mobile.hidden {
+    display: none !important;
+  }
+
+  .graph-hint-icon {
+    font-size: 20px;
+    animation: pointUp 1s ease-in-out infinite;
+  }
+
+  @keyframes pointUp {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+  }
+
+  .graph-hint-text {
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  /* Акцент на "нажмите" */
+  .graph-hint-text strong {
+    color: var(--color-accent-dark);
+    font-weight: 600;
   }
 
   /* Globe Mobile */
