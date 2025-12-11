@@ -696,14 +696,18 @@ function hideGraphHint() {
   const hint = document.getElementById('graphHintMobile');
   if (hint && !hint.classList.contains('hidden')) {
     hint.classList.add('hidden');
-    localStorage.setItem('graphHintSeen', 'true');
+    // Сохраняем в sessionStorage вместо localStorage — будет показываться при каждом новом визите
+    sessionStorage.setItem('graphHintSeen', 'true');
   }
 }
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
-  // Check if hint was already seen
-  if (localStorage.getItem('graphHintSeen') === 'true') {
+  // Проверяем только sessionStorage (сбрасывается при закрытии браузера)
+  // Также очищаем старое значение из localStorage
+  localStorage.removeItem('graphHintSeen');
+  
+  if (sessionStorage.getItem('graphHintSeen') === 'true') {
     const hint = document.getElementById('graphHintMobile');
     if (hint) hint.classList.add('hidden');
   }
