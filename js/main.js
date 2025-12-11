@@ -13,6 +13,10 @@ document.addEventListener('DOMContentLoaded', function() {
   initParallax();
   initButtonEffects();
   initCardSwiper();
+  initStepsScrollIndicator();
+  initDestinationAccordions();
+  initTariffSwitches();
+  initDestinationFilter();
 });
 
 // ========================================
@@ -347,4 +351,115 @@ if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   document.documentElement.style.setProperty('--transition-fast', '0.01s');
   document.documentElement.style.setProperty('--transition-base', '0.01s');
   document.documentElement.style.setProperty('--transition-slow', '0.01s');
+}
+
+// ========================================
+// Steps Scroll Indicator (Mobile)
+// ========================================
+
+function initStepsScrollIndicator() {
+  const stepsList = document.querySelector('.steps-list');
+  const dots = document.querySelectorAll('.steps-dot');
+
+  if (!stepsList || !dots.length || window.innerWidth > 900) return;
+
+  stepsList.addEventListener('scroll', () => {
+    const scrollLeft = stepsList.scrollLeft;
+    const cardWidth = 280 + 16; // card width + gap
+    const currentIndex = Math.round(scrollLeft / cardWidth);
+
+    dots.forEach((dot, index) => {
+      dot.classList.toggle('active', index === currentIndex);
+    });
+  }, { passive: true });
+
+  // Click on dot to scroll
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      const index = parseInt(dot.dataset.step);
+      const cardWidth = 280 + 16;
+      stepsList.scrollTo({
+        left: index * cardWidth,
+        behavior: 'smooth'
+      });
+    });
+  });
+}
+
+// ========================================
+// Destination Accordions
+// ========================================
+
+function initDestinationAccordions() {
+  document.querySelectorAll('.destination-accordion-trigger').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const accordion = trigger.closest('.destination-accordion');
+      accordion.classList.toggle('open');
+    });
+  });
+}
+
+// ========================================
+// Tariff Switches
+// ========================================
+
+function initTariffSwitches() {
+  document.querySelectorAll('.tariff-switch-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.destination-card');
+      const tariff = btn.dataset.tariff;
+
+      // Update active button
+      card.querySelectorAll('.tariff-switch-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      // Update price
+      const priceEl = card.querySelector('.destination-card-price-value');
+      if (priceEl && priceEl.dataset[tariff]) {
+        priceEl.textContent = priceEl.dataset[tariff];
+      }
+
+      // Update features visibility
+      const goldFeatures = card.querySelector('.included-list:not(.premium-only)');
+      const premiumFeatures = card.querySelector('.included-list.premium-only');
+
+      if (goldFeatures && premiumFeatures) {
+        goldFeatures.style.display = tariff === 'gold' ? 'block' : 'none';
+        premiumFeatures.style.display = tariff === 'premium' ? 'block' : 'none';
+      }
+    });
+  });
+}
+
+// ========================================
+// Destination Filter
+// ========================================
+
+function initDestinationFilter() {
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.destination-card');
+
+  if (!filterBtns.length || !cards.length) return;
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+
+      // Update active button
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      // Filter cards
+      cards.forEach(card => {
+        const category = card.dataset.category;
+        if (filter === 'all' || category === filter) {
+          card.style.display = '';
+          card.style.opacity = '1';
+          card.style.transform = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
 }

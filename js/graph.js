@@ -241,7 +241,10 @@ class SmartGraph {
 
   showBottomSheet(node) {
     if (!this.bottomSheet) return;
-    
+
+    // Hide the hint when user interacts
+    hideGraphHint();
+
     const content = this.bottomSheet.querySelector('.bottom-sheet-content');
     const flagWrap = content.querySelector('.bottom-sheet-flag-wrap');
     const title = content.querySelector('.bottom-sheet-title');
@@ -668,7 +671,22 @@ class SmartGraph {
   }
 }
 
+// Hide graph hint function
+function hideGraphHint() {
+  const hint = document.getElementById('graphHintMobile');
+  if (hint && !hint.classList.contains('hidden')) {
+    hint.classList.add('hidden');
+    localStorage.setItem('graphHintSeen', 'true');
+  }
+}
+
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
+  // Check if hint was already seen
+  if (localStorage.getItem('graphHintSeen') === 'true') {
+    const hint = document.getElementById('graphHintMobile');
+    if (hint) hint.classList.add('hidden');
+  }
+
   new SmartGraph('graph-container');
 });

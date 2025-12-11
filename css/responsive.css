@@ -1,0 +1,500 @@
+/* ========================================
+   VISANEWS2YOU - Responsive
+   All @media queries
+   ======================================== */
+
+/* ========================================
+   LARGE SCREENS (1200px)
+   ======================================== */
+
+@media (max-width: 1200px) {
+  .graph-container {
+    left: 450px;
+  }
+
+  .hero-content {
+    max-width: 420px;
+  }
+
+  .steps-wrapper {
+    gap: 60px;
+  }
+
+  .globe-container {
+    width: 350px;
+    height: 350px;
+  }
+
+  .destinations-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ========================================
+   MEDIUM SCREENS (1024px)
+   ======================================== */
+
+@media (max-width: 1024px) {
+  .steps-wrapper {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .steps-content {
+    order: 2;
+  }
+
+  .steps-visual {
+    order: 1;
+    height: 400px;
+  }
+
+  .globe-container {
+    width: 320px;
+    height: 320px;
+  }
+
+  @keyframes orbitGlobe {
+    0% {
+      transform: rotate(0deg) translateX(180px) rotate(90deg);
+    }
+    100% {
+      transform: rotate(360deg) translateX(180px) rotate(90deg);
+    }
+  }
+
+  .reviews-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+}
+
+/* ========================================
+   MOBILE SCREENS (900px)
+   ======================================== */
+
+@media (max-width: 900px) {
+  .header {
+    padding: 16px 20px;
+    background: rgba(248, 249, 250, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .header::before {
+    display: none;
+  }
+
+  .logo-img {
+    width: 44px;
+    height: 44px;
+  }
+
+  .logo-text {
+    font-size: 22px;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .burger {
+    display: flex;
+  }
+
+  /* Hero Mobile */
+  .hero {
+    min-height: auto;
+    padding-top: 80px;
+  }
+
+  .hero-content {
+    position: relative;
+    left: 0;
+    top: 0;
+    transform: none;
+    max-width: 100%;
+    padding: 32px 20px;
+  }
+
+  .hero-glass {
+    padding: 28px;
+    border-radius: 24px;
+  }
+
+  .hero-stats {
+    margin-top: 24px;
+  }
+
+  .stat-card {
+    padding: 16px 14px;
+  }
+
+  .stat-num {
+    font-size: 26px;
+  }
+
+  /* Airplane Mobile */
+  .airplane {
+    width: 28px;
+    height: 28px;
+  }
+
+  .airplane::after {
+    width: 60px;
+  }
+
+  .airplane-2 {
+    display: none;
+  }
+
+  /* Graph Mobile - New Vertical Layout */
+  .graph-container {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: auto;
+    min-height: auto;
+    margin: 0 16px 20px;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    border: 1px solid var(--glass-border);
+    padding: 20px 16px;
+  }
+
+  .graph-container.graph-mobile {
+    display: block;
+  }
+
+  /* Hide desktop graph elements on mobile */
+  .graph-mobile .graph-svg,
+  .graph-mobile .graph-node {
+    display: none !important;
+  }
+
+  /* Mobile Center Badge - LIGHT GLASS EFFECT */
+  .mobile-graph-center {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+
+  .mobile-center-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1.5px solid rgba(184, 149, 108, 0.3);
+    color: var(--color-primary);
+    padding: 14px 24px;
+    border-radius: 16px;
+    font-weight: 600;
+    font-size: 15px;
+    box-shadow:
+      0 8px 32px rgba(184, 149, 108, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+
+  .mobile-center-logo {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+  }
+
+  /* Mobile Category */
+  .mobile-category {
+    margin-bottom: 20px;
+  }
+
+  .mobile-category-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    padding-left: 4px;
+  }
+
+  .mobile-category-icon {
+    font-size: 18px;
+  }
+
+  .mobile-category-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .mobile-category-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(184, 149, 108, 0.3), transparent);
+  }
+
+  /* Mobile Nodes Row */
+  .mobile-nodes-row {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 4px 0 8px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .mobile-nodes-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Mobile Node */
+  .mobile-node {
+    background: #fff;
+    padding: 10px 14px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mobile-node:active {
+    transform: scale(0.97);
+  }
+
+  .mobile-node-premium {
+    border: 1.5px solid var(--color-accent);
+    background: linear-gradient(135deg, #fff, #faf8f5);
+  }
+
+  .mobile-node-flag {
+    width: 22px;
+    height: 22px;
+  }
+
+  .mobile-node-icon {
+    font-size: 18px;
+  }
+
+  .mobile-node-text {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text);
+    white-space: nowrap;
+  }
+
+  .hero-hint {
+    display: none;
+  }
+
+  /* Mobile Graph Hint - VISIBLE ON MOBILE */
+  .graph-hint-mobile {
+    display: flex;
+  }
+
+  /* Globe Mobile */
+  .steps-visual {
+    height: 320px;
+  }
+
+  .globe-container {
+    width: 260px;
+    height: 260px;
+  }
+
+  @keyframes orbitGlobe {
+    0% {
+      transform: rotate(0deg) translateX(150px) rotate(90deg);
+    }
+    100% {
+      transform: rotate(360deg) translateX(150px) rotate(90deg);
+    }
+  }
+
+  .globe-airplane {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Tooltip Mobile - Hidden (using Bottom Sheet instead) */
+  .tooltip {
+    display: none !important;
+  }
+
+  /* Sections Mobile */
+  .section {
+    padding: 60px 20px;
+  }
+
+  .section-header {
+    margin-bottom: 40px;
+  }
+
+  .destinations-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .reviews-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Steps as horizontal scroll cards */
+  .steps-list {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 8px 0 20px;
+    margin: 0 -20px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .steps-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .step-item {
+    flex: 0 0 280px;
+    scroll-snap-align: start;
+    flex-direction: column;
+    text-align: center;
+    padding: 28px 24px;
+  }
+
+  .step-item:hover {
+    transform: none;
+  }
+
+  .step-number {
+    margin: 0 auto 16px;
+  }
+
+  .step-content h3 {
+    margin-bottom: 8px;
+  }
+
+  /* Steps dots visible on mobile */
+  .steps-dots {
+    display: flex;
+  }
+
+  /* Leader section mobile */
+  .leader-wrapper {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .leader-image-wrapper {
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .leader-image-badge {
+    right: -10px;
+    bottom: -10px;
+    padding: 12px 18px;
+  }
+
+  .leader-image-badge span {
+    font-size: 22px;
+  }
+
+  .leader-quote {
+    border-left: none;
+    border-top: 3px solid var(--color-accent);
+    padding: 24px 0 0 0;
+    text-align: center;
+  }
+
+  .leader-stats {
+    justify-content: center;
+  }
+
+  .leader-content .btn {
+    width: 100%;
+  }
+
+  /* Footer Mobile */
+  .footer {
+    padding: 60px 20px 32px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .footer-legal-info {
+    margin: 32px 0 0;
+    padding: 20px;
+  }
+
+  .footer-legal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Disable parallax on mobile for performance */
+  [data-parallax] {
+    transform: none !important;
+  }
+
+  /* Destinations filter mobile */
+  .destinations-filter {
+    justify-content: center;
+  }
+}
+
+/* ========================================
+   SMALL SCREENS (600px)
+   ======================================== */
+
+@media (max-width: 600px) {
+  .destinations-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+  }
+
+  .hero-buttons .btn {
+    width: 100%;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+  }
+
+  .cta-buttons .btn {
+    width: 100%;
+  }
+
+  .leader-stats {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .leader-stat {
+    flex: 1 1 80px;
+  }
+}
