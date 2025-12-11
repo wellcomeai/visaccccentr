@@ -1,7 +1,7 @@
 // ========================================
-// VISANEWS2YOU - Smart Graph Visualization v3.0
+// VISANEWS2YOU - Smart Graph Visualization v3.1
 // Desktop: Original working tooltip logic
-// Mobile: Vertical categories + Bottom Sheet
+// Mobile: Vertical categories + Bottom Sheet + Enhanced UX
 // ========================================
 
 // Twemoji flag URLs (Twitter emoji as SVG)
@@ -201,9 +201,24 @@ class SmartGraph {
         
         row.appendChild(nodeEl);
       });
+
+      // Добавляем отслеживание скролла для fade-эффекта
+      this.initScrollFade(row, section);
     });
 
     this.createBottomSheet();
+  }
+
+  // Инициализация fade-эффекта при скролле
+  initScrollFade(row, section) {
+    const checkScrollEnd = () => {
+      const isAtEnd = row.scrollLeft + row.clientWidth >= row.scrollWidth - 10;
+      section.classList.toggle('scrolled-end', isAtEnd);
+    };
+
+    row.addEventListener('scroll', checkScrollEnd, { passive: true });
+    // Проверяем при инициализации
+    setTimeout(checkScrollEnd, 100);
   }
 
   createBottomSheet() {
@@ -244,6 +259,11 @@ class SmartGraph {
 
     // Hide the hint when user interacts
     hideGraphHint();
+    
+    // Mark all rows as interacted to stop pulse animation
+    document.querySelectorAll('.mobile-nodes-row').forEach(row => {
+      row.classList.add('interacted');
+    });
 
     const content = this.bottomSheet.querySelector('.bottom-sheet-content');
     const flagWrap = content.querySelector('.bottom-sheet-flag-wrap');
