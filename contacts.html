@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Контакты визового агентства VisaToYou">
+  <title>Контакты — VisaToYou</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+    .contact-form {
+      background: #fff;
+      border-radius: 24px;
+      padding: 40px;
+      border: 1px solid var(--color-border);
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text);
+      margin-bottom: 8px;
+    }
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 16px 20px;
+      border: 1.5px solid var(--color-border);
+      border-radius: 14px;
+      font-size: 15px;
+      font-family: var(--font-body);
+      background: var(--color-bg);
+      color: var(--color-text);
+      transition: var(--transition-fast);
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 4px rgba(184, 149, 108, 0.1);
+    }
+    .form-textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .contact-card {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background: #fff;
+      border-radius: 20px;
+      padding: 24px;
+      border: 1px solid var(--color-border);
+      text-decoration: none;
+      transition: var(--transition-base);
+    }
+    .contact-card:hover {
+      transform: translateX(8px);
+      box-shadow: 0 8px 24px rgba(184, 149, 108, 0.12);
+      border-color: var(--color-accent);
+    }
+    .contact-card-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, var(--color-accent-light), var(--color-accent));
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-card-icon svg {
+      width: 24px;
+      height: 24px;
+      fill: #fff;
+    }
+    .contact-card-content {
+      flex: 1;
+    }
+    .contact-card-label {
+      font-size: 13px;
+      color: var(--color-text-light);
+      margin-bottom: 4px;
+    }
+    .contact-card-value {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--color-primary);
+    }
+    @media (max-width: 900px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header scrolled">
+    <a href="index.html" class="logo">
+      <img src="https://i.ibb.co/9kVnKdnZ/visa.png" alt="VisaToYou" class="logo-img">
+      <span class="logo-text">visatoyou</span>
+    </a>
+    <nav class="nav">
+      <a href="visas.html" class="btn btn-ghost">Визы</a>
+      <a href="services.html" class="btn btn-ghost">Услуги</a>
+      <a href="about.html" class="btn btn-ghost">О нас</a>
+      <a href="contacts.html" class="btn btn-ghost active">Контакты</a>
+      <a href="contacts.html" class="btn btn-accent nav-cta">Оставить заявку</a>
+    </nav>
+    <button class="burger" aria-label="Меню"><span class="burger-line"></span><span class="burger-line"></span><span class="burger-line"></span></button>
+  </header>
+
+  <div class="mobile-menu">
+    <nav class="mobile-nav">
+      <a href="index.html" class="mobile-nav-link">Главная<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></a>
+      <a href="visas.html" class="mobile-nav-link">Визы<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></a>
+      <a href="services.html" class="mobile-nav-link">Услуги<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></a>
+      <a href="about.html" class="mobile-nav-link">О нас<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></a>
+      <a href="contacts.html" class="mobile-nav-link active">Контакты<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></a>
+    </nav>
+    <div class="mobile-menu-footer"><a href="contacts.html" class="btn btn-accent" style="width: 100%;">Оставить заявку</a></div>
+  </div>
+
+  <main class="section section-light" style="padding-top: 140px;">
+    <div class="container" style="max-width: 1100px;">
+      <div class="section-header reveal">
+        <span class="section-label">Связаться</span>
+        <h1>Контакты</h1>
+        <p class="section-subtitle">Свяжитесь с нами удобным способом — мы всегда рады помочь!</p>
+      </div>
+
+      <div class="contact-grid">
+        <!-- Form -->
+        <div class="contact-form reveal">
+          <h2 style="margin-bottom: 24px;">Оставить заявку</h2>
+          <form id="contact-form">
+            <div class="form-group">
+              <label class="form-label">Ваше имя</label>
+              <input type="text" class="form-input" placeholder="Как вас зовут?" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Телефон</label>
+              <input type="tel" class="form-input" placeholder="+7 (___) ___-__-__" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Страна</label>
+              <select class="form-select" required>
+                <option value="">Выберите страну</option>
+                <option value="germany">🇩🇪 Германия</option>
+                <option value="france">🇫🇷 Франция</option>
+                <option value="italy">🇮🇹 Италия</option>
+                <option value="spain">🇪🇸 Испания</option>
+                <option value="usa">🇺🇸 США</option>
+                <option value="uk">🇬🇧 Великобритания</option>
+                <option value="canada">🇨🇦 Канада</option>
+                <option value="other">Другая</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Комментарий</label>
+              <textarea class="form-textarea" placeholder="Расскажите о вашей ситуации (необязательно)"></textarea>
+            </div>
+            <button type="submit" class="btn btn-accent" style="width: 100%;">
+              Отправить заявку
+              <span class="btn-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="contact-info reveal">
+          <a href="https://t.me/visatoyou" target="_blank" class="contact-card">
+            <div class="contact-card-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .37z"/></svg>
+            </div>
+            <div class="contact-card-content">
+              <div class="contact-card-label">Telegram</div>
+              <div class="contact-card-value">@visatoyou</div>
+            </div>
+          </a>
+
+          <a href="https://wa.me/79001234567" target="_blank" class="contact-card">
+            <div class="contact-card-icon">
+              <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </div>
+            <div class="contact-card-content">
+              <div class="contact-card-label">WhatsApp</div>
+              <div class="contact-card-value">+7 (900) 123-45-67</div>
+            </div>
+          </a>
+
+          <a href="mailto:info@visatoyou.ru" class="contact-card">
+            <div class="contact-card-icon">
+              <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            </div>
+            <div class="contact-card-content">
+              <div class="contact-card-label">Email</div>
+              <div class="contact-card-value">info@visatoyou.ru</div>
+            </div>
+          </a>
+
+          <a href="tel:+79001234567" class="contact-card">
+            <div class="contact-card-icon">
+              <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            </div>
+            <div class="contact-card-content">
+              <div class="contact-card-label">Телефон</div>
+              <div class="contact-card-value">+7 (900) 123-45-67</div>
+            </div>
+          </a>
+
+          <div class="contact-card" style="cursor: default;">
+            <div class="contact-card-icon">
+              <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+            </div>
+            <div class="contact-card-content">
+              <div class="contact-card-label">Время работы</div>
+              <div class="contact-card-value">Пн-Пт: 10:00 - 19:00</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="https://i.ibb.co/9kVnKdnZ/visa.png" alt="VisaToYou" class="footer-logo-img">
+          <span class="footer-logo-text">visatoyou</span>
+        </div>
+        <p class="footer-desc">Профессиональное визовое агентство с 2017 года.</p>
+      </div>
+      <div class="footer-column">
+        <h4>Контакты</h4>
+        <div class="footer-contact-item">+7 (900) 123-45-67</div>
+        <div class="footer-contact-item">info@visatoyou.ru</div>
+      </div>
+    </div>
+    <div class="footer-bottom"><p class="footer-copyright">© 2024 VisaToYou</p></div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Спасибо за заявку! Мы свяжемся с вами в ближайшее время.');
+      this.reset();
+    });
+  </script>
+</body>
+</html>
