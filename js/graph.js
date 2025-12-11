@@ -1,26 +1,41 @@
 // ========================================
-// VISATOYOU - Smart Graph Visualization
+// VISATOYOU - Smart Graph Visualization v2.0
+// With Logo Center & Twemoji Flags
 // ========================================
 
-// Данные узлов с иконками
+// Twemoji flag URLs (Twitter emoji as SVG)
+const flagUrls = {
+  'PT': 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1f5-1f1f9.svg',
+  'IT': 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1ee-1f1f9.svg',
+  'FR': 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1eb-1f1f7.svg',
+  'DE': 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1e9-1f1ea.svg',
+  'GR': 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1ec-1f1f7.svg',
+  'HU': 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1ed-1f1fa.svg',
+  'US': 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1fa-1f1f8.svg',
+  'GB': 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1ec-1f1e7.svg',
+  'CA': 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1e8-1f1e6.svg',
+  'EU': 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1ea-1f1fa.svg',
+};
+
+// Данные узлов с Twemoji флагами
 const nodesData = [
-  { id: 'center', label: 'visatoyou', type: 'center', x: 50, y: 50, description: 'Ваш надёжный визовый партнёр', price: null, icon: '🌍' },
-  { id: 'schengen', label: 'Шенген', type: 'category', x: 25, y: 32, description: 'Визы в страны Шенгенской зоны', price: null, icon: '🇪🇺' },
-  { id: 'portugal', label: 'Португалия', type: 'country', x: 10, y: 18, description: 'Туристическая виза в Португалию. Срок оформления от 7 дней.', price: '18 000 ₽', icon: '🇵🇹', features: ['Мультивиза', '7-14 дней'] },
-  { id: 'italy', label: 'Италия', type: 'country', x: 8, y: 38, description: 'Виза в солнечную Италию для туризма и бизнеса.', price: 'от 15 000 ₽', icon: '🇮🇹', features: ['Туризм', 'Бизнес'] },
-  { id: 'france', label: 'Франция', type: 'country', x: 12, y: 55, description: 'Виза во Францию с возможностью удалённой подачи.', price: '25 000 ₽', icon: '🇫🇷', features: ['Удалённо', 'До 5 лет'] },
-  { id: 'germany', label: 'Германия', type: 'country', x: 25, y: 12, description: 'Виза в Германию по приглашению или для туризма.', price: '15 000 ₽', icon: '🇩🇪', features: ['Приглашение', '5-10 дней'] },
-  { id: 'greece', label: 'Греция', type: 'country', x: 38, y: 15, description: 'Быстрое оформление визы в Грецию.', price: '15 000 ₽', icon: '🇬🇷', features: ['Быстро', 'Туризм'] },
-  { id: 'hungary', label: 'Венгрия', type: 'country', x: 40, y: 35, description: 'Виза в Венгрию — отличный вариант для первого Шенгена.', price: '15 000 ₽', icon: '🇭🇺', features: ['Первый Шенген', '98% одобрений'] },
-  { id: 'usa', label: 'США', type: 'premium', x: 78, y: 22, description: 'Полное сопровождение: подготовка документов, тренировка собеседования в консульстве.', price: '35 000 ₽', icon: '🇺🇸', features: ['Собеседование', 'Гарантия'] },
-  { id: 'uk', label: 'Великобритания', type: 'premium', x: 85, y: 42, description: 'Туристическая, студенческая и рабочая виза в UK.', price: '38 000 ₽', icon: '🇬🇧', features: ['Все типы виз', 'Сопровождение'] },
-  { id: 'canada', label: 'Канада', type: 'premium', x: 80, y: 62, description: 'Туристическая виза в Канаду с помощью в биометрии.', price: '30 000 ₽', icon: '🇨🇦', features: ['Биометрия', 'До 10 лет'] },
+  { id: 'center', label: 'visatoyou', type: 'center', x: 50, y: 50, description: 'Ваш надёжный визовый партнёр', price: null, icon: '🌍', logo: 'https://i.ibb.co/9kVnKdnZ/visa.png' },
+  { id: 'schengen', label: 'Шенген', type: 'category', x: 25, y: 32, description: 'Визы в страны Шенгенской зоны', price: null, icon: '🇪🇺', flag: 'EU' },
+  { id: 'portugal', label: 'Португалия', type: 'country', x: 10, y: 18, description: 'Туристическая виза в Португалию. Срок оформления от 7 дней.', price: '18 000 ₽', icon: '🇵🇹', flag: 'PT', features: ['Мультивиза', '7-14 дней'] },
+  { id: 'italy', label: 'Италия', type: 'country', x: 8, y: 38, description: 'Виза в солнечную Италию. Москва и СПб от 13 000 ₽, регионы от 25 000 ₽.', price: 'от 13 000 ₽', icon: '🇮🇹', flag: 'IT', features: ['Туризм', 'Бизнес'] },
+  { id: 'france', label: 'Франция', type: 'country', x: 12, y: 55, description: 'Виза во Францию с возможностью удалённой подачи по доверенности.', price: '25 000 ₽', icon: '🇫🇷', flag: 'FR', features: ['Удалённо', 'До 5 лет'] },
+  { id: 'germany', label: 'Германия', type: 'country', x: 25, y: 12, description: 'Виза в Германию по приглашению. Необходимы выкупленные билеты.', price: '15 000 ₽', icon: '🇩🇪', flag: 'DE', features: ['Приглашение', '5-10 дней'] },
+  { id: 'greece', label: 'Греция', type: 'country', x: 38, y: 15, description: 'Быстрое оформление визы в Грецию. Необходимы выкупленные билеты.', price: '15 000 ₽', icon: '🇬🇷', flag: 'GR', features: ['Быстро', 'Туризм'] },
+  { id: 'hungary', label: 'Венгрия', type: 'country', x: 40, y: 35, description: 'Виза в Венгрию — отличный вариант для первого Шенгена. Нужны билеты и отель.', price: '15 000 ₽', icon: '🇭🇺', flag: 'HU', features: ['Первый Шенген', '98% одобрений'] },
+  { id: 'usa', label: 'США', type: 'premium', x: 78, y: 22, description: 'Полное сопровождение B1/B2, F1: документы, DS-160, подготовка к собеседованию.', price: '35 000 ₽', icon: '🇺🇸', flag: 'US', features: ['Собеседование', 'Гарантия'] },
+  { id: 'uk', label: 'Великобритания', type: 'premium', x: 85, y: 42, description: 'Туристическая, студенческая и рабочая виза в UK. Перевод документов включён.', price: '37 000 ₽', icon: '🇬🇧', flag: 'GB', features: ['Все типы виз', 'Сопровождение'] },
+  { id: 'canada', label: 'Канада', type: 'premium', x: 80, y: 62, description: 'Туристическая виза в Канаду. Помощь с биометрией и оплатой.', price: '30 000 ₽', icon: '🇨🇦', flag: 'CA', features: ['Биометрия', 'До 10 лет'] },
   { id: 'services', label: 'Услуги', type: 'category', x: 32, y: 75, description: 'Что входит в стоимость наших услуг', price: null, icon: '⭐' },
   { id: 'forms', label: 'Анкеты', type: 'service', x: 15, y: 85, description: 'Профессиональное заполнение анкет на любом языке', price: null, icon: '📝' },
-  { id: 'booking', label: 'Запись', type: 'service', x: 28, y: 90, description: 'Запись в визовый центр на удобную дату', price: null, icon: '📅' },
-  { id: 'translation', label: 'Переводы', type: 'service', x: 42, y: 88, description: 'Нотариальный перевод документов', price: null, icon: '🌐' },
-  { id: 'consulting', label: 'Консультации', type: 'service', x: 55, y: 80, description: 'Оценка ситуации и подбор стратегии', price: null, icon: '💬' },
-  { id: 'remote', label: 'Удалённая подача', type: 'feature', x: 68, y: 70, description: 'Подача без вашего присутствия', price: null, icon: '🚀' },
+  { id: 'booking', label: 'Запись', type: 'service', x: 28, y: 90, description: 'Запись в визовый центр на удобную дату (с ботом или без)', price: null, icon: '📅' },
+  { id: 'translation', label: 'Переводы', type: 'service', x: 42, y: 88, description: 'Нотариальный перевод документов с русского на английский', price: null, icon: '🌐' },
+  { id: 'consulting', label: 'Консультации', type: 'service', x: 55, y: 80, description: 'Оценка ситуации и подбор оптимальной стратегии', price: null, icon: '💬' },
+  { id: 'remote', label: 'Удалённая подача', type: 'feature', x: 68, y: 70, description: 'Подача без вашего присутствия при наличии биометрии', price: null, icon: '🚀' },
   { id: 'support', label: 'Поддержка', type: 'feature', x: 75, y: 78, description: 'На связи 24/7 в любом мессенджере', price: null, icon: '🛟' },
 ];
 
@@ -100,7 +115,25 @@ class SmartGraph {
       const el = document.createElement('div');
       el.classList.add('graph-node', `graph-node-${node.type}`);
       el.dataset.id = node.id;
-      el.textContent = node.label;
+      
+      // Special handling for center node with logo
+      if (node.type === 'center') {
+        el.innerHTML = `
+          <img src="${node.logo}" alt="Logo" class="center-logo">
+          <span class="center-text">${node.label}</span>
+        `;
+      } 
+      // Country and premium nodes with Twemoji flags
+      else if ((node.type === 'country' || node.type === 'premium') && node.flag) {
+        el.innerHTML = `
+          <img src="${flagUrls[node.flag]}" alt="" class="country-flag">
+          <span>${node.label}</span>
+        `;
+      }
+      else {
+        el.textContent = node.label;
+      }
+      
       this.container.appendChild(el);
     });
 
@@ -219,14 +252,13 @@ class SmartGraph {
     const tooltipWidth = 320;
     const tooltipHeight = 300;
     const padding = 24;
-    const offset = 20; // Gap between node and tooltip
+    const offset = 20;
 
     const viewport = {
       width: window.innerWidth,
       height: window.innerHeight
     };
 
-    // Calculate available space in each direction
     const spaceRight = viewport.width - nodeRect.right;
     const spaceLeft = nodeRect.left;
     const spaceTop = nodeRect.top;
@@ -234,46 +266,35 @@ class SmartGraph {
 
     let position = { x: 0, y: 0, direction: 'right' };
 
-    // Priority: Right > Left > Bottom > Top
-    // For nodes on the right side of screen (USA, UK, Canada), prefer LEFT
     const nodeIsOnRight = nodeRect.left > viewport.width * 0.5;
     
     if (nodeIsOnRight && spaceLeft >= tooltipWidth + padding) {
-      // Node is on right side - show tooltip on LEFT
       position.x = nodeRect.left - tooltipWidth - offset;
       position.y = nodeRect.top + (nodeRect.height / 2) - (tooltipHeight / 2);
       position.direction = 'left';
     } else if (!nodeIsOnRight && spaceRight >= tooltipWidth + padding) {
-      // Node is on left side - show tooltip on RIGHT
       position.x = nodeRect.right + offset;
       position.y = nodeRect.top + (nodeRect.height / 2) - (tooltipHeight / 2);
       position.direction = 'right';
     } else if (spaceBottom >= tooltipHeight + padding) {
-      // Fallback: show BELOW
       position.x = nodeRect.left + (nodeRect.width / 2) - (tooltipWidth / 2);
       position.y = nodeRect.bottom + offset;
       position.direction = 'bottom';
     } else if (spaceTop >= tooltipHeight + padding) {
-      // Fallback: show ABOVE
       position.x = nodeRect.left + (nodeRect.width / 2) - (tooltipWidth / 2);
       position.y = nodeRect.top - tooltipHeight - offset;
       position.direction = 'top';
     } else if (spaceLeft >= tooltipWidth + padding) {
-      // Last resort: LEFT
       position.x = nodeRect.left - tooltipWidth - offset;
       position.y = nodeRect.top + (nodeRect.height / 2) - (tooltipHeight / 2);
       position.direction = 'left';
     } else {
-      // Ultimate fallback: RIGHT (might overflow)
       position.x = nodeRect.right + offset;
       position.y = nodeRect.top + (nodeRect.height / 2) - (tooltipHeight / 2);
       position.direction = 'right';
     }
 
-    // Clamp Y to viewport (keep tooltip fully visible vertically)
     position.y = Math.max(padding, Math.min(position.y, viewport.height - tooltipHeight - padding));
-    
-    // Clamp X to viewport
     position.x = Math.max(padding, Math.min(position.x, viewport.width - tooltipWidth - padding));
 
     return position;
@@ -295,10 +316,15 @@ class SmartGraph {
 
     const hasDetails = node.type === 'country' || node.type === 'premium';
     
+    // Get flag URL if available
+    const flagUrl = node.flag ? flagUrls[node.flag] : null;
+    
     // Build tooltip content
     let html = `
       <div class="tooltip-header">
-        <div class="tooltip-icon">${node.icon || '🌍'}</div>
+        <div class="tooltip-icon">
+          ${flagUrl ? `<img src="${flagUrl}" alt="" style="width: 28px; height: 28px;">` : node.icon || '🌍'}
+        </div>
         <div class="tooltip-title">${node.label}</div>
       </div>
       <div class="tooltip-desc">${node.description}</div>
@@ -343,13 +369,12 @@ class SmartGraph {
     if (!this.isMobile) {
       const pos = this.calculateTooltipPosition(node, e);
       
-      // Remove old position classes
       this.tooltip.classList.remove('position-left', 'position-right', 'position-top', 'position-bottom');
       this.tooltip.classList.add(`position-${pos.direction}`);
       
       this.tooltip.style.left = pos.x + 'px';
       this.tooltip.style.top = pos.y + 'px';
-      this.tooltip.style.transform = 'none'; // Position is already calculated correctly
+      this.tooltip.style.transform = 'none';
     }
 
     // Show
