@@ -1,6 +1,6 @@
 // ========================================
-// VISATOYOU - Rotating Globe Animation
-// Lightweight CSS/Canvas Implementation
+// VISATOYOU - Beautiful Rotating Globe
+// With airplane flying around the surface
 // ========================================
 
 class Globe {
@@ -10,17 +10,29 @@ class Globe {
     
     this.ctx = this.canvas.getContext('2d');
     this.rotation = 0;
-    this.rotationSpeed = 0.003;
+    this.rotationSpeed = 0.004;
     
-    // Globe settings
-    this.globeColor = '#b8956c';
-    this.globeColorLight = '#d4b896';
-    this.landColor = '#8a6d4a';
-    this.oceanColor = 'rgba(184, 149, 108, 0.15)';
-    this.gridColor = 'rgba(184, 149, 108, 0.3)';
+    // Airplane position (travels along a great circle route)
+    this.airplaneAngle = 0;
+    this.airplaneSpeed = 0.008;
     
-    // Simplified land masses (longitude, latitude pairs for major continents)
-    this.landMasses = this.generateSimplifiedContinents();
+    // Colors
+    this.colors = {
+      ocean: '#e8f4fc',
+      oceanDark: '#d0e8f5',
+      land: '#b8956c',
+      landLight: '#d4b896',
+      landDark: '#8a6d4a',
+      grid: 'rgba(184, 149, 108, 0.15)',
+      border: 'rgba(184, 149, 108, 0.5)',
+      highlight: 'rgba(255, 255, 255, 0.4)',
+      shadow: 'rgba(44, 36, 24, 0.1)',
+      airplane: '#8a6d4a',
+      trail: 'rgba(184, 149, 108, 0.6)'
+    };
+    
+    // Flight route (simplified great circle route)
+    this.flightRoute = this.generateFlightRoute();
     
     this.init();
   }
@@ -35,7 +47,6 @@ class Globe {
     const container = this.canvas.parentElement;
     const size = Math.min(container.offsetWidth, container.offsetHeight);
     
-    // Set canvas size with device pixel ratio for crisp rendering
     const dpr = window.devicePixelRatio || 1;
     this.canvas.width = size * dpr;
     this.canvas.height = size * dpr;
@@ -50,45 +61,22 @@ class Globe {
     this.size = size;
   }
   
-  // Generate simplified continent outlines
-  generateSimplifiedContinents() {
-    // Simplified polygon data for continents (lon, lat)
-    // These are rough approximations for visual effect
-    return [
-      // North America
-      [
-        [-130, 50], [-120, 60], [-100, 65], [-80, 60], [-70, 45], 
-        [-80, 35], [-100, 30], [-120, 35], [-130, 50]
-      ],
-      // South America  
-      [
-        [-80, 10], [-60, 5], [-50, -5], [-45, -20], [-55, -35],
-        [-70, -45], [-75, -35], [-80, -15], [-80, 10]
-      ],
-      // Europe
-      [
-        [-10, 40], [0, 50], [20, 55], [30, 60], [40, 55],
-        [30, 45], [20, 40], [10, 38], [-10, 40]
-      ],
-      // Africa
-      [
-        [-15, 30], [10, 35], [35, 30], [50, 10], [40, -20],
-        [30, -35], [15, -30], [10, -5], [-15, 10], [-15, 30]
-      ],
-      // Asia
-      [
-        [60, 55], [90, 65], [120, 65], [140, 55], [130, 40],
-        [120, 30], [100, 25], [80, 30], [60, 40], [60, 55]
-      ],
-      // Australia
-      [
-        [115, -20], [130, -15], [145, -20], [150, -30], [145, -38],
-        [130, -35], [115, -30], [115, -20]
-      ]
-    ];
+  // Generate flight route points (circular path around globe)
+  generateFlightRoute() {
+    const points = [];
+    
+    // Create a tilted circular path around the globe
+    for (let t = 0; t < 1; t += 0.01) {
+      const angle = t * Math.PI * 2;
+      const lon = (angle * 180 / Math.PI) - 180;
+      const lat = Math.sin(angle * 2) * 35 + Math.cos(angle) * 15;
+      points.push({ lon, lat });
+    }
+    
+    return points;
   }
   
-  // Convert geographic coordinates to 3D then to 2D screen coordinates
+  // Convert geographic coordinates to 3D
   geoTo3D(lon, lat, radius) {
     const phi = (90 - lat) * Math.PI / 180;
     const theta = (lon + this.rotation * 180 / Math.PI) * Math.PI / 180;
@@ -101,10 +89,10 @@ class Globe {
   }
   
   project(point3D) {
-    // Simple orthographic projection
     return {
       x: this.centerX + point3D.x,
       y: this.centerY - point3D.y,
+      z: point3D.z,
       visible: point3D.z > 0
     };
   }
@@ -112,138 +100,376 @@ class Globe {
   drawGlobe() {
     const ctx = this.ctx;
     
-    // Clear canvas
     ctx.clearRect(0, 0, this.size, this.size);
     
-    // Draw globe background with gradient
-    const gradient = ctx.createRadialGradient(
-      this.centerX - this.radius * 0.3, 
-      this.centerY - this.radius * 0.3, 
-      0,
-      this.centerX, 
-      this.centerY, 
-      this.radius
+    // Outer glow
+    const glowGradient = ctx.createRadialGradient(
+      this.centerX, this.centerY, this.radius * 0.9,
+      this.centerX, this.centerY, this.radius * 1.3
     );
-    gradient.addColorStop(0, 'rgba(255, 255, 255, 0.3)');
-    gradient.addColorStop(0.5, 'rgba(184, 149, 108, 0.1)');
-    gradient.addColorStop(1, 'rgba(138, 109, 74, 0.2)');
+    glowGradient.addColorStop(0, 'rgba(184, 149, 108, 0.15)');
+    glowGradient.addColorStop(1, 'transparent');
     
     ctx.beginPath();
-    ctx.arc(this.centerX, this.centerY, this.radius, 0, Math.PI * 2);
-    ctx.fillStyle = gradient;
+    ctx.arc(this.centerX, this.centerY, this.radius * 1.3, 0, Math.PI * 2);
+    ctx.fillStyle = glowGradient;
     ctx.fill();
     
-    // Draw globe border
+    // Globe shadow
+    ctx.beginPath();
+    ctx.ellipse(
+      this.centerX + this.radius * 0.1, 
+      this.centerY + this.radius * 1.1, 
+      this.radius * 0.8, 
+      this.radius * 0.15, 
+      0, 0, Math.PI * 2
+    );
+    ctx.fillStyle = 'rgba(44, 36, 24, 0.08)';
+    ctx.fill();
+    
+    // Ocean base with beautiful gradient
+    const oceanGradient = ctx.createRadialGradient(
+      this.centerX - this.radius * 0.3,
+      this.centerY - this.radius * 0.3,
+      0,
+      this.centerX,
+      this.centerY,
+      this.radius
+    );
+    oceanGradient.addColorStop(0, '#f5fbff');
+    oceanGradient.addColorStop(0.4, '#e8f4fc');
+    oceanGradient.addColorStop(0.8, '#dceef8');
+    oceanGradient.addColorStop(1, '#d0e6f2');
+    
     ctx.beginPath();
     ctx.arc(this.centerX, this.centerY, this.radius, 0, Math.PI * 2);
-    ctx.strokeStyle = 'rgba(184, 149, 108, 0.4)';
+    ctx.fillStyle = oceanGradient;
+    ctx.fill();
+    
+    // Draw grid lines
+    this.drawGrid();
+    
+    // Draw continents
+    this.drawContinents();
+    
+    // Draw flight trail
+    this.drawFlightTrail();
+    
+    // Draw airplane
+    this.drawAirplane();
+    
+    // Draw city markers
+    this.drawCities();
+    
+    // Globe border
+    ctx.beginPath();
+    ctx.arc(this.centerX, this.centerY, this.radius, 0, Math.PI * 2);
+    ctx.strokeStyle = this.colors.border;
     ctx.lineWidth = 2;
     ctx.stroke();
     
-    // Draw latitude lines
-    this.drawLatitudeLines();
-    
-    // Draw longitude lines
-    this.drawLongitudeLines();
-    
-    // Draw land masses
-    this.drawLandMasses();
-    
-    // Draw highlight/shine
+    // Highlight shine
     this.drawHighlight();
   }
   
-  drawLatitudeLines() {
+  drawGrid() {
     const ctx = this.ctx;
-    ctx.strokeStyle = this.gridColor;
+    ctx.strokeStyle = this.colors.grid;
     ctx.lineWidth = 0.5;
     
+    // Latitude lines
     for (let lat = -60; lat <= 60; lat += 30) {
       ctx.beginPath();
-      
-      for (let lon = 0; lon <= 360; lon += 5) {
-        const point3D = this.geoTo3D(lon, lat, this.radius);
-        const point2D = this.project(point3D);
-        
-        if (lon === 0) {
-          ctx.moveTo(point2D.x, point2D.y);
-        } else if (point2D.visible) {
-          ctx.lineTo(point2D.x, point2D.y);
-        } else {
-          ctx.moveTo(point2D.x, point2D.y);
-        }
-      }
-      
-      ctx.stroke();
-    }
-  }
-  
-  drawLongitudeLines() {
-    const ctx = this.ctx;
-    ctx.strokeStyle = this.gridColor;
-    ctx.lineWidth = 0.5;
-    
-    for (let lon = 0; lon < 360; lon += 30) {
-      ctx.beginPath();
-      
-      let lastVisible = false;
-      
-      for (let lat = -90; lat <= 90; lat += 5) {
-        const point3D = this.geoTo3D(lon, lat, this.radius);
-        const point2D = this.project(point3D);
-        
-        if (!lastVisible && point2D.visible) {
-          ctx.moveTo(point2D.x, point2D.y);
-        } else if (point2D.visible) {
-          ctx.lineTo(point2D.x, point2D.y);
-        }
-        
-        lastVisible = point2D.visible;
-      }
-      
-      ctx.stroke();
-    }
-  }
-  
-  drawLandMasses() {
-    const ctx = this.ctx;
-    
-    this.landMasses.forEach(continent => {
-      ctx.beginPath();
-      ctx.fillStyle = 'rgba(138, 109, 74, 0.5)';
-      ctx.strokeStyle = 'rgba(138, 109, 74, 0.7)';
-      ctx.lineWidth = 1;
-      
       let started = false;
-      let allVisible = true;
-      const points = [];
       
-      continent.forEach(([lon, lat], index) => {
-        const point3D = this.geoTo3D(lon, lat, this.radius * 0.98);
+      for (let lon = 0; lon <= 360; lon += 3) {
+        const point3D = this.geoTo3D(lon, lat, this.radius * 0.99);
         const point2D = this.project(point3D);
-        points.push({ ...point2D, visible: point3D.z > -10 });
         
-        if (point3D.z <= -10) allVisible = false;
-      });
-      
-      // Only draw if at least partially visible
-      const visiblePoints = points.filter(p => p.visible);
-      if (visiblePoints.length < 3) return;
-      
-      points.forEach((point, index) => {
-        if (point.visible) {
+        if (point2D.visible) {
           if (!started) {
-            ctx.moveTo(point.x, point.y);
+            ctx.moveTo(point2D.x, point2D.y);
             started = true;
           } else {
-            ctx.lineTo(point.x, point.y);
+            ctx.lineTo(point2D.x, point2D.y);
           }
+        } else {
+          started = false;
         }
-      });
+      }
+      ctx.stroke();
+    }
+    
+    // Longitude lines
+    for (let lon = 0; lon < 360; lon += 30) {
+      ctx.beginPath();
+      let started = false;
       
-      if (started) {
-        ctx.closePath();
+      for (let lat = -85; lat <= 85; lat += 3) {
+        const point3D = this.geoTo3D(lon, lat, this.radius * 0.99);
+        const point2D = this.project(point3D);
+        
+        if (point2D.visible) {
+          if (!started) {
+            ctx.moveTo(point2D.x, point2D.y);
+            started = true;
+          } else {
+            ctx.lineTo(point2D.x, point2D.y);
+          }
+        } else {
+          started = false;
+        }
+      }
+      ctx.stroke();
+    }
+  }
+  
+  drawContinents() {
+    const ctx = this.ctx;
+    
+    // Simplified continent shapes with better coordinates
+    const continents = [
+      // North America
+      { points: [[-130,55],[-125,60],[-120,65],[-100,68],[-85,65],[-75,55],[-65,45],[-75,35],[-85,30],[-100,28],[-115,32],[-125,40],[-130,55]], color: this.colors.land },
+      // South America
+      { points: [[-82,10],[-75,8],[-60,5],[-50,-2],[-45,-10],[-40,-22],[-45,-30],[-55,-40],[-68,-52],[-75,-45],[-78,-35],[-80,-15],[-82,10]], color: this.colors.land },
+      // Europe
+      { points: [[-10,36],[0,38],[5,44],[10,50],[15,55],[25,58],[30,60],[35,58],[30,50],[25,42],[20,38],[10,36],[-10,36]], color: this.colors.landLight },
+      // Africa
+      { points: [[-18,35],[-5,36],[10,37],[25,32],[35,30],[42,20],[50,12],[50,0],[42,-15],[35,-25],[28,-34],[20,-35],[15,-25],[10,-5],[5,5],[-5,5],[-15,10],[-18,20],[-18,35]], color: this.colors.land },
+      // Asia
+      { points: [[35,55],[45,55],[60,60],[80,68],[100,72],[120,70],[135,65],[145,55],[145,45],[140,35],[130,30],[120,25],[105,20],[90,22],[75,25],[60,35],[50,40],[35,55]], color: this.colors.landLight },
+      // Australia
+      { points: [[115,-18],[125,-15],[135,-12],[145,-15],[150,-22],[152,-30],[148,-38],[140,-38],[130,-32],[120,-28],[115,-25],[115,-18]], color: this.colors.land },
+      // Greenland
+      { points: [[-45,60],[-35,65],[-25,72],[-20,78],[-30,82],[-45,82],[-55,78],[-58,72],[-55,65],[-45,60]], color: this.colors.landLight },
+    ];
+    
+    continents.forEach(continent => {
+      this.drawContinent(continent.points, continent.color);
+    });
+  }
+  
+  drawContinent(coords, color) {
+    const ctx = this.ctx;
+    const points = [];
+    
+    coords.forEach(([lon, lat]) => {
+      const point3D = this.geoTo3D(lon, lat, this.radius * 0.995);
+      const point2D = this.project(point3D);
+      points.push(point2D);
+    });
+    
+    // Check if enough points are visible
+    const visibleCount = points.filter(p => p.visible).length;
+    if (visibleCount < 3) return;
+    
+    ctx.beginPath();
+    let started = false;
+    
+    points.forEach((point, i) => {
+      if (point.visible) {
+        if (!started) {
+          ctx.moveTo(point.x, point.y);
+          started = true;
+        } else {
+          ctx.lineTo(point.x, point.y);
+        }
+      }
+    });
+    
+    if (started) {
+      ctx.closePath();
+      ctx.fillStyle = color;
+      ctx.fill();
+      ctx.strokeStyle = this.colors.landDark;
+      ctx.lineWidth = 0.8;
+      ctx.stroke();
+    }
+  }
+  
+  drawFlightTrail() {
+    const ctx = this.ctx;
+    const routeLength = this.flightRoute.length;
+    const currentIndex = Math.floor(this.airplaneAngle * routeLength) % routeLength;
+    
+    // Draw trail behind airplane
+    const trailLength = 20;
+    
+    ctx.strokeStyle = this.colors.trail;
+    ctx.lineWidth = 2;
+    ctx.setLineDash([5, 5]);
+    
+    ctx.beginPath();
+    let started = false;
+    
+    for (let i = 0; i < trailLength; i++) {
+      const index = (currentIndex - i + routeLength) % routeLength;
+      const point = this.flightRoute[index];
+      const point3D = this.geoTo3D(point.lon, point.lat, this.radius * 1.03);
+      const point2D = this.project(point3D);
+      
+      if (point2D.visible && point2D.z > 0) {
+        // Fade out trail
+        ctx.globalAlpha = 1 - (i / trailLength) * 0.7;
+        
+        if (!started) {
+          ctx.moveTo(point2D.x, point2D.y);
+          started = true;
+        } else {
+          ctx.lineTo(point2D.x, point2D.y);
+        }
+      } else {
+        if (started) {
+          ctx.stroke();
+          ctx.beginPath();
+          started = false;
+        }
+      }
+    }
+    
+    if (started) ctx.stroke();
+    
+    ctx.globalAlpha = 1;
+    ctx.setLineDash([]);
+  }
+  
+  drawAirplane() {
+    const ctx = this.ctx;
+    const routeLength = this.flightRoute.length;
+    
+    // Get current position
+    const currentIndex = Math.floor(this.airplaneAngle * routeLength) % routeLength;
+    const nextIndex = (currentIndex + 1) % routeLength;
+    
+    const current = this.flightRoute[currentIndex];
+    const next = this.flightRoute[nextIndex];
+    
+    const point3D = this.geoTo3D(current.lon, current.lat, this.radius * 1.06);
+    const point2D = this.project(point3D);
+    
+    // Only draw if visible (front side of globe)
+    if (!point2D.visible || point2D.z < this.radius * 0.1) return;
+    
+    // Calculate flight direction
+    const next3D = this.geoTo3D(next.lon, next.lat, this.radius * 1.06);
+    const next2D = this.project(next3D);
+    
+    const angle = Math.atan2(next2D.y - point2D.y, next2D.x - point2D.x);
+    
+    // Scale based on z-depth for pseudo-3D effect
+    const scale = 0.8 + (point2D.z / this.radius) * 0.4;
+    
+    // Draw airplane
+    ctx.save();
+    ctx.translate(point2D.x, point2D.y);
+    ctx.rotate(angle);
+    ctx.scale(scale, scale);
+    
+    // Airplane glow
+    const glowGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, 16);
+    glowGradient.addColorStop(0, 'rgba(184, 149, 108, 0.5)');
+    glowGradient.addColorStop(1, 'transparent');
+    ctx.beginPath();
+    ctx.arc(0, 0, 16, 0, Math.PI * 2);
+    ctx.fillStyle = glowGradient;
+    ctx.fill();
+    
+    // Airplane shadow
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+    ctx.beginPath();
+    ctx.ellipse(2, 2, 10, 4, 0, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // Airplane body - pointing in direction of flight
+    ctx.fillStyle = this.colors.airplane;
+    ctx.strokeStyle = '#6b5540';
+    ctx.lineWidth = 1;
+    
+    // Fuselage
+    ctx.beginPath();
+    ctx.moveTo(12, 0);      // nose
+    ctx.lineTo(4, -2);
+    ctx.lineTo(-8, -1.5);
+    ctx.lineTo(-12, 0);     // tail
+    ctx.lineTo(-8, 1.5);
+    ctx.lineTo(4, 2);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    
+    // Wings
+    ctx.beginPath();
+    ctx.moveTo(2, -2);
+    ctx.lineTo(-2, -10);
+    ctx.lineTo(-6, -10);
+    ctx.lineTo(-4, -2);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    
+    ctx.beginPath();
+    ctx.moveTo(2, 2);
+    ctx.lineTo(-2, 10);
+    ctx.lineTo(-6, 10);
+    ctx.lineTo(-4, 2);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    
+    // Tail fin
+    ctx.beginPath();
+    ctx.moveTo(-10, 0);
+    ctx.lineTo(-14, -6);
+    ctx.lineTo(-14, -4);
+    ctx.lineTo(-12, 0);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    
+    ctx.restore();
+  }
+  
+  drawCities() {
+    const ctx = this.ctx;
+    
+    const cities = [
+      { name: 'Париж', lon: 2.35, lat: 48.85 },
+      { name: 'Берлин', lon: 13.4, lat: 52.52 },
+      { name: 'Рим', lon: 12.5, lat: 41.9 },
+      { name: 'Нью-Йорк', lon: -74, lat: 40.7 },
+      { name: 'Лондон', lon: -0.12, lat: 51.5 },
+      { name: 'Москва', lon: 37.6, lat: 55.75 },
+      { name: 'Лиссабон', lon: -9.14, lat: 38.72 },
+      { name: 'Будапешт', lon: 19.04, lat: 47.5 },
+    ];
+    
+    cities.forEach(city => {
+      const point3D = this.geoTo3D(city.lon, city.lat, this.radius * 0.995);
+      const point2D = this.project(point3D);
+      
+      if (point2D.visible && point2D.z > this.radius * 0.3) {
+        // City glow
+        const glowGradient = ctx.createRadialGradient(
+          point2D.x, point2D.y, 0,
+          point2D.x, point2D.y, 10
+        );
+        glowGradient.addColorStop(0, 'rgba(184, 149, 108, 0.7)');
+        glowGradient.addColorStop(0.5, 'rgba(184, 149, 108, 0.3)');
+        glowGradient.addColorStop(1, 'transparent');
+        
+        ctx.beginPath();
+        ctx.arc(point2D.x, point2D.y, 10, 0, Math.PI * 2);
+        ctx.fillStyle = glowGradient;
         ctx.fill();
+        
+        // City dot
+        ctx.beginPath();
+        ctx.arc(point2D.x, point2D.y, 3, 0, Math.PI * 2);
+        ctx.fillStyle = '#fff';
+        ctx.fill();
+        ctx.strokeStyle = this.colors.landDark;
+        ctx.lineWidth = 1.5;
         ctx.stroke();
       }
     });
@@ -259,54 +485,38 @@ class Globe {
       0,
       this.centerX - this.radius * 0.4,
       this.centerY - this.radius * 0.4,
-      this.radius * 0.5
+      this.radius * 0.6
     );
-    shineGradient.addColorStop(0, 'rgba(255, 255, 255, 0.25)');
-    shineGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+    shineGradient.addColorStop(0, 'rgba(255, 255, 255, 0.4)');
+    shineGradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.15)');
+    shineGradient.addColorStop(1, 'transparent');
     
     ctx.beginPath();
     ctx.arc(this.centerX, this.centerY, this.radius - 1, 0, Math.PI * 2);
     ctx.fillStyle = shineGradient;
     ctx.fill();
-  }
-  
-  // Draw dots for major cities/destinations
-  drawCityDots() {
-    const cities = [
-      { name: 'Paris', lon: 2.35, lat: 48.85 },
-      { name: 'Berlin', lon: 13.4, lat: 52.52 },
-      { name: 'Rome', lon: 12.5, lat: 41.9 },
-      { name: 'New York', lon: -74, lat: 40.7 },
-      { name: 'London', lon: -0.12, lat: 51.5 },
-      { name: 'Toronto', lon: -79.4, lat: 43.65 },
-    ];
     
-    const ctx = this.ctx;
+    // Edge atmosphere effect
+    const atmosphereGradient = ctx.createRadialGradient(
+      this.centerX, this.centerY, this.radius * 0.75,
+      this.centerX, this.centerY, this.radius
+    );
+    atmosphereGradient.addColorStop(0, 'transparent');
+    atmosphereGradient.addColorStop(0.7, 'rgba(135, 180, 220, 0.08)');
+    atmosphereGradient.addColorStop(1, 'rgba(100, 150, 200, 0.15)');
     
-    cities.forEach(city => {
-      const point3D = this.geoTo3D(city.lon, city.lat, this.radius * 0.98);
-      const point2D = this.project(point3D);
-      
-      if (point2D.visible && point3D.z > 0) {
-        // Dot
-        ctx.beginPath();
-        ctx.arc(point2D.x, point2D.y, 4, 0, Math.PI * 2);
-        ctx.fillStyle = '#b8956c';
-        ctx.fill();
-        
-        // Glow
-        ctx.beginPath();
-        ctx.arc(point2D.x, point2D.y, 6, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(184, 149, 108, 0.3)';
-        ctx.fill();
-      }
-    });
+    ctx.beginPath();
+    ctx.arc(this.centerX, this.centerY, this.radius, 0, Math.PI * 2);
+    ctx.fillStyle = atmosphereGradient;
+    ctx.fill();
   }
   
   animate() {
     this.rotation += this.rotationSpeed;
+    this.airplaneAngle += this.airplaneSpeed / 100;
+    if (this.airplaneAngle >= 1) this.airplaneAngle = 0;
+    
     this.drawGlobe();
-    this.drawCityDots();
     
     requestAnimationFrame(() => this.animate());
   }
@@ -314,7 +524,6 @@ class Globe {
 
 // Initialize globe on page load
 document.addEventListener('DOMContentLoaded', function() {
-  // Small delay to ensure container is properly sized
   setTimeout(() => {
     new Globe('globe-canvas');
   }, 100);
