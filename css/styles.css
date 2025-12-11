@@ -2229,7 +2229,7 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.75rem); }
     display: block;
   }
   
-  /* Hide desktop elements on mobile */
+  /* Hide desktop graph elements on mobile */
   .graph-mobile .graph-svg,
   .graph-mobile .graph-node {
     display: none !important;
