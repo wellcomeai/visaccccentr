@@ -186,6 +186,37 @@ class SmartGraph {
 
   getNodePosition(node) {
     const rect = this.container.getBoundingClientRect();
+    
+    // Mobile-optimized positions (spread more vertically)
+    if (this.isMobile) {
+      const mobilePositions = {
+        'center': { x: 50, y: 45 },
+        'schengen': { x: 25, y: 28 },
+        'portugal': { x: 8, y: 12 },
+        'italy': { x: 8, y: 40 },
+        'france': { x: 8, y: 54 },
+        'germany': { x: 40, y: 12 },
+        'greece': { x: 58, y: 22 },
+        'hungary': { x: 55, y: 38 },
+        'usa': { x: 85, y: 28 },
+        'uk': { x: 92, y: 45 },
+        'canada': { x: 85, y: 58 },
+        'services': { x: 30, y: 68 },
+        'forms': { x: 10, y: 78 },
+        'booking': { x: 25, y: 85 },
+        'translation': { x: 42, y: 82 },
+        'consulting': { x: 58, y: 75 },
+        'remote': { x: 72, y: 68 },
+        'support': { x: 80, y: 78 },
+      };
+      
+      const pos = mobilePositions[node.id] || { x: node.x, y: node.y };
+      return {
+        x: (pos.x / 100) * rect.width,
+        y: (pos.y / 100) * rect.height
+      };
+    }
+    
     return {
       x: (node.x / 100) * rect.width,
       y: (node.y / 100) * rect.height
