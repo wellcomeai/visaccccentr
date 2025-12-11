@@ -617,66 +617,11 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.75rem); }
 }
 
 /* ========================================
-   AIRPLANE ANIMATION
+   AIRPLANE ANIMATION - DISABLED
    ======================================== */
 
 .airplane-container {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 5;
-}
-
-.airplane {
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  opacity: 0;
-  animation: flyAcross 18s linear infinite;
-}
-
-.airplane svg {
-  width: 100%;
-  height: 100%;
-  fill: var(--color-accent);
-  filter: drop-shadow(0 4px 8px rgba(184, 149, 108, 0.3));
-}
-
-/* Flight path trail */
-.airplane::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  right: 100%;
-  width: 120px;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(184, 149, 108, 0.4));
-  transform: translateY(-50%);
-  border-radius: 2px;
-}
-
-/* Airplane 1 - Main flight path */
-.airplane-1 {
-  animation-delay: 0s;
-}
-
-/* Airplane 2 - Secondary path */
-.airplane-2 {
-  width: 28px;
-  height: 28px;
-  animation: flyAcross2 25s linear infinite;
-  animation-delay: 8s;
-}
-
-.airplane-2 svg {
-  fill: var(--color-accent-light);
-  opacity: 0.6;
-}
-
-.airplane-2::after {
-  width: 80px;
-  background: linear-gradient(90deg, transparent, rgba(184, 149, 108, 0.25));
+  display: none !important;
 }
 
 @keyframes flyAcross {
@@ -1468,28 +1413,9 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.75rem); }
   z-index: -1;
 }
 
-/* Orbiting airplane around globe */
+/* Orbiting airplane around globe - HIDDEN */
 .globe-airplane {
-  position: absolute;
-  width: 32px;
-  height: 32px;
-  animation: orbitGlobe 12s linear infinite;
-}
-
-.globe-airplane svg {
-  width: 100%;
-  height: 100%;
-  fill: var(--color-accent);
-  filter: drop-shadow(0 2px 4px rgba(184, 149, 108, 0.4));
-}
-
-@keyframes orbitGlobe {
-  0% {
-    transform: rotate(0deg) translateX(220px) rotate(90deg);
-  }
-  100% {
-    transform: rotate(360deg) translateX(220px) rotate(90deg);
-  }
+  display: none !important;
 }
 
 /* Steps list with stagger */
@@ -1557,12 +1483,27 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.75rem); }
 
 .destinations-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 24px;
+  align-items: stretch;
+}
+
+@media (max-width: 1200px) {
+  .destinations-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .destinations-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .destination-card {
   position: relative;
+  display: flex;
+  flex-direction: column;
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -1574,6 +1515,21 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.75rem); }
     box-shadow 0.5s var(--ease-out);
   overflow: hidden;
   transform-style: preserve-3d;
+  height: 100%;
+}
+
+/* Card content wrapper for flex growth */
+.destination-card-desc {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  margin-bottom: 20px;
+  line-height: 1.6;
+  flex-grow: 1;
+}
+
+/* Button always at bottom */
+.destination-card .btn {
+  margin-top: auto;
 }
 
 /* Gradient border effect */
@@ -1654,18 +1610,18 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.75rem); }
   margin-bottom: 8px;
 }
 
-.destination-card-desc {
-  font-size: 14px;
-  color: var(--color-text-muted);
+.destination-card-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
   margin-bottom: 20px;
-  line-height: 1.6;
 }
 
 .destination-card-price {
   display: flex;
   align-items: baseline;
   gap: 8px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .destination-card-price-value {
@@ -1677,13 +1633,6 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.75rem); }
 .destination-card-price-label {
   font-size: 14px;
   color: var(--color-text-light);
-}
-
-.destination-card-features {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 24px;
 }
 
 .destination-card-feature {
@@ -2261,13 +2210,13 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.75rem); }
     display: none;
   }
   
-  /* Graph Mobile */
+  /* Graph Mobile - Taller for all nodes to fit */
   .graph-container {
     position: relative;
     top: 0;
     left: 0;
-    height: 420px;
-    margin: 0 20px 20px;
+    height: 580px;
+    margin: 0 16px 20px;
     background: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(10px);
     border-radius: 24px;
