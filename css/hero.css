@@ -686,6 +686,16 @@
   opacity: 0.9;
 }
 
+/* Leader header - hidden on desktop (shown only on mobile) */
+.leader-header {
+  display: none;
+}
+
+/* Steps mobile branding - hidden on desktop */
+.steps-mobile-branding {
+  display: none;
+}
+
 /* Content */
 .leader-content {
   max-width: 540px;
