@@ -133,20 +133,38 @@
   /* ========================================
      FIX #1: Центрирование статистики Hero
      ======================================== */
+  .hero-stats {
+    display: flex;
+    gap: 10px;
+  }
+
   .stat-card {
-    padding: 16px 14px;
+    padding: 16px 10px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    min-width: 0; /* Важно для flex */
   }
 
   .stat-num {
-    font-size: 26px;
+    font-size: 22px !important; /* Уменьшаем размер */
     display: block;
     text-align: center;
+    line-height: 1.2;
+    width: 100%;
   }
 
   .stat-label {
+    font-size: 11px !important;
     display: block;
     text-align: center;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   /* Airplane Mobile */
@@ -251,7 +269,7 @@
   }
 
   /* ========================================
-     FIX #3: Индикатор горизонтального скролла
+     FIX #3: Индикатор горизонтального скролла (SUBTLE)
      ======================================== */
   .mobile-nodes-row {
     display: flex;
@@ -261,9 +279,7 @@
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
     position: relative;
-    /* Добавляем padding справа для fade эффекта */
-    padding-right: 20px;
-    margin-right: -16px;
+    padding-right: 8px;
     padding-left: 2px;
     /* Scroll snap для плавной прокрутки */
     scroll-snap-type: x proximity;
@@ -274,26 +290,26 @@
     display: none;
   }
 
-  /* Fade-gradient справа, показывающий что есть ещё контент */
+  /* Убираем старый fade, делаем более subtle индикатор */
   .mobile-category {
     position: relative;
   }
 
+  /* Маленькая стрелка-индикатор вместо fade */
   .mobile-category::after {
-    content: '';
+    content: '›';
     position: absolute;
-    right: 0;
-    bottom: 8px;
-    width: 48px;
-    height: 52px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9) 70%);
+    right: 4px;
+    bottom: 24px;
+    font-size: 20px;
+    font-weight: 300;
+    color: var(--color-accent);
+    opacity: 0.4;
     pointer-events: none;
-    border-radius: 0 12px 12px 0;
-    opacity: 1;
     transition: opacity 0.3s ease;
   }
 
-  /* Скрываем fade когда докрутили до конца */
+  /* Скрываем когда докрутили до конца */
   .mobile-category.scrolled-end::after {
     opacity: 0;
   }
@@ -401,26 +417,26 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
-    padding: 14px 20px;
-    margin: 0 16px 24px;
-    background: linear-gradient(135deg, rgba(184, 149, 108, 0.12), rgba(184, 149, 108, 0.06));
-    border: 1px solid rgba(184, 149, 108, 0.25);
-    border-radius: 14px;
+    padding: 16px 20px;
+    margin: 16px 16px 24px;
+    background: linear-gradient(135deg, #faf8f5, #f5f0e8);
+    border: 1.5px solid var(--color-accent);
+    border-radius: 16px;
     font-size: 14px;
-    color: var(--color-text);
-    /* Более заметная анимация */
-    animation: hintGlow 2.5s ease-in-out infinite;
-    box-shadow: 0 2px 12px rgba(184, 149, 108, 0.1);
+    color: var(--color-primary);
+    box-shadow: 0 4px 16px rgba(184, 149, 108, 0.2);
+    /* Анимация привлечения внимания */
+    animation: hintAttention 2s ease-in-out infinite;
   }
 
-  @keyframes hintGlow {
+  @keyframes hintAttention {
     0%, 100% {
-      box-shadow: 0 2px 12px rgba(184, 149, 108, 0.1);
-      border-color: rgba(184, 149, 108, 0.25);
+      transform: scale(1);
+      box-shadow: 0 4px 16px rgba(184, 149, 108, 0.2);
     }
     50% {
-      box-shadow: 0 4px 20px rgba(184, 149, 108, 0.25);
-      border-color: rgba(184, 149, 108, 0.4);
+      transform: scale(1.02);
+      box-shadow: 0 6px 24px rgba(184, 149, 108, 0.35);
     }
   }
 
@@ -429,13 +445,13 @@
   }
 
   .graph-hint-icon {
-    font-size: 20px;
-    animation: pointUp 1s ease-in-out infinite;
+    font-size: 22px;
+    animation: pointBounce 1.2s ease-in-out infinite;
   }
 
-  @keyframes pointUp {
+  @keyframes pointBounce {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-3px); }
+    50% { transform: translateY(-4px); }
   }
 
   .graph-hint-text {
@@ -443,10 +459,10 @@
     line-height: 1.4;
   }
 
-  /* Акцент на "нажмите" */
+  /* Акцент на ключевые слова */
   .graph-hint-text strong {
     color: var(--color-accent-dark);
-    font-weight: 600;
+    font-weight: 700;
   }
 
   /* Globe Mobile */
