@@ -348,30 +348,13 @@
     grid-template-columns: 1fr;
   }
 
-  /* Steps as horizontal scroll cards */
+  /* Steps mobile - vertical layout */
   .steps-list {
-    display: flex;
-    flex-direction: row;
-    gap: 16px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    padding: 8px 0 20px;
-    margin: 0 -20px;
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
-  .steps-list::-webkit-scrollbar {
-    display: none;
+    gap: 20px;
   }
 
   .step-item {
-    flex: 0 0 280px;
-    scroll-snap-align: start;
-    flex-direction: column;
-    text-align: center;
-    padding: 28px 24px;
+    padding: 24px 20px;
   }
 
   .step-item:hover {
@@ -379,16 +362,14 @@
   }
 
   .step-number {
-    margin: 0 auto 16px;
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
   }
 
-  .step-content h3 {
-    margin-bottom: 8px;
-  }
-
-  /* Steps dots visible on mobile */
+  /* Steps dots hidden */
   .steps-dots {
-    display: flex;
+    display: none;
   }
 
   /* Leader section mobile */
@@ -451,6 +432,20 @@
 
   .footer-legal-grid {
     grid-template-columns: 1fr;
+  }
+
+  /* Fix auto-detected phone numbers and INN - make them white */
+  .footer-contact-item,
+  .footer-legal-value {
+    color: rgba(255, 255, 255, 0.8) !important;
+    -webkit-text-fill-color: rgba(255, 255, 255, 0.8);
+  }
+
+  .footer-contact-item a,
+  .footer-legal-value a {
+    color: rgba(255, 255, 255, 0.8) !important;
+    -webkit-text-fill-color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
   }
 
   /* Disable parallax on mobile for performance */
