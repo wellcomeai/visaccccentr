@@ -1,10 +1,10 @@
 // ========================================
 // VISANEWS2YOU - Smart Graph Visualization v3.0
-// Desktop: Classic scattered graph
-// Mobile: Clean vertical categories + Bottom Sheet
+// Desktop: Original working tooltip logic
+// Mobile: Vertical categories + Bottom Sheet
 // ========================================
 
-// Twemoji flag URLs
+// Twemoji flag URLs (Twitter emoji as SVG)
 const flagUrls = {
   'PT': 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1f5-1f1f9.svg',
   'IT': 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1ee-1f1f9.svg',
@@ -18,11 +18,11 @@ const flagUrls = {
   'EU': 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1ea-1f1fa.svg',
 };
 
-// Node data
+// Данные узлов с Twemoji флагами
 const nodesData = [
-  { id: 'center', label: 'VISANEWS2YOU', type: 'center', x: 50, y: 50, description: 'Ваш надёжный визовый партнёр', price: null, icon: '🌍', logo: 'https://i.ibb.co/9kVnKdnZ/visa.png' },
+  { id: 'center', label: 'VISANEWS2YOU', type: 'center', x: 50, y: 50, description: 'Ваш надёжный визовый партнёр', price: null, icon: '🌍', logo: 'https://i.ibb.co/9kVnKdnZ/visa.png', category: 'center' },
   { id: 'schengen', label: 'Шенген', type: 'category', x: 25, y: 32, description: 'Визы в страны Шенгенской зоны', price: null, icon: '🇪🇺', flag: 'EU', category: 'schengen' },
-  { id: 'portugal', label: 'Португалия', labelShort: 'Португалия', type: 'country', x: 10, y: 18, description: 'Туристическая виза в Португалию. Срок оформления от 7 дней.', price: '18 000 ₽', icon: '🇵🇹', flag: 'PT', features: ['Мультивиза', '7-14 дней'], category: 'schengen' },
+  { id: 'portugal', label: 'Португалия', labelShort: 'Португалия', type: 'country', x: 10, y: 18, description: 'Туристическая виза в Португалию. Срок оформления от 7 дней.', price: '18 000 ₽', icon: '🇵🇹', flag: 'PT', features: ['Мультивиза', '7-14 дней'], tariff: 'gold', category: 'schengen' },
   { 
     id: 'italy', 
     label: 'Италия',
@@ -73,9 +73,9 @@ const nodesData = [
       }
     }
   },
-  { id: 'germany', label: 'Германия', labelShort: 'Германия', type: 'country', x: 25, y: 12, description: 'Виза в Германию по приглашению. Необходимы выкупленные билеты.', price: '15 000 ₽', icon: '🇩🇪', flag: 'DE', features: ['Приглашение', '5-10 дней'], category: 'schengen' },
-  { id: 'greece', label: 'Греция', labelShort: 'Греция', type: 'country', x: 38, y: 15, description: 'Быстрое оформление визы в Грецию. Необходимы выкупленные билеты.', price: '15 000 ₽', icon: '🇬🇷', flag: 'GR', features: ['Быстро', 'Туризм'], category: 'schengen' },
-  { id: 'hungary', label: 'Венгрия', labelShort: 'Венгрия', type: 'country', x: 40, y: 35, description: 'Виза в Венгрию — отличный вариант для первого Шенгена. Нужны билеты и отель.', price: '15 000 ₽', icon: '🇭🇺', flag: 'HU', features: ['Первый Шенген', '98% одобрений'], category: 'schengen' },
+  { id: 'germany', label: 'Германия', labelShort: 'Германия', type: 'country', x: 25, y: 12, description: 'Виза в Германию по приглашению. Необходимы выкупленные билеты.', price: '15 000 ₽', icon: '🇩🇪', flag: 'DE', features: ['Приглашение', '5-10 дней'], tariff: 'gold', category: 'schengen' },
+  { id: 'greece', label: 'Греция', labelShort: 'Греция', type: 'country', x: 38, y: 15, description: 'Быстрое оформление визы в Грецию. Необходимы выкупленные билеты.', price: '15 000 ₽', icon: '🇬🇷', flag: 'GR', features: ['Быстро', 'Туризм'], tariff: 'gold', category: 'schengen' },
+  { id: 'hungary', label: 'Венгрия', labelShort: 'Венгрия', type: 'country', x: 40, y: 35, description: 'Виза в Венгрию — отличный вариант для первого Шенгена. Нужны билеты и отель.', price: '15 000 ₽', icon: '🇭🇺', flag: 'HU', features: ['Первый Шенген', '98% одобрений'], tariff: 'gold', category: 'schengen' },
   { id: 'usa', label: 'США', labelShort: 'США', type: 'premium', x: 78, y: 22, description: 'Полное сопровождение B1/B2, F1: документы, DS-160, подготовка к собеседованию. Консульский сбор $185 оплачивается отдельно.', price: '35 000 ₽', icon: '🇺🇸', flag: 'US', features: ['Собеседование', 'Запись ботом', 'Гарантия'], category: 'premium' },
   { id: 'uk', label: 'Великобритания', labelShort: 'UK', type: 'premium', x: 85, y: 42, description: 'Туристическая, студенческая и рабочая виза в UK. Перевод документов включён. Консульский сбор £127.', price: '37 000 ₽', icon: '🇬🇧', flag: 'GB', features: ['Все типы виз', 'Перевод', 'Сопровождение'], category: 'premium' },
   { id: 'canada', label: 'Канада', labelShort: 'Канада', type: 'premium', x: 80, y: 62, description: 'Туристическая виза в Канаду. Помощь с биометрией и оплатой. Консульский сбор CAD $100.', price: '30 000 ₽', icon: '🇨🇦', flag: 'CA', features: ['Биометрия', 'До 10 лет', 'Перевод'], category: 'premium' },
@@ -88,7 +88,7 @@ const nodesData = [
   { id: 'support', label: 'Поддержка', labelShort: 'Поддержка', type: 'feature', x: 75, y: 78, description: 'На связи 24/7 в любом мессенджере', price: null, icon: '🛟', category: 'services' },
 ];
 
-// Connections for desktop graph
+// Связи между узлами
 const connections = [
   { from: 'center', to: 'schengen' },
   { from: 'center', to: 'usa' },
@@ -112,7 +112,7 @@ const connections = [
 ];
 
 // Categories for mobile layout
-const categories = [
+const mobileCategories = [
   { id: 'schengen', label: 'Шенген', icon: '🇪🇺' },
   { id: 'premium', label: 'Premium', icon: '⭐' },
   { id: 'services', label: 'Услуги', icon: '📋' },
@@ -123,11 +123,12 @@ class SmartGraph {
     this.container = document.getElementById(containerId);
     if (!this.container) return;
 
+    this.tooltip = document.getElementById('tooltip');
     this.isMobile = window.innerWidth < 900;
     this.hoveredNode = null;
-    this.bottomSheet = null;
     this.tooltipLocked = false;
     this.hoverTimeout = null;
+    this.bottomSheet = null;
 
     this.init();
   }
@@ -142,7 +143,7 @@ class SmartGraph {
   }
 
   // ==========================================
-  // MOBILE LAYOUT - Vertical categories
+  // MOBILE LAYOUT - Vertical categories + Bottom Sheet
   // ==========================================
   createMobileLayout() {
     this.container.classList.add('graph-mobile');
@@ -160,11 +161,10 @@ class SmartGraph {
     this.container.appendChild(center);
 
     // Categories
-    categories.forEach(cat => {
+    mobileCategories.forEach(cat => {
       const section = document.createElement('div');
       section.className = 'mobile-category';
       
-      // Category header
       section.innerHTML = `
         <div class="mobile-category-header">
           <span class="mobile-category-icon">${cat.icon}</span>
@@ -176,7 +176,6 @@ class SmartGraph {
       
       this.container.appendChild(section);
       
-      // Add nodes to category
       const row = section.querySelector('.mobile-nodes-row');
       const categoryNodes = nodesData.filter(n => 
         n.category === cat.id && 
@@ -204,7 +203,6 @@ class SmartGraph {
       });
     });
 
-    // Create bottom sheet
     this.createBottomSheet();
   }
 
@@ -221,9 +219,7 @@ class SmartGraph {
         </button>
         <div class="bottom-sheet-handle"></div>
         <div class="bottom-sheet-header">
-          <div class="bottom-sheet-flag-wrap">
-            <img class="bottom-sheet-flag" src="" alt="">
-          </div>
+          <div class="bottom-sheet-flag-wrap"></div>
           <div class="bottom-sheet-info">
             <div class="bottom-sheet-title"></div>
             <div class="bottom-sheet-price"></div>
@@ -239,7 +235,6 @@ class SmartGraph {
     document.body.appendChild(sheet);
     this.bottomSheet = sheet;
     
-    // Close handlers
     sheet.querySelector('.bottom-sheet-close').addEventListener('click', () => this.hideBottomSheet());
     sheet.querySelector('.bottom-sheet-overlay').addEventListener('click', () => this.hideBottomSheet());
   }
@@ -256,18 +251,15 @@ class SmartGraph {
     const tariffs = content.querySelector('.bottom-sheet-tariffs');
     const btn = content.querySelector('.bottom-sheet-btn');
     
-    // Fill content
     title.textContent = node.label;
     desc.textContent = node.description;
     
-    // Flag or icon
     if (node.flag && flagUrls[node.flag]) {
       flagWrap.innerHTML = `<img class="bottom-sheet-flag" src="${flagUrls[node.flag]}" alt="">`;
     } else {
       flagWrap.innerHTML = `<span class="bottom-sheet-icon">${node.icon}</span>`;
     }
     
-    // Price
     if (node.price) {
       price.textContent = node.price + ' под ключ';
       price.style.display = 'block';
@@ -278,7 +270,6 @@ class SmartGraph {
       price.style.display = 'none';
     }
     
-    // Features
     if (node.features && node.features.length) {
       features.innerHTML = node.features.map(f => 
         `<span class="bottom-sheet-feature">✓ ${f}</span>`
@@ -293,19 +284,18 @@ class SmartGraph {
       features.style.display = 'none';
     }
     
-    // Tariffs (if multiple)
     if (node.hasTariffs && node.tariffs) {
       tariffs.innerHTML = `
         <div class="bottom-sheet-tariff">
           <div class="bottom-sheet-tariff-header">
-            <span class="bottom-sheet-tariff-name">Стандарт</span>
+            <span class="bottom-sheet-tariff-name">⭐ Стандарт</span>
             <span class="bottom-sheet-tariff-price">${node.tariffs.gold.price}</span>
           </div>
           <div class="bottom-sheet-tariff-desc">${node.tariffs.gold.description}</div>
         </div>
         <div class="bottom-sheet-tariff bottom-sheet-tariff-premium">
           <div class="bottom-sheet-tariff-header">
-            <span class="bottom-sheet-tariff-name">Premium</span>
+            <span class="bottom-sheet-tariff-name">💎 Premium</span>
             <span class="bottom-sheet-tariff-price">${node.tariffs.premium.price}</span>
           </div>
           <div class="bottom-sheet-tariff-desc">${node.tariffs.premium.description}</div>
@@ -316,14 +306,12 @@ class SmartGraph {
       tariffs.style.display = 'none';
     }
     
-    // Show/hide button
     if (node.type === 'country' || node.type === 'premium') {
       btn.style.display = 'block';
     } else {
       btn.style.display = 'none';
     }
     
-    // Show sheet
     this.bottomSheet.classList.add('active');
     document.body.style.overflow = 'hidden';
   }
@@ -335,12 +323,9 @@ class SmartGraph {
   }
 
   // ==========================================
-  // DESKTOP LAYOUT - Classic scattered graph
+  // DESKTOP LAYOUT - Original working logic
   // ==========================================
   createDesktopLayout() {
-    this.container.classList.add('graph-desktop');
-    this.tooltip = document.getElementById('tooltip');
-    
     this.createSVG();
     this.createNodes();
     this.updatePositions();
@@ -407,8 +392,6 @@ class SmartGraph {
   }
 
   updatePositions() {
-    if (!this.nodes) return;
-    
     this.nodes.forEach(el => {
       const nodeData = nodesData.find(n => n.id === el.dataset.id);
       if (nodeData) {
@@ -418,29 +401,26 @@ class SmartGraph {
       }
     });
 
-    if (this.lines) {
-      this.lines.forEach(line => {
-        const fromNode = nodesData.find(n => n.id === line.dataset.from);
-        const toNode = nodesData.find(n => n.id === line.dataset.to);
+    this.lines.forEach(line => {
+      const fromNode = nodesData.find(n => n.id === line.dataset.from);
+      const toNode = nodesData.find(n => n.id === line.dataset.to);
+      
+      if (fromNode && toNode) {
+        const from = this.getNodePosition(fromNode);
+        const to = this.getNodePosition(toNode);
         
-        if (fromNode && toNode) {
-          const from = this.getNodePosition(fromNode);
-          const to = this.getNodePosition(toNode);
-          
-          line.setAttribute('x1', from.x);
-          line.setAttribute('y1', from.y);
-          line.setAttribute('x2', to.x);
-          line.setAttribute('y2', to.y);
-        }
-      });
-    }
+        line.setAttribute('x1', from.x);
+        line.setAttribute('y1', from.y);
+        line.setAttribute('x2', to.x);
+        line.setAttribute('y2', to.y);
+      }
+    });
   }
 
   // ==========================================
   // EVENT HANDLERS
   // ==========================================
   bindEvents() {
-    // Resize handler
     let resizeTimeout;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimeout);
@@ -448,10 +428,9 @@ class SmartGraph {
         const wasMobile = this.isMobile;
         this.isMobile = window.innerWidth < 900;
         
-        // Rebuild if mode changed
         if (wasMobile !== this.isMobile) {
           this.container.innerHTML = '';
-          this.container.classList.remove('graph-mobile', 'graph-desktop');
+          this.container.classList.remove('graph-mobile');
           if (this.bottomSheet) {
             this.bottomSheet.remove();
             this.bottomSheet = null;
@@ -463,8 +442,8 @@ class SmartGraph {
       }, 100);
     });
 
-    // Mobile node clicks
     if (this.isMobile) {
+      // Mobile: click opens bottom sheet
       this.container.addEventListener('click', (e) => {
         const nodeEl = e.target.closest('.mobile-node');
         if (nodeEl) {
@@ -474,14 +453,23 @@ class SmartGraph {
           }
         }
       });
-    } 
-    // Desktop hover/click
-    else {
-      this.nodes?.forEach(el => {
+    } else {
+      // Desktop: hover shows tooltip
+      this.nodes.forEach(el => {
         const nodeData = nodesData.find(n => n.id === el.dataset.id);
         
-        el.addEventListener('mouseenter', (e) => this.handleNodeEnter(nodeData, e));
-        el.addEventListener('mouseleave', () => this.handleNodeLeave());
+        el.addEventListener('mouseenter', (e) => {
+          clearTimeout(this.hoverTimeout);
+          this.showTooltip(nodeData, e);
+        });
+        
+        el.addEventListener('mouseleave', () => {
+          if (!this.tooltipLocked) {
+            this.hoverTimeout = setTimeout(() => {
+              this.hideTooltip();
+            }, 200);
+          }
+        });
       });
 
       if (this.tooltip) {
@@ -498,27 +486,67 @@ class SmartGraph {
     }
   }
 
-  // Desktop tooltip handlers
-  handleNodeEnter(node, e) {
-    clearTimeout(this.hoverTimeout);
-    this.showTooltip(node, e);
-  }
+  // Smart tooltip positioning - NEVER covers the node
+  calculateTooltipPosition(node, e) {
+    const nodeEl = this.container.querySelector(`[data-id="${node.id}"]`);
+    const nodeRect = nodeEl.getBoundingClientRect();
+    const tooltipWidth = 320;
+    const tooltipHeight = 300;
+    const padding = 24;
+    const offset = 20;
 
-  handleNodeLeave() {
-    if (!this.tooltipLocked) {
-      this.hoverTimeout = setTimeout(() => {
-        this.hideTooltip();
-      }, 200);
-    }
-  }
+    const viewport = {
+      width: window.innerWidth,
+      height: window.innerHeight
+    };
 
-  showTooltip(node, e) {
-    if (!this.tooltip || !node) return;
+    const spaceRight = viewport.width - nodeRect.right;
+    const spaceLeft = nodeRect.left;
+    const spaceTop = nodeRect.top;
+    const spaceBottom = viewport.height - nodeRect.bottom;
+
+    let position = { x: 0, y: 0, direction: 'right' };
+
+    const nodeIsOnRight = nodeRect.left > viewport.width * 0.5;
     
+    if (nodeIsOnRight && spaceLeft >= tooltipWidth + padding) {
+      position.x = nodeRect.left - tooltipWidth - offset;
+      position.y = nodeRect.top + (nodeRect.height / 2) - (tooltipHeight / 2);
+      position.direction = 'left';
+    } else if (!nodeIsOnRight && spaceRight >= tooltipWidth + padding) {
+      position.x = nodeRect.right + offset;
+      position.y = nodeRect.top + (nodeRect.height / 2) - (tooltipHeight / 2);
+      position.direction = 'right';
+    } else if (spaceBottom >= tooltipHeight + padding) {
+      position.x = nodeRect.left + (nodeRect.width / 2) - (tooltipWidth / 2);
+      position.y = nodeRect.bottom + offset;
+      position.direction = 'bottom';
+    } else if (spaceTop >= tooltipHeight + padding) {
+      position.x = nodeRect.left + (nodeRect.width / 2) - (tooltipWidth / 2);
+      position.y = nodeRect.top - tooltipHeight - offset;
+      position.direction = 'top';
+    } else if (spaceLeft >= tooltipWidth + padding) {
+      position.x = nodeRect.left - tooltipWidth - offset;
+      position.y = nodeRect.top + (nodeRect.height / 2) - (tooltipHeight / 2);
+      position.direction = 'left';
+    } else {
+      position.x = nodeRect.right + offset;
+      position.y = nodeRect.top + (nodeRect.height / 2) - (tooltipHeight / 2);
+      position.direction = 'right';
+    }
+
+    position.y = Math.max(padding, Math.min(position.y, viewport.height - tooltipHeight - padding));
+    position.x = Math.max(padding, Math.min(position.x, viewport.width - tooltipWidth - padding));
+
+    return position;
+  }
+
+  showTooltip(node, e, selectedTariff = 'gold') {
     this.hoveredNode = node;
+    this.currentTariff = selectedTariff;
     
     // Highlight connected lines
-    this.lines?.forEach(line => {
+    this.lines.forEach(line => {
       if (line.dataset.from === node.id || line.dataset.to === node.id) {
         line.classList.add('highlighted');
       } else {
@@ -526,75 +554,121 @@ class SmartGraph {
       }
     });
 
-    // Build tooltip content
-    let content = '';
+    if (!this.tooltip) return;
+
+    const hasDetails = node.type === 'country' || node.type === 'premium';
+    const flagUrl = node.flag ? flagUrls[node.flag] : null;
     
-    if (node.flag && flagUrls[node.flag]) {
-      content += `<img src="${flagUrls[node.flag]}" alt="" class="tooltip-flag">`;
-    } else if (node.icon) {
-      content += `<span class="tooltip-icon">${node.icon}</span>`;
+    let price, description, features;
+    
+    if (node.hasTariffs) {
+      const tariffData = node.tariffs[selectedTariff];
+      price = tariffData.price;
+      description = tariffData.description;
+      features = tariffData.features;
+    } else {
+      price = node.price;
+      description = node.description;
+      features = node.features;
     }
     
-    content += `<div class="tooltip-title">${node.label}</div>`;
+    let html = `
+      <div class="tooltip-header">
+        <div class="tooltip-icon">
+          ${flagUrl ? `<img src="${flagUrl}" alt="" style="width: 28px; height: 28px;">` : node.icon || '🌍'}
+        </div>
+        <div class="tooltip-title">${node.label}</div>
+      </div>
+    `;
     
-    if (node.price) {
-      content += `<div class="tooltip-price">${node.price}</div>`;
-    } else if (node.hasTariffs && node.tariffs) {
-      content += `
-        <div class="tooltip-tariffs">
-          <div class="tooltip-tariff">
-            <span class="tooltip-tariff-label">Стандарт:</span>
-            <span class="tooltip-tariff-price">${node.tariffs.gold.price}</span>
-          </div>
-          <div class="tooltip-tariff">
-            <span class="tooltip-tariff-label">Premium:</span>
-            <span class="tooltip-tariff-price">${node.tariffs.premium.price}</span>
-          </div>
+    if (node.hasTariffs) {
+      html += `
+        <div class="tooltip-tariff-toggle" data-node-id="${node.id}">
+          <button class="tariff-btn ${selectedTariff === 'gold' ? 'active' : ''}" data-tariff="gold">
+            <span class="tariff-icon">⭐</span> Gold
+          </button>
+          <button class="tariff-btn ${selectedTariff === 'premium' ? 'active' : ''}" data-tariff="premium">
+            <span class="tariff-icon">💎</span> Premium
+          </button>
         </div>
       `;
     }
     
-    content += `<div class="tooltip-desc">${node.description}</div>`;
-    
-    if (node.features && node.features.length) {
-      content += `<div class="tooltip-features">${node.features.map(f => `<span>✓ ${f}</span>`).join('')}</div>`;
-    }
-    
-    if (node.type === 'country' || node.type === 'premium') {
-      content += `<a href="contacts.html" class="tooltip-btn">Оформить</a>`;
+    html += `<div class="tooltip-desc">${description}</div>`;
+
+    if (features && features.length) {
+      html += `<div class="tooltip-features">`;
+      features.forEach(feature => {
+        html += `<span class="tooltip-feature"><span class="tooltip-feature-icon">✓</span> ${feature}</span>`;
+      });
+      html += `</div>`;
     }
 
-    this.tooltip.innerHTML = content;
-    this.tooltip.classList.add('active');
-
-    // Position tooltip
-    const rect = this.container.getBoundingClientRect();
-    const tooltipRect = this.tooltip.getBoundingClientRect();
-    
-    let x = e.clientX - rect.left + 20;
-    let y = e.clientY - rect.top - 10;
-    
-    if (x + tooltipRect.width > rect.width - 20) {
-      x = e.clientX - rect.left - tooltipRect.width - 20;
+    if (price) {
+      html += `
+        <div class="tooltip-price">
+          <span class="tooltip-price-dot"></span>
+          ${price}
+        </div>
+      `;
     }
-    if (y + tooltipRect.height > rect.height - 20) {
-      y = rect.height - tooltipRect.height - 20;
-    }
-    if (y < 20) y = 20;
 
-    this.tooltip.style.left = x + 'px';
-    this.tooltip.style.top = y + 'px';
+    if (hasDetails) {
+      html += `
+        <a href="contacts.html" class="btn btn-accent tooltip-btn">
+          Оставить заявку
+          <span class="btn-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </span>
+        </a>
+      `;
+    }
+
+    this.tooltip.innerHTML = html;
+    
+    if (node.hasTariffs) {
+      const toggleBtns = this.tooltip.querySelectorAll('.tariff-btn');
+      toggleBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const newTariff = btn.dataset.tariff;
+          this.showTooltip(node, e, newTariff);
+        });
+      });
+    }
+
+    if (!this.isMobile) {
+      const pos = this.calculateTooltipPosition(node, e);
+      
+      this.tooltip.classList.remove('position-left', 'position-right', 'position-top', 'position-bottom');
+      this.tooltip.classList.add(`position-${pos.direction}`);
+      
+      this.tooltip.style.left = pos.x + 'px';
+      this.tooltip.style.top = pos.y + 'px';
+      this.tooltip.style.transform = 'none';
+    }
+
+    requestAnimationFrame(() => {
+      this.tooltip.classList.add('active');
+    });
   }
 
   hideTooltip() {
-    if (!this.tooltip) return;
-    this.tooltip.classList.remove('active');
     this.hoveredNode = null;
-    this.lines?.forEach(line => line.classList.remove('highlighted'));
+    
+    this.lines.forEach(line => {
+      line.classList.remove('highlighted');
+    });
+
+    if (this.tooltip) {
+      this.tooltip.classList.remove('active');
+    }
   }
 }
 
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
   new SmartGraph('graph-container');
 });
