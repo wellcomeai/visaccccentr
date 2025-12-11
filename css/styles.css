@@ -2346,16 +2346,6 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.75rem); }
     white-space: nowrap;
   }
   
-  /* Hide old graph nodes */
-  .graph-node-center,
-  .graph-node-category,
-  .graph-node-country,
-  .graph-node-premium,
-  .graph-node-service,
-  .graph-node-feature {
-    display: none !important;
-  }
-  
   .hero-hint {
     display: none;
   }
