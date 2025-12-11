@@ -12,6 +12,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   
+  <!-- Twemoji for cross-platform emoji rendering -->
+  <script src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js" crossorigin="anonymous"></script>
+  
   <!-- Styles -->
   <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -95,38 +98,54 @@
       <div class="hero-bg-decor hero-bg-decor-3"></div>
     </div>
 
-    <div class="hero-content">
-      <div class="hero-line"></div>
-      <h1 class="hero-title">
-        Откройте мир<br>
-        <span class="text-gradient">без границ</span>
-      </h1>
-      <p class="hero-subtitle">
-        Профессиональное оформление виз в любую страну мира. 
-        Мы берём на себя все заботы — от заполнения анкеты до получения паспорта.
-      </p>
-      <div class="hero-buttons">
-        <a href="visas.html" class="btn btn-primary">
-          Подобрать визу
-          <span class="btn-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </span>
-        </a>
-        <a href="contacts.html" class="btn btn-secondary">Узнать стоимость</a>
+    <!-- Animated Airplanes -->
+    <div class="airplane-container">
+      <div class="airplane airplane-1">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+        </svg>
       </div>
+      <div class="airplane airplane-2">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+        </svg>
+      </div>
+    </div>
 
-      <div class="hero-stats">
-        <div class="stat-card">
-          <div class="stat-num">15+</div>
-          <div class="stat-label">стран</div>
+    <div class="hero-content">
+      <div class="hero-glass">
+        <div class="hero-line"></div>
+        <h1 class="hero-title">
+          Откройте мир<br>
+          <span class="text-gradient">без границ</span>
+        </h1>
+        <p class="hero-subtitle">
+          Профессиональное оформление виз в любую страну мира. 
+          Мы берём на себя все заботы — от заполнения анкеты до получения паспорта.
+        </p>
+        <div class="hero-buttons">
+          <a href="visas.html" class="btn btn-primary">
+            Подобрать визу
+            <span class="btn-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </a>
+          <a href="contacts.html" class="btn btn-secondary">Узнать стоимость</a>
         </div>
-        <div class="stat-card">
-          <div class="stat-num">98%</div>
-          <div class="stat-label">одобрений</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">7</div>
-          <div class="stat-label">лет опыта</div>
+
+        <div class="hero-stats">
+          <div class="stat-card">
+            <div class="stat-num">15+</div>
+            <div class="stat-label">стран</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">98%</div>
+            <div class="stat-label">одобрений</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">7</div>
+            <div class="stat-label">лет опыта</div>
+          </div>
         </div>
       </div>
     </div>
@@ -148,6 +167,71 @@
   </div>
 
   <!-- ========================================
+       STEPS SECTION WITH GLOBE
+       ======================================== -->
+  <section class="section steps-section">
+    <div class="container">
+      <div class="steps-wrapper">
+        <div class="steps-content reveal">
+          <div class="section-header">
+            <span class="section-label">Процесс</span>
+            <h2>Этапы работы</h2>
+            <p class="section-subtitle">
+              Простой и понятный процесс. Вы занимаетесь планированием поездки, а мы — всей бумажной работой.
+            </p>
+          </div>
+
+          <div class="steps-list">
+            <div class="step-item">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                <h3>Консультация</h3>
+                <p>Обсуждаем вашу ситуацию, подбираем оптимальный тип визы и стратегию получения.</p>
+              </div>
+            </div>
+
+            <div class="step-item">
+              <div class="step-number">2</div>
+              <div class="step-content">
+                <h3>Документы</h3>
+                <p>Собираем пакет документов, заполняем анкеты, делаем переводы и проверяем всё дважды.</p>
+              </div>
+            </div>
+
+            <div class="step-item">
+              <div class="step-number">3</div>
+              <div class="step-content">
+                <h3>Подача</h3>
+                <p>Записываем в визовый центр, сопровождаем подачу или подаём удалённо за вас.</p>
+              </div>
+            </div>
+
+            <div class="step-item">
+              <div class="step-number">4</div>
+              <div class="step-content">
+                <h3>Результат</h3>
+                <p>Получаете паспорт с визой и отправляетесь в путешествие. Мы на связи 24/7!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="steps-visual reveal">
+          <div class="globe-container">
+            <canvas id="globe-canvas"></canvas>
+            <!-- Orbiting airplane -->
+            <div class="globe-airplane">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
        DESTINATIONS SECTION
        ======================================== -->
   <section class="section section-light">
@@ -163,7 +247,7 @@
       <div class="destinations-grid">
         <div class="destination-card reveal">
           <span class="destination-card-badge">Хит</span>
-          <div class="destination-card-flag">🇩🇪</div>
+          <img class="destination-card-flag twemoji-flag" alt="🇩🇪" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1e9-1f1ea.svg">
           <h3 class="destination-card-title">Германия</h3>
           <p class="destination-card-desc">Туристическая и деловая виза в Германию с высоким процентом одобрения.</p>
           <div class="destination-card-price">
@@ -178,7 +262,7 @@
         </div>
 
         <div class="destination-card reveal">
-          <div class="destination-card-flag">🇫🇷</div>
+          <img class="destination-card-flag twemoji-flag" alt="🇫🇷" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1eb-1f1f7.svg">
           <h3 class="destination-card-title">Франция</h3>
           <p class="destination-card-desc">Виза во Францию с возможностью удалённой подачи документов.</p>
           <div class="destination-card-price">
@@ -194,7 +278,7 @@
 
         <div class="destination-card reveal">
           <span class="destination-card-badge">Premium</span>
-          <div class="destination-card-flag">🇺🇸</div>
+          <img class="destination-card-flag twemoji-flag" alt="🇺🇸" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1fa-1f1f8.svg">
           <h3 class="destination-card-title">США</h3>
           <p class="destination-card-desc">Полное сопровождение: документы, подготовка к собеседованию, стратегия.</p>
           <div class="destination-card-price">
@@ -209,11 +293,11 @@
         </div>
 
         <div class="destination-card reveal">
-          <div class="destination-card-flag">🇬🇧</div>
+          <img class="destination-card-flag twemoji-flag" alt="🇬🇧" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1ec-1f1e7.svg">
           <h3 class="destination-card-title">Великобритания</h3>
           <p class="destination-card-desc">Туристическая, студенческая и рабочая виза в Великобританию.</p>
           <div class="destination-card-price">
-            <span class="destination-card-price-value">38 000 ₽</span>
+            <span class="destination-card-price-value">37 000 ₽</span>
             <span class="destination-card-price-label">под ключ</span>
           </div>
           <div class="destination-card-features">
@@ -236,50 +320,9 @@
   </section>
 
   <!-- ========================================
-       HOW IT WORKS SECTION
-       ======================================== -->
-  <section class="section section-warm">
-    <div class="container">
-      <div class="section-header centered reveal">
-        <span class="section-label">Процесс</span>
-        <h2>Как мы работаем</h2>
-        <p class="section-subtitle">
-          Простой и понятный процесс. Вы занимаетесь планированием поездки, а мы — всей бумажной работой.
-        </p>
-      </div>
-
-      <div class="steps-container">
-        <div class="step-card reveal">
-          <div class="step-number">1</div>
-          <h3 class="step-title">Консультация</h3>
-          <p class="step-desc">Обсуждаем вашу ситуацию, подбираем оптимальный тип визы и стратегию получения.</p>
-        </div>
-
-        <div class="step-card reveal">
-          <div class="step-number">2</div>
-          <h3 class="step-title">Документы</h3>
-          <p class="step-desc">Собираем пакет документов, заполняем анкеты, делаем переводы и проверяем всё дважды.</p>
-        </div>
-
-        <div class="step-card reveal">
-          <div class="step-number">3</div>
-          <h3 class="step-title">Подача</h3>
-          <p class="step-desc">Записываем в визовый центр, сопровождаем подачу или подаём удалённо за вас.</p>
-        </div>
-
-        <div class="step-card reveal">
-          <div class="step-number">4</div>
-          <h3 class="step-title">Результат</h3>
-          <p class="step-desc">Получаете паспорт с визой и отправляетесь в путешествие. Мы на связи 24/7!</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========================================
        REVIEWS SECTION
        ======================================== -->
-  <section class="section section-light">
+  <section class="section section-warm">
     <div class="container">
       <div class="section-header centered reveal">
         <span class="section-label">Отзывы</span>
@@ -464,5 +507,6 @@
   <!-- Scripts -->
   <script src="js/main.js"></script>
   <script src="js/graph.js"></script>
+  <script src="js/globe.js"></script>
 </body>
 </html>
