@@ -402,33 +402,21 @@
   }
 
   .steps-mobile-logo {
-    width: 56px;
-    height: 56px;
-    border-radius: 14px;
-    margin-bottom: 12px;
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 16px rgba(184, 149, 108, 0.25);
   }
 
-  .steps-mobile-name {
+  .steps-mobile-quote {
     font-family: var(--font-display);
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--color-primary);
-    margin-bottom: 6px;
-  }
-
-  .steps-mobile-label {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--color-accent);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 8px;
-  }
-
-  .steps-mobile-phrase {
-    font-size: 15px;
-    color: var(--color-text-muted);
+    font-size: 16px;
     font-style: italic;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    max-width: 320px;
+    padding: 0 16px;
   }
 
   /* Leader section mobile - reordered: header → image → content */
@@ -494,6 +482,13 @@
 
   .leader-content .btn {
     width: 100%;
+  }
+
+  /* Hide duplicate header elements on mobile (shown in .leader-header instead) */
+  .leader-content .section-label,
+  .leader-content .leader-name,
+  .leader-content .leader-role {
+    display: none;
   }
 
   /* Footer Mobile */
