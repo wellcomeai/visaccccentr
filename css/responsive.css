@@ -32,12 +32,23 @@
 
   @keyframes orbitAirplane {
     0% {
-      transform: rotate(0deg) translateX(210px) rotate(0deg);
+      transform: rotate(0deg) translateX(210px) rotate(90deg);
     }
     100% {
-      transform: rotate(360deg) translateX(210px) rotate(0deg);
+      transform: rotate(360deg) translateX(210px) rotate(90deg);
     }
   }
+
+  /* Flags orbit - smaller radius */
+  @keyframes orbitFlag0 { 0% { transform: rotate(0deg) translateX(210px) rotate(0deg); } 100% { transform: rotate(360deg) translateX(210px) rotate(-360deg); } }
+  @keyframes orbitFlag40 { 0% { transform: rotate(40deg) translateX(210px) rotate(-40deg); } 100% { transform: rotate(400deg) translateX(210px) rotate(-400deg); } }
+  @keyframes orbitFlag80 { 0% { transform: rotate(80deg) translateX(210px) rotate(-80deg); } 100% { transform: rotate(440deg) translateX(210px) rotate(-440deg); } }
+  @keyframes orbitFlag120 { 0% { transform: rotate(120deg) translateX(210px) rotate(-120deg); } 100% { transform: rotate(480deg) translateX(210px) rotate(-480deg); } }
+  @keyframes orbitFlag160 { 0% { transform: rotate(160deg) translateX(210px) rotate(-160deg); } 100% { transform: rotate(520deg) translateX(210px) rotate(-520deg); } }
+  @keyframes orbitFlag200 { 0% { transform: rotate(200deg) translateX(210px) rotate(-200deg); } 100% { transform: rotate(560deg) translateX(210px) rotate(-560deg); } }
+  @keyframes orbitFlag240 { 0% { transform: rotate(240deg) translateX(210px) rotate(-240deg); } 100% { transform: rotate(600deg) translateX(210px) rotate(-600deg); } }
+  @keyframes orbitFlag280 { 0% { transform: rotate(280deg) translateX(210px) rotate(-280deg); } 100% { transform: rotate(640deg) translateX(210px) rotate(-640deg); } }
+  @keyframes orbitFlag320 { 0% { transform: rotate(320deg) translateX(210px) rotate(-320deg); } 100% { transform: rotate(680deg) translateX(210px) rotate(-680deg); } }
 
   .destinations-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -75,12 +86,23 @@
 
   @keyframes orbitAirplane {
     0% {
-      transform: rotate(0deg) translateX(200px) rotate(0deg);
+      transform: rotate(0deg) translateX(200px) rotate(90deg);
     }
     100% {
-      transform: rotate(360deg) translateX(200px) rotate(0deg);
+      transform: rotate(360deg) translateX(200px) rotate(90deg);
     }
   }
+
+  /* Flags orbit - smaller radius */
+  @keyframes orbitFlag0 { 0% { transform: rotate(0deg) translateX(200px) rotate(0deg); } 100% { transform: rotate(360deg) translateX(200px) rotate(-360deg); } }
+  @keyframes orbitFlag40 { 0% { transform: rotate(40deg) translateX(200px) rotate(-40deg); } 100% { transform: rotate(400deg) translateX(200px) rotate(-400deg); } }
+  @keyframes orbitFlag80 { 0% { transform: rotate(80deg) translateX(200px) rotate(-80deg); } 100% { transform: rotate(440deg) translateX(200px) rotate(-440deg); } }
+  @keyframes orbitFlag120 { 0% { transform: rotate(120deg) translateX(200px) rotate(-120deg); } 100% { transform: rotate(480deg) translateX(200px) rotate(-480deg); } }
+  @keyframes orbitFlag160 { 0% { transform: rotate(160deg) translateX(200px) rotate(-160deg); } 100% { transform: rotate(520deg) translateX(200px) rotate(-520deg); } }
+  @keyframes orbitFlag200 { 0% { transform: rotate(200deg) translateX(200px) rotate(-200deg); } 100% { transform: rotate(560deg) translateX(200px) rotate(-560deg); } }
+  @keyframes orbitFlag240 { 0% { transform: rotate(240deg) translateX(200px) rotate(-240deg); } 100% { transform: rotate(600deg) translateX(200px) rotate(-600deg); } }
+  @keyframes orbitFlag280 { 0% { transform: rotate(280deg) translateX(200px) rotate(-280deg); } 100% { transform: rotate(640deg) translateX(200px) rotate(-640deg); } }
+  @keyframes orbitFlag320 { 0% { transform: rotate(320deg) translateX(200px) rotate(-320deg); } 100% { transform: rotate(680deg) translateX(200px) rotate(-680deg); } }
 
   .globe-quote {
     bottom: -60px;
@@ -524,22 +546,19 @@
 
   @keyframes orbitAirplane {
     0% {
-      transform: rotate(0deg) translateX(130px) rotate(0deg);
+      transform: rotate(0deg) translateX(130px) rotate(90deg);
     }
     100% {
-      transform: rotate(360deg) translateX(130px) rotate(0deg);
+      transform: rotate(360deg) translateX(130px) rotate(90deg);
     }
-  }
-
-  .orbital-flags {
-    animation-duration: 100s; /* Even slower on mobile */
   }
 
   .orbital-flag {
     width: 24px;
     height: 24px;
     padding: 3px;
-    animation-duration: 100s;
+    margin-left: -12px;
+    margin-top: -12px;
   }
 
   .orbital-flag img {
@@ -547,14 +566,26 @@
     height: 16px;
   }
 
-  @keyframes counterRotate {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(-360deg);
-    }
-  }
+  /* Flags orbit - mobile radius 130px, slower 100s */
+  @keyframes orbitFlag0 { 0% { transform: rotate(0deg) translateX(130px) rotate(0deg); } 100% { transform: rotate(360deg) translateX(130px) rotate(-360deg); } }
+  @keyframes orbitFlag40 { 0% { transform: rotate(40deg) translateX(130px) rotate(-40deg); } 100% { transform: rotate(400deg) translateX(130px) rotate(-400deg); } }
+  @keyframes orbitFlag80 { 0% { transform: rotate(80deg) translateX(130px) rotate(-80deg); } 100% { transform: rotate(440deg) translateX(130px) rotate(-440deg); } }
+  @keyframes orbitFlag120 { 0% { transform: rotate(120deg) translateX(130px) rotate(-120deg); } 100% { transform: rotate(480deg) translateX(130px) rotate(-480deg); } }
+  @keyframes orbitFlag160 { 0% { transform: rotate(160deg) translateX(130px) rotate(-160deg); } 100% { transform: rotate(520deg) translateX(130px) rotate(-520deg); } }
+  @keyframes orbitFlag200 { 0% { transform: rotate(200deg) translateX(130px) rotate(-200deg); } 100% { transform: rotate(560deg) translateX(130px) rotate(-560deg); } }
+  @keyframes orbitFlag240 { 0% { transform: rotate(240deg) translateX(130px) rotate(-240deg); } 100% { transform: rotate(600deg) translateX(130px) rotate(-600deg); } }
+  @keyframes orbitFlag280 { 0% { transform: rotate(280deg) translateX(130px) rotate(-280deg); } 100% { transform: rotate(640deg) translateX(130px) rotate(-640deg); } }
+  @keyframes orbitFlag320 { 0% { transform: rotate(320deg) translateX(130px) rotate(-320deg); } 100% { transform: rotate(680deg) translateX(130px) rotate(-680deg); } }
+
+  .orbital-flag:nth-child(1) { animation: orbitFlag0 100s linear infinite; }
+  .orbital-flag:nth-child(2) { animation: orbitFlag40 100s linear infinite; }
+  .orbital-flag:nth-child(3) { animation: orbitFlag80 100s linear infinite; }
+  .orbital-flag:nth-child(4) { animation: orbitFlag120 100s linear infinite; }
+  .orbital-flag:nth-child(5) { animation: orbitFlag160 100s linear infinite; }
+  .orbital-flag:nth-child(6) { animation: orbitFlag200 100s linear infinite; }
+  .orbital-flag:nth-child(7) { animation: orbitFlag240 100s linear infinite; }
+  .orbital-flag:nth-child(8) { animation: orbitFlag280 100s linear infinite; }
+  .orbital-flag:nth-child(9) { animation: orbitFlag320 100s linear infinite; }
 
   /* Hide globe quote on mobile - using branding quote instead */
   .globe-quote {
@@ -846,10 +877,10 @@
 
   @keyframes orbitAirplane {
     0% {
-      transform: rotate(0deg) translateX(120px) rotate(0deg);
+      transform: rotate(0deg) translateX(120px) rotate(90deg);
     }
     100% {
-      transform: rotate(360deg) translateX(120px) rotate(0deg);
+      transform: rotate(360deg) translateX(120px) rotate(90deg);
     }
   }
 
@@ -864,10 +895,23 @@
     width: 20px;
     height: 20px;
     padding: 2px;
+    margin-left: -10px;
+    margin-top: -10px;
   }
 
   .orbital-flag img {
     width: 14px;
     height: 14px;
   }
+
+  /* Flags orbit - small screen radius 120px */
+  @keyframes orbitFlag0 { 0% { transform: rotate(0deg) translateX(120px) rotate(0deg); } 100% { transform: rotate(360deg) translateX(120px) rotate(-360deg); } }
+  @keyframes orbitFlag40 { 0% { transform: rotate(40deg) translateX(120px) rotate(-40deg); } 100% { transform: rotate(400deg) translateX(120px) rotate(-400deg); } }
+  @keyframes orbitFlag80 { 0% { transform: rotate(80deg) translateX(120px) rotate(-80deg); } 100% { transform: rotate(440deg) translateX(120px) rotate(-440deg); } }
+  @keyframes orbitFlag120 { 0% { transform: rotate(120deg) translateX(120px) rotate(-120deg); } 100% { transform: rotate(480deg) translateX(120px) rotate(-480deg); } }
+  @keyframes orbitFlag160 { 0% { transform: rotate(160deg) translateX(120px) rotate(-160deg); } 100% { transform: rotate(520deg) translateX(120px) rotate(-520deg); } }
+  @keyframes orbitFlag200 { 0% { transform: rotate(200deg) translateX(120px) rotate(-200deg); } 100% { transform: rotate(560deg) translateX(120px) rotate(-560deg); } }
+  @keyframes orbitFlag240 { 0% { transform: rotate(240deg) translateX(120px) rotate(-240deg); } 100% { transform: rotate(600deg) translateX(120px) rotate(-600deg); } }
+  @keyframes orbitFlag280 { 0% { transform: rotate(280deg) translateX(120px) rotate(-280deg); } 100% { transform: rotate(640deg) translateX(120px) rotate(-640deg); } }
+  @keyframes orbitFlag320 { 0% { transform: rotate(320deg) translateX(120px) rotate(-320deg); } 100% { transform: rotate(680deg) translateX(120px) rotate(-680deg); } }
 }
