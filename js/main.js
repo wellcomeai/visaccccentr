@@ -1,6 +1,7 @@
 // ========================================
-// VISATOYOU - Main JavaScript v3.0
+// VISATOYOU - Main JavaScript v3.1
 // Premium Animations & Interactions
+// + Mobile Timeline Animation
 // ========================================
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -17,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
   initDestinationAccordions();
   initTariffSwitches();
   initDestinationFilter();
+  initMobileTimeline(); // Новая функция для timeline
 });
 
 // ========================================
@@ -297,7 +299,7 @@ function initRevealOnScroll() {
   reveals.forEach(el => observer.observe(el));
 
   // Also observe individual cards for grid stagger
-  const cards = document.querySelectorAll('.destination-card, .review-card, .step-item');
+  const cards = document.querySelectorAll('.destination-card, .review-card');
   const cardObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -324,6 +326,44 @@ function initRevealOnScroll() {
     `;
     cardObserver.observe(card);
   });
+}
+
+// ========================================
+// Mobile Timeline Animation (NEW)
+// ========================================
+
+function initMobileTimeline() {
+  // Только для мобильной версии
+  if (window.innerWidth > 900) return;
+
+  const stepsList = document.querySelector('.steps-list');
+  const stepItems = document.querySelectorAll('.step-item');
+  
+  if (!stepsList || !stepItems.length) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Запускаем анимацию timeline линии
+        stepsList.classList.add('timeline-animated');
+        
+        // Анимируем каждую карточку с задержкой
+        stepItems.forEach((item, index) => {
+          setTimeout(() => {
+            item.classList.add('step-animated');
+          }, 100 + (index * 150));
+        });
+        
+        // Отключаем observer после первой анимации
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.2,
+    rootMargin: '0px 0px -100px 0px'
+  });
+
+  observer.observe(stepsList);
 }
 
 // ========================================
