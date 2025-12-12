@@ -527,7 +527,7 @@
 }
 
 /* ========================================
-   ORBITAL SYSTEM - Airplane & Flags
+   ORBITAL SYSTEM - Flags
    ======================================== */
 
 .globe-orbital-system {
@@ -552,37 +552,7 @@
   border-radius: 50%;
 }
 
-/* Airplane orbit - 40 seconds, smooth flight, nose forward */
-.orbital-airplane {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 32px;
-  height: 32px;
-  margin-left: -16px;
-  margin-top: -16px;
-  animation: orbitAirplane 40s linear infinite;
-  z-index: 10;
-}
-
-.orbital-airplane svg {
-  width: 100%;
-  height: 100%;
-  filter: drop-shadow(0 4px 12px rgba(184, 149, 108, 0.5));
-  color: var(--color-accent);
-}
-
-/* Airplane animation - rotate(90deg) at end keeps nose pointing forward */
-@keyframes orbitAirplane {
-  0% {
-    transform: rotate(0deg) translateX(240px) rotate(90deg);
-  }
-  100% {
-    transform: rotate(360deg) translateX(240px) rotate(90deg);
-  }
-}
-
-/* Flags container - just for grouping, no rotation */
+/* Flags container - just for grouping */
 .orbital-flags {
   position: absolute;
   top: 0;
@@ -680,11 +650,11 @@
 
 .globe-quote {
   position: absolute;
-  bottom: -70px;
+  bottom: -95px;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
-  max-width: 380px;
+  max-width: 420px;
   opacity: 0;
   animation: quoteAppear 1s var(--ease-out) 0.8s forwards;
   z-index: 20;
@@ -703,23 +673,23 @@
 
 .globe-quote p {
   font-family: var(--font-display);
-  font-size: 16px;
+  font-size: 26px;
   font-style: italic;
   color: var(--color-text-muted);
-  line-height: 1.6;
+  line-height: 1.5;
   margin: 0;
 }
 
 .globe-quote::before {
   content: '«';
-  font-size: 24px;
+  font-size: 32px;
   color: var(--color-accent);
   margin-right: 4px;
 }
 
 .globe-quote::after {
   content: '»';
-  font-size: 24px;
+  font-size: 32px;
   color: var(--color-accent);
   margin-left: 4px;
 }
