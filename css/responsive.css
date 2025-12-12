@@ -25,6 +25,20 @@
     height: 350px;
   }
 
+  .globe-orbital-system {
+    width: 420px;
+    height: 420px;
+  }
+
+  @keyframes orbitAirplane {
+    0% {
+      transform: rotate(0deg) translateX(210px) rotate(-90deg);
+    }
+    100% {
+      transform: rotate(360deg) translateX(210px) rotate(-90deg);
+    }
+  }
+
   .destinations-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -46,7 +60,7 @@
 
   .steps-visual {
     order: 1;
-    height: 400px;
+    height: 450px;
   }
 
   .globe-container {
@@ -54,13 +68,38 @@
     height: 320px;
   }
 
-  @keyframes orbitGlobe {
+  .globe-orbital-system {
+    width: 400px;
+    height: 400px;
+  }
+
+  @keyframes orbitAirplane {
     0% {
-      transform: rotate(0deg) translateX(180px) rotate(90deg);
+      transform: rotate(0deg) translateX(200px) rotate(-90deg);
     }
     100% {
-      transform: rotate(360deg) translateX(180px) rotate(90deg);
+      transform: rotate(360deg) translateX(200px) rotate(-90deg);
     }
+  }
+
+  .globe-quote {
+    bottom: -40px;
+    max-width: 340px;
+  }
+
+  .floating-doc-passport {
+    top: 5%;
+    right: 10%;
+  }
+
+  .floating-doc-ticket {
+    bottom: 15%;
+    left: 10%;
+  }
+
+  .floating-doc-stamp {
+    bottom: 5%;
+    right: 20%;
   }
 
   .reviews-grid {
@@ -465,28 +504,113 @@
     font-weight: 700;
   }
 
-  /* Globe Mobile */
+  /* ========================================
+     GLOBE SECTION MOBILE
+     ======================================== */
   .steps-visual {
-    height: 320px;
+    height: 380px;
+    padding-bottom: 60px;
   }
 
   .globe-container {
-    width: 260px;
-    height: 260px;
+    width: 220px;
+    height: 220px;
   }
 
-  @keyframes orbitGlobe {
+  /* Orbital system mobile */
+  .globe-orbital-system {
+    width: 300px;
+    height: 300px;
+  }
+
+  .orbital-path {
+    border-width: 1px;
+  }
+
+  .orbital-airplane {
+    width: 28px;
+    height: 28px;
+    margin-left: -14px;
+    margin-top: -14px;
+  }
+
+  @keyframes orbitAirplane {
     0% {
-      transform: rotate(0deg) translateX(150px) rotate(90deg);
+      transform: rotate(0deg) translateX(150px) rotate(-90deg);
     }
     100% {
-      transform: rotate(360deg) translateX(150px) rotate(90deg);
+      transform: rotate(360deg) translateX(150px) rotate(-90deg);
     }
   }
 
-  .globe-airplane {
-    width: 24px;
-    height: 24px;
+  .orbital-flags {
+    animation-duration: 80s; /* Slower on mobile */
+  }
+
+  .orbital-flag {
+    width: 26px;
+    height: 26px;
+    padding: 3px;
+  }
+
+  .orbital-flag img {
+    width: 18px;
+    height: 18px;
+  }
+
+  @keyframes counterRotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(-360deg);
+    }
+  }
+
+  /* Floating documents mobile */
+  .floating-documents {
+    z-index: 10;
+  }
+
+  .floating-doc {
+    padding: 8px;
+    border-radius: 10px;
+  }
+
+  .floating-doc svg,
+  .floating-doc img {
+    width: 22px;
+    height: 22px;
+  }
+
+  .floating-doc-passport {
+    top: 5%;
+    right: 10%;
+  }
+
+  .floating-doc-ticket {
+    bottom: 25%;
+    left: 5%;
+  }
+
+  .floating-doc-stamp {
+    bottom: 20%;
+    right: 8%;
+  }
+
+  /* Globe quote mobile */
+  .globe-quote {
+    bottom: 0;
+    max-width: 300px;
+  }
+
+  .globe-quote p {
+    font-size: 14px;
+  }
+
+  .globe-quote::before,
+  .globe-quote::after {
+    font-size: 20px;
   }
 
   /* Tooltip Mobile - Hidden (using Bottom Sheet instead) */
@@ -594,7 +718,7 @@
 
   .steps-mobile-quote {
     font-family: var(--font-display);
-    font-size: 16px;
+    font-size: 15px;
     font-style: italic;
     color: var(--color-text-muted);
     line-height: 1.7;
@@ -756,5 +880,61 @@
 
   .leader-stat {
     flex: 1 1 80px;
+  }
+
+  /* Even smaller orbital on small screens */
+  .globe-container {
+    width: 180px;
+    height: 180px;
+  }
+
+  .globe-orbital-system {
+    width: 260px;
+    height: 260px;
+  }
+
+  @keyframes orbitAirplane {
+    0% {
+      transform: rotate(0deg) translateX(130px) rotate(-90deg);
+    }
+    100% {
+      transform: rotate(360deg) translateX(130px) rotate(-90deg);
+    }
+  }
+
+  .orbital-airplane {
+    width: 24px;
+    height: 24px;
+    margin-left: -12px;
+    margin-top: -12px;
+  }
+
+  .orbital-flag {
+    width: 22px;
+    height: 22px;
+    padding: 2px;
+  }
+
+  .orbital-flag img {
+    width: 16px;
+    height: 16px;
+  }
+
+  .floating-doc {
+    padding: 6px;
+  }
+
+  .floating-doc svg,
+  .floating-doc img {
+    width: 18px;
+    height: 18px;
+  }
+
+  .globe-quote {
+    max-width: 260px;
+  }
+
+  .globe-quote p {
+    font-size: 13px;
   }
 }
