@@ -32,10 +32,10 @@
 
   @keyframes orbitAirplane {
     0% {
-      transform: rotate(0deg) translateX(210px) rotate(-90deg);
+      transform: rotate(0deg) translateX(210px) rotate(0deg);
     }
     100% {
-      transform: rotate(360deg) translateX(210px) rotate(-90deg);
+      transform: rotate(360deg) translateX(210px) rotate(0deg);
     }
   }
 
@@ -75,31 +75,16 @@
 
   @keyframes orbitAirplane {
     0% {
-      transform: rotate(0deg) translateX(200px) rotate(-90deg);
+      transform: rotate(0deg) translateX(200px) rotate(0deg);
     }
     100% {
-      transform: rotate(360deg) translateX(200px) rotate(-90deg);
+      transform: rotate(360deg) translateX(200px) rotate(0deg);
     }
   }
 
   .globe-quote {
-    bottom: -40px;
+    bottom: -60px;
     max-width: 340px;
-  }
-
-  .floating-doc-passport {
-    top: 5%;
-    right: 10%;
-  }
-
-  .floating-doc-ticket {
-    bottom: 15%;
-    left: 10%;
-  }
-
-  .floating-doc-stamp {
-    bottom: 5%;
-    right: 20%;
   }
 
   .reviews-grid {
@@ -508,19 +493,22 @@
      GLOBE SECTION MOBILE
      ======================================== */
   .steps-visual {
-    height: 380px;
-    padding-bottom: 60px;
+    height: 350px;
+    padding-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .globe-container {
-    width: 220px;
-    height: 220px;
+    width: 180px;
+    height: 180px;
   }
 
   /* Orbital system mobile */
   .globe-orbital-system {
-    width: 300px;
-    height: 300px;
+    width: 260px;
+    height: 260px;
   }
 
   .orbital-path {
@@ -528,34 +516,35 @@
   }
 
   .orbital-airplane {
-    width: 28px;
-    height: 28px;
-    margin-left: -14px;
-    margin-top: -14px;
+    width: 24px;
+    height: 24px;
+    margin-left: -12px;
+    margin-top: -12px;
   }
 
   @keyframes orbitAirplane {
     0% {
-      transform: rotate(0deg) translateX(150px) rotate(-90deg);
+      transform: rotate(0deg) translateX(130px) rotate(0deg);
     }
     100% {
-      transform: rotate(360deg) translateX(150px) rotate(-90deg);
+      transform: rotate(360deg) translateX(130px) rotate(0deg);
     }
   }
 
   .orbital-flags {
-    animation-duration: 80s; /* Slower on mobile */
+    animation-duration: 100s; /* Even slower on mobile */
   }
 
   .orbital-flag {
-    width: 26px;
-    height: 26px;
+    width: 24px;
+    height: 24px;
     padding: 3px;
+    animation-duration: 100s;
   }
 
   .orbital-flag img {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
   }
 
   @keyframes counterRotate {
@@ -567,50 +556,9 @@
     }
   }
 
-  /* Floating documents mobile */
-  .floating-documents {
-    z-index: 10;
-  }
-
-  .floating-doc {
-    padding: 8px;
-    border-radius: 10px;
-  }
-
-  .floating-doc svg,
-  .floating-doc img {
-    width: 22px;
-    height: 22px;
-  }
-
-  .floating-doc-passport {
-    top: 5%;
-    right: 10%;
-  }
-
-  .floating-doc-ticket {
-    bottom: 25%;
-    left: 5%;
-  }
-
-  .floating-doc-stamp {
-    bottom: 20%;
-    right: 8%;
-  }
-
-  /* Globe quote mobile */
+  /* Hide globe quote on mobile - using branding quote instead */
   .globe-quote {
-    bottom: 0;
-    max-width: 300px;
-  }
-
-  .globe-quote p {
-    font-size: 14px;
-  }
-
-  .globe-quote::before,
-  .globe-quote::after {
-    font-size: 20px;
+    display: none !important;
   }
 
   /* Tooltip Mobile - Hidden (using Bottom Sheet instead) */
@@ -700,19 +648,21 @@
   }
 
   /* Steps mobile branding - visible on mobile */
+  /* Vertical layout: logo → quote → globe */
   .steps-mobile-branding {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
+    width: 100%;
   }
 
   .steps-mobile-logo {
-    width: 64px;
-    height: 64px;
-    border-radius: 16px;
-    margin-bottom: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 14px;
+    margin-bottom: 16px;
     box-shadow: 0 4px 16px rgba(184, 149, 108, 0.25);
   }
 
@@ -721,9 +671,10 @@
     font-size: 15px;
     font-style: italic;
     color: var(--color-text-muted);
-    line-height: 1.7;
-    max-width: 320px;
+    line-height: 1.6;
+    max-width: 300px;
     padding: 0 16px;
+    margin-bottom: 24px;
   }
 
   /* Leader section mobile - reordered: header → image → content */
@@ -884,57 +835,39 @@
 
   /* Even smaller orbital on small screens */
   .globe-container {
-    width: 180px;
-    height: 180px;
+    width: 160px;
+    height: 160px;
   }
 
   .globe-orbital-system {
-    width: 260px;
-    height: 260px;
+    width: 240px;
+    height: 240px;
   }
 
   @keyframes orbitAirplane {
     0% {
-      transform: rotate(0deg) translateX(130px) rotate(-90deg);
+      transform: rotate(0deg) translateX(120px) rotate(0deg);
     }
     100% {
-      transform: rotate(360deg) translateX(130px) rotate(-90deg);
+      transform: rotate(360deg) translateX(120px) rotate(0deg);
     }
   }
 
   .orbital-airplane {
-    width: 24px;
-    height: 24px;
-    margin-left: -12px;
-    margin-top: -12px;
+    width: 22px;
+    height: 22px;
+    margin-left: -11px;
+    margin-top: -11px;
   }
 
   .orbital-flag {
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     padding: 2px;
   }
 
   .orbital-flag img {
-    width: 16px;
-    height: 16px;
-  }
-
-  .floating-doc {
-    padding: 6px;
-  }
-
-  .floating-doc svg,
-  .floating-doc img {
-    width: 18px;
-    height: 18px;
-  }
-
-  .globe-quote {
-    max-width: 260px;
-  }
-
-  .globe-quote p {
-    font-size: 13px;
+    width: 14px;
+    height: 14px;
   }
 }
