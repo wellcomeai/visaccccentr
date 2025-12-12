@@ -1,5 +1,6 @@
 /* ========================================
    VISANEWS2YOU - Main Stylesheet
+   Performance Optimized Version
    ======================================== */
 
 @import 'base.css';
@@ -8,3 +9,6 @@
 @import 'hero.css';
 @import 'animations.css';
 @import 'responsive.css';
+
+/* CRITICAL: Performance optimizations must load LAST to override */
+@import 'performance.css';
