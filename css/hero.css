@@ -220,6 +220,11 @@
   opacity: 0;
   transform: translateY(20px);
   animation: textReveal 0.8s var(--ease-out) 1.4s forwards;
+  /* Transition for smooth hide */
+  transition:
+    opacity 0.4s var(--ease-out),
+    transform 0.4s var(--ease-out),
+    visibility 0.4s;
 }
 
 .hero-hint-dot {
@@ -228,6 +233,18 @@
   background: var(--color-accent);
   border-radius: 50%;
   animation: pulse 2s ease-in-out infinite;
+}
+
+/* Hero Hint Hidden State */
+.hero-hint.hint-hidden {
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  visibility: hidden;
+  transition:
+    opacity 0.4s var(--ease-out),
+    transform 0.4s var(--ease-out),
+    visibility 0.4s;
 }
 
 /* ========================================
