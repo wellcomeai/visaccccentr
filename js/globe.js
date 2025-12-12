@@ -1,6 +1,6 @@
 // ========================================
-// VISANEWS2YOU - Minimal Elegant Globe
-// Clean, Professional Design
+// VISANEWS2YOU - Optimized Globe
+// Performance-focused implementation
 // ========================================
 
 class MinimalGlobe {
@@ -8,10 +8,18 @@ class MinimalGlobe {
     this.canvas = document.getElementById(canvasId);
     if (!this.canvas) return;
     
-    this.ctx = this.canvas.getContext('2d');
+    this.ctx = this.canvas.getContext('2d', {
+      alpha: true,
+      desynchronized: true // Better performance on some devices
+    });
+    
     this.rotation = 0;
     this.dots = [];
-    this.routes = [];
+    this.isRunning = false;
+    this.animationId = null;
+    this.lastFrameTime = 0;
+    this.targetFPS = this.isMobile() ? 30 : 60;
+    this.frameInterval = 1000 / this.targetFPS;
     
     this.colors = {
       globe: '#f5f0e8',
@@ -36,37 +44,99 @@ class MinimalGlobe {
     this.init();
   }
   
+  isMobile() {
+    return window.innerWidth < 900;
+  }
+  
+  isLowEnd() {
+    return navigator.hardwareConcurrency <= 4 || 
+           navigator.deviceMemory <= 4;
+  }
+  
   init() {
+    // Don't initialize on low-end devices
+    if (this.isLowEnd() && this.isMobile()) {
+      this.canvas.style.display = 'none';
+      return;
+    }
+    
     this.resize();
     this.generateDots();
-    this.animate();
+    this.setupVisibilityObserver();
     
-    window.addEventListener('resize', () => this.resize());
+    // Debounced resize handler
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => this.resize(), 200);
+    }, { passive: true });
+    
+    // Export instance for external control
+    window.globeInstance = this;
+  }
+  
+  setupVisibilityObserver() {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          this.setRunning(entry.isIntersecting);
+        });
+      },
+      { threshold: 0.1 }
+    );
+    
+    const parent = this.canvas.parentElement;
+    if (parent) {
+      observer.observe(parent);
+    }
+  }
+  
+  setRunning(shouldRun) {
+    if (shouldRun && !this.isRunning) {
+      this.isRunning = true;
+      this.lastFrameTime = performance.now();
+      this.animate();
+    } else if (!shouldRun && this.isRunning) {
+      this.isRunning = false;
+      if (this.animationId) {
+        cancelAnimationFrame(this.animationId);
+        this.animationId = null;
+      }
+    }
   }
   
   resize() {
     const container = this.canvas.parentElement;
+    if (!container) return;
+    
     const size = Math.min(container.offsetWidth, container.offsetHeight);
     
-    this.canvas.width = size * 2;
-    this.canvas.height = size * 2;
+    // Use device pixel ratio but cap it for performance
+    const dpr = Math.min(window.devicePixelRatio || 1, this.isMobile() ? 1.5 : 2);
+    
+    this.canvas.width = size * dpr;
+    this.canvas.height = size * dpr;
     this.canvas.style.width = size + 'px';
     this.canvas.style.height = size + 'px';
     
-    this.centerX = this.canvas.width / 2;
-    this.centerY = this.canvas.height / 2;
+    this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+    this.ctx.scale(dpr, dpr);
+    
+    this.size = size;
+    this.centerX = size / 2;
+    this.centerY = size / 2;
     this.radius = Math.min(this.centerX, this.centerY) * 0.75;
   }
   
   generateDots() {
     this.dots = [];
-    const count = 800;
+    // Reduce dots count on mobile
+    const count = this.isMobile() ? 400 : 800;
     
     for (let i = 0; i < count; i++) {
       const phi = Math.acos(1 - 2 * (i + 0.5) / count);
       const theta = Math.PI * (1 + Math.sqrt(5)) * i;
       
-      // Simple noise for land-like distribution
       const noise = Math.sin(phi * 3) * Math.cos(theta * 2) * Math.sin(phi * 5 + theta);
       if (noise > -0.2) {
         this.dots.push({
@@ -90,7 +160,6 @@ class MinimalGlobe {
   }
   
   project(point) {
-    // Simple orthographic projection with tilt
     const tilt = 0.3;
     const y = point.y * Math.cos(tilt) - point.z * Math.sin(tilt);
     const z = point.y * Math.sin(tilt) + point.z * Math.cos(tilt);
@@ -98,7 +167,7 @@ class MinimalGlobe {
     return {
       x: this.centerX + point.x,
       y: this.centerY - y,
-      z: z, // For depth sorting
+      z: z,
       visible: z > 0
     };
   }
@@ -106,20 +175,22 @@ class MinimalGlobe {
   drawGlobe() {
     const ctx = this.ctx;
     
-    // Outer glow
-    const glowGradient = ctx.createRadialGradient(
-      this.centerX, this.centerY, this.radius * 0.9,
-      this.centerX, this.centerY, this.radius * 1.3
-    );
-    glowGradient.addColorStop(0, 'rgba(184, 149, 108, 0.08)');
-    glowGradient.addColorStop(1, 'rgba(184, 149, 108, 0)');
+    // Simplified glow - skip on mobile
+    if (!this.isMobile()) {
+      const glowGradient = ctx.createRadialGradient(
+        this.centerX, this.centerY, this.radius * 0.9,
+        this.centerX, this.centerY, this.radius * 1.2
+      );
+      glowGradient.addColorStop(0, 'rgba(184, 149, 108, 0.06)');
+      glowGradient.addColorStop(1, 'rgba(184, 149, 108, 0)');
+      
+      ctx.fillStyle = glowGradient;
+      ctx.beginPath();
+      ctx.arc(this.centerX, this.centerY, this.radius * 1.2, 0, Math.PI * 2);
+      ctx.fill();
+    }
     
-    ctx.fillStyle = glowGradient;
-    ctx.beginPath();
-    ctx.arc(this.centerX, this.centerY, this.radius * 1.3, 0, Math.PI * 2);
-    ctx.fill();
-    
-    // Globe base
+    // Globe base - simplified gradient
     const gradient = ctx.createRadialGradient(
       this.centerX - this.radius * 0.3,
       this.centerY - this.radius * 0.3,
@@ -129,7 +200,6 @@ class MinimalGlobe {
       this.radius
     );
     gradient.addColorStop(0, '#fdfcfa');
-    gradient.addColorStop(0.7, '#f5f0e8');
     gradient.addColorStop(1, '#ebe5db');
     
     ctx.fillStyle = gradient;
@@ -137,58 +207,73 @@ class MinimalGlobe {
     ctx.arc(this.centerX, this.centerY, this.radius, 0, Math.PI * 2);
     ctx.fill();
     
-    // Subtle border
+    // Border
     ctx.strokeStyle = this.colors.globeStroke;
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 1.5;
     ctx.stroke();
   }
   
   drawDots() {
     const ctx = this.ctx;
     
-    // Sort dots by z for proper layering
-    const projectedDots = this.dots.map(dot => {
+    // Pre-calculate visible dots
+    const visibleDots = [];
+    
+    for (const dot of this.dots) {
       const pos3d = this.latLngTo3D(dot.lat, dot.lng, this.radius);
       const projected = this.project(pos3d);
-      return { ...dot, ...projected };
-    }).filter(d => d.visible).sort((a, b) => a.z - b.z);
+      
+      if (projected.visible) {
+        visibleDots.push({
+          x: projected.x,
+          y: projected.y,
+          z: projected.z,
+          size: dot.size
+        });
+      }
+    }
     
-    projectedDots.forEach(dot => {
-      const alpha = 0.3 + (dot.z / this.radius) * 0.5;
-      ctx.fillStyle = `rgba(184, 149, 108, ${alpha * 0.6})`;
-      ctx.beginPath();
-      ctx.arc(dot.x, dot.y, dot.size * (0.8 + dot.z / this.radius * 0.4), 0, Math.PI * 2);
-      ctx.fill();
-    });
+    // Sort by z (back to front)
+    visibleDots.sort((a, b) => a.z - b.z);
+    
+    // Batch draw - single fill call
+    ctx.fillStyle = 'rgba(184, 149, 108, 0.4)';
+    ctx.beginPath();
+    
+    for (const dot of visibleDots) {
+      const size = dot.size * (0.8 + dot.z / this.radius * 0.4);
+      ctx.moveTo(dot.x + size, dot.y);
+      ctx.arc(dot.x, dot.y, size, 0, Math.PI * 2);
+    }
+    
+    ctx.fill();
   }
   
   drawCities() {
     const ctx = this.ctx;
     const moscow = this.cities[0];
     
-    this.cities.forEach((city, i) => {
+    for (const city of this.cities) {
       const pos3d = this.latLngTo3D(city.lat, city.lng, this.radius);
       const projected = this.project(pos3d);
       
-      if (!projected.visible) return;
+      if (!projected.visible) continue;
       
       const alpha = 0.5 + (projected.z / this.radius) * 0.5;
       
-      // Draw route from Moscow (if not Moscow itself)
-      if (!city.isCenter) {
+      // Draw route from Moscow - skip on mobile
+      if (!city.isCenter && !this.isMobile()) {
         const moscowPos = this.latLngTo3D(moscow.lat, moscow.lng, this.radius);
         const moscowProj = this.project(moscowPos);
         
-        if (moscowProj.visible && projected.visible) {
-          // Draw curved arc
-          ctx.strokeStyle = `rgba(184, 149, 108, ${alpha * 0.3})`;
-          ctx.lineWidth = 1.5;
-          ctx.setLineDash([4, 4]);
+        if (moscowProj.visible) {
+          ctx.strokeStyle = `rgba(184, 149, 108, ${alpha * 0.25})`;
+          ctx.lineWidth = 1;
+          ctx.setLineDash([3, 3]);
           ctx.beginPath();
           
-          // Simple quadratic curve
           const midX = (moscowProj.x + projected.x) / 2;
-          const midY = (moscowProj.y + projected.y) / 2 - 30;
+          const midY = (moscowProj.y + projected.y) / 2 - 20;
           
           ctx.moveTo(moscowProj.x, moscowProj.y);
           ctx.quadraticCurveTo(midX, midY, projected.x, projected.y);
@@ -198,22 +283,17 @@ class MinimalGlobe {
       }
       
       // City dot
-      const size = city.isCenter ? 8 : 5;
+      const size = city.isCenter ? 6 : 4;
       
-      // Glow
-      const glowGradient = ctx.createRadialGradient(
-        projected.x, projected.y, 0,
-        projected.x, projected.y, size * 3
-      );
-      glowGradient.addColorStop(0, `rgba(184, 149, 108, ${alpha * 0.4})`);
-      glowGradient.addColorStop(1, 'rgba(184, 149, 108, 0)');
+      // Glow - skip on mobile
+      if (!this.isMobile()) {
+        ctx.fillStyle = `rgba(184, 149, 108, ${alpha * 0.3})`;
+        ctx.beginPath();
+        ctx.arc(projected.x, projected.y, size * 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
       
-      ctx.fillStyle = glowGradient;
-      ctx.beginPath();
-      ctx.arc(projected.x, projected.y, size * 3, 0, Math.PI * 2);
-      ctx.fill();
-      
-      // Dot
+      // Main dot
       ctx.fillStyle = city.isCenter ? this.colors.dots : `rgba(184, 149, 108, ${alpha})`;
       ctx.beginPath();
       ctx.arc(projected.x, projected.y, size, 0, Math.PI * 2);
@@ -222,20 +302,23 @@ class MinimalGlobe {
       // White center
       ctx.fillStyle = '#fff';
       ctx.beginPath();
-      ctx.arc(projected.x, projected.y, size * 0.4, 0, Math.PI * 2);
+      ctx.arc(projected.x, projected.y, size * 0.35, 0, Math.PI * 2);
       ctx.fill();
-    });
+    }
   }
   
   drawGrid() {
-    const ctx = this.ctx;
-    ctx.strokeStyle = 'rgba(184, 149, 108, 0.08)';
-    ctx.lineWidth = 1;
+    // Skip on mobile
+    if (this.isMobile()) return;
     
-    // Latitude lines
-    for (let lat = -60; lat <= 60; lat += 30) {
+    const ctx = this.ctx;
+    ctx.strokeStyle = 'rgba(184, 149, 108, 0.06)';
+    ctx.lineWidth = 0.5;
+    
+    // Reduced lines
+    for (let lat = -45; lat <= 45; lat += 45) {
       ctx.beginPath();
-      for (let lng = 0; lng <= 360; lng += 5) {
+      for (let lng = 0; lng <= 360; lng += 10) {
         const pos3d = this.latLngTo3D(lat, lng, this.radius);
         const projected = this.project(pos3d);
         
@@ -247,51 +330,47 @@ class MinimalGlobe {
       }
       ctx.stroke();
     }
-    
-    // Longitude lines  
-    for (let lng = 0; lng < 360; lng += 30) {
-      ctx.beginPath();
-      let started = false;
-      for (let lat = -90; lat <= 90; lat += 5) {
-        const pos3d = this.latLngTo3D(lat, lng, this.radius);
-        const projected = this.project(pos3d);
-        
-        if (projected.visible) {
-          if (!started) {
-            ctx.moveTo(projected.x, projected.y);
-            started = true;
-          } else {
-            ctx.lineTo(projected.x, projected.y);
-          }
-        } else {
-          started = false;
-        }
-      }
-      ctx.stroke();
-    }
   }
   
-  animate() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  animate(currentTime = 0) {
+    if (!this.isRunning) return;
     
-    this.drawGlobe();
-    this.drawGrid();
-    this.drawDots();
-    this.drawCities();
+    // Frame rate limiting
+    const elapsed = currentTime - this.lastFrameTime;
     
-    // Slow rotation
-    this.rotation += 0.08;
+    if (elapsed >= this.frameInterval) {
+      this.lastFrameTime = currentTime - (elapsed % this.frameInterval);
+      
+      // Clear
+      this.ctx.clearRect(0, 0, this.size, this.size);
+      
+      // Draw layers
+      this.drawGlobe();
+      this.drawGrid();
+      this.drawDots();
+      this.drawCities();
+      
+      // Slow rotation
+      this.rotation += this.isMobile() ? 0.05 : 0.08;
+    }
     
-    requestAnimationFrame(() => this.animate());
+    this.animationId = requestAnimationFrame((time) => this.animate(time));
   }
 }
 
-// Initialize
+// Initialize with delay to not block initial render
 document.addEventListener('DOMContentLoaded', () => {
-  setTimeout(() => {
+  const initGlobe = () => {
     const canvas = document.getElementById('globe-canvas');
     if (canvas) {
       new MinimalGlobe('globe-canvas');
     }
-  }, 100);
+  };
+  
+  // Use requestIdleCallback if available
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(initGlobe, { timeout: 500 });
+  } else {
+    setTimeout(initGlobe, 200);
+  }
 });
