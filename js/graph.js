@@ -1,10 +1,9 @@
 // ========================================
-// VISANEWS2YOU - Smart Graph Visualization v3.1
-// Desktop: Original working tooltip logic
-// Mobile: Vertical categories + Bottom Sheet + Enhanced UX
+// VISANEWS2YOU - Smart Graph Visualization v4.0
+// Performance Optimized Version
 // ========================================
 
-// Twemoji flag URLs (Twitter emoji as SVG)
+// Twemoji flag URLs
 const flagUrls = {
   'PT': 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1f5-1f1f9.svg',
   'IT': 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1ee-1f1f9.svg',
@@ -18,7 +17,7 @@ const flagUrls = {
   'EU': 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1ea-1f1fa.svg',
 };
 
-// Данные узлов с Twemoji флагами
+// Node data
 const nodesData = [
   { id: 'center', label: 'VISANEWS2YOU', type: 'center', x: 50, y: 50, description: 'Ваш надёжный визовый партнёр', price: null, icon: '🌍', logo: 'https://i.ibb.co/9kVnKdnZ/visa.png', category: 'center' },
   { id: 'schengen', label: 'Шенген', type: 'category', x: 25, y: 32, description: 'Визы в страны Шенгенской зоны', price: null, icon: '🇪🇺', flag: 'EU', category: 'schengen' },
@@ -88,7 +87,7 @@ const nodesData = [
   { id: 'support', label: 'Поддержка', labelShort: 'Поддержка', type: 'feature', x: 75, y: 78, description: 'На связи 24/7 в любом мессенджере', price: null, icon: '🛟', category: 'services' },
 ];
 
-// Связи между узлами
+// Connections
 const connections = [
   { from: 'center', to: 'schengen' },
   { from: 'center', to: 'usa' },
@@ -111,7 +110,7 @@ const connections = [
   { from: 'uk', to: 'canada' },
 ];
 
-// Categories for mobile layout
+// Mobile categories
 const mobileCategories = [
   { id: 'schengen', label: 'Шенген', icon: '🇪🇺' },
   { id: 'premium', label: 'Premium', icon: '⭐' },
@@ -143,7 +142,7 @@ class SmartGraph {
   }
 
   // ==========================================
-  // MOBILE LAYOUT - Vertical categories + Bottom Sheet
+  // MOBILE LAYOUT
   // ==========================================
   createMobileLayout() {
     this.container.classList.add('graph-mobile');
@@ -178,8 +177,7 @@ class SmartGraph {
       
       const row = section.querySelector('.mobile-nodes-row');
       const categoryNodes = nodesData.filter(n => 
-        n.category === cat.id && 
-        n.type !== 'category'
+        n.category === cat.id && n.type !== 'category'
       );
       
       categoryNodes.forEach(node => {
@@ -201,24 +199,9 @@ class SmartGraph {
         
         row.appendChild(nodeEl);
       });
-
-      // Добавляем отслеживание скролла для fade-эффекта
-      this.initScrollFade(row, section);
     });
 
     this.createBottomSheet();
-  }
-
-  // Инициализация fade-эффекта при скролле
-  initScrollFade(row, section) {
-    const checkScrollEnd = () => {
-      const isAtEnd = row.scrollLeft + row.clientWidth >= row.scrollWidth - 10;
-      section.classList.toggle('scrolled-end', isAtEnd);
-    };
-
-    row.addEventListener('scroll', checkScrollEnd, { passive: true });
-    // Проверяем при инициализации
-    setTimeout(checkScrollEnd, 100);
   }
 
   createBottomSheet() {
@@ -257,9 +240,7 @@ class SmartGraph {
   showBottomSheet(node) {
     if (!this.bottomSheet) return;
 
-    // Подсказка теперь всегда видна - не скрываем
-    
-    // Mark all rows as interacted to stop pulse animation
+    // Mark rows as interacted
     document.querySelectorAll('.mobile-nodes-row').forEach(row => {
       row.classList.add('interacted');
     });
@@ -328,11 +309,7 @@ class SmartGraph {
       tariffs.style.display = 'none';
     }
     
-    if (node.type === 'country' || node.type === 'premium') {
-      btn.style.display = 'block';
-    } else {
-      btn.style.display = 'none';
-    }
+    btn.style.display = (node.type === 'country' || node.type === 'premium') ? 'block' : 'none';
     
     this.bottomSheet.classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -345,7 +322,7 @@ class SmartGraph {
   }
 
   // ==========================================
-  // DESKTOP LAYOUT - Original working logic
+  // DESKTOP LAYOUT
   // ==========================================
   createDesktopLayout() {
     this.createSVG();
@@ -443,6 +420,7 @@ class SmartGraph {
   // EVENT HANDLERS
   // ==========================================
   bindEvents() {
+    // Debounced resize
     let resizeTimeout;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimeout);
@@ -461,11 +439,10 @@ class SmartGraph {
         } else if (!this.isMobile) {
           this.updatePositions();
         }
-      }, 100);
-    });
+      }, 150);
+    }, { passive: true });
 
     if (this.isMobile) {
-      // Mobile: click opens bottom sheet
       this.container.addEventListener('click', (e) => {
         const nodeEl = e.target.closest('.mobile-node');
         if (nodeEl) {
@@ -476,7 +453,6 @@ class SmartGraph {
         }
       });
     } else {
-      // Desktop: hover shows tooltip
       this.nodes.forEach(el => {
         const nodeData = nodesData.find(n => n.id === el.dataset.id);
         
@@ -508,7 +484,6 @@ class SmartGraph {
     }
   }
 
-  // Smart tooltip positioning - NEVER covers the node
   calculateTooltipPosition(node, e) {
     const nodeEl = this.container.querySelector(`[data-id="${node.id}"]`);
     const nodeRect = nodeEl.getBoundingClientRect();
@@ -524,8 +499,6 @@ class SmartGraph {
 
     const spaceRight = viewport.width - nodeRect.right;
     const spaceLeft = nodeRect.left;
-    const spaceTop = nodeRect.top;
-    const spaceBottom = viewport.height - nodeRect.bottom;
 
     let position = { x: 0, y: 0, direction: 'right' };
 
@@ -539,18 +512,6 @@ class SmartGraph {
       position.x = nodeRect.right + offset;
       position.y = nodeRect.top + (nodeRect.height / 2) - (tooltipHeight / 2);
       position.direction = 'right';
-    } else if (spaceBottom >= tooltipHeight + padding) {
-      position.x = nodeRect.left + (nodeRect.width / 2) - (tooltipWidth / 2);
-      position.y = nodeRect.bottom + offset;
-      position.direction = 'bottom';
-    } else if (spaceTop >= tooltipHeight + padding) {
-      position.x = nodeRect.left + (nodeRect.width / 2) - (tooltipWidth / 2);
-      position.y = nodeRect.top - tooltipHeight - offset;
-      position.direction = 'top';
-    } else if (spaceLeft >= tooltipWidth + padding) {
-      position.x = nodeRect.left - tooltipWidth - offset;
-      position.y = nodeRect.top + (nodeRect.height / 2) - (tooltipHeight / 2);
-      position.direction = 'left';
     } else {
       position.x = nodeRect.right + offset;
       position.y = nodeRect.top + (nodeRect.height / 2) - (tooltipHeight / 2);
@@ -567,7 +528,6 @@ class SmartGraph {
     this.hoveredNode = node;
     this.currentTariff = selectedTariff;
     
-    // Highlight connected lines
     this.lines.forEach(line => {
       if (line.dataset.from === node.id || line.dataset.to === node.id) {
         line.classList.add('highlighted');
@@ -640,7 +600,7 @@ class SmartGraph {
         <a href="contacts.html" class="btn btn-accent tooltip-btn">
           Оставить заявку
           <span class="btn-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
           </span>
@@ -661,16 +621,14 @@ class SmartGraph {
       });
     }
 
-    if (!this.isMobile) {
-      const pos = this.calculateTooltipPosition(node, e);
-      
-      this.tooltip.classList.remove('position-left', 'position-right', 'position-top', 'position-bottom');
-      this.tooltip.classList.add(`position-${pos.direction}`);
-      
-      this.tooltip.style.left = pos.x + 'px';
-      this.tooltip.style.top = pos.y + 'px';
-      this.tooltip.style.transform = 'none';
-    }
+    const pos = this.calculateTooltipPosition(node, e);
+    
+    this.tooltip.classList.remove('position-left', 'position-right', 'position-top', 'position-bottom');
+    this.tooltip.classList.add(`position-${pos.direction}`);
+    
+    this.tooltip.style.left = pos.x + 'px';
+    this.tooltip.style.top = pos.y + 'px';
+    this.tooltip.style.transform = 'none';
 
     requestAnimationFrame(() => {
       this.tooltip.classList.add('active');
@@ -690,17 +648,7 @@ class SmartGraph {
   }
 }
 
-// Graph hint - теперь ВСЕГДА видна, не скрываем
-// Функция оставлена пустой для совместимости
-function hideGraphHint() {
-  // Ничего не делаем - подсказка всегда видна
-}
-
-// Initialize on page load
+// Initialize
 document.addEventListener('DOMContentLoaded', function() {
-  // Очищаем старые значения из storage
-  localStorage.removeItem('graphHintSeen');
-  sessionStorage.removeItem('graphHintSeen');
-
   new SmartGraph('graph-container');
 });
