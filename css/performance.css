@@ -1,0 +1,486 @@
+/* ========================================
+   VISANEWS2YOU - Performance Optimizations
+   Mobile-First Performance Fixes
+   ======================================== */
+
+/* ========================================
+   CRITICAL: GPU Acceleration & Containment
+   ======================================== */
+
+/* Force GPU layer for frequently animated elements */
+.hero-glass,
+.stat-card,
+.destination-card,
+.review-card,
+.step-item,
+.mobile-node,
+.orbital-flag,
+.header {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Layout containment for cards - prevents reflow propagation */
+.destination-card,
+.review-card,
+.step-item {
+  contain: layout style paint;
+}
+
+/* Strict containment for decorative elements */
+.grain-overlay,
+.hero-bg-decor,
+.wave-particle,
+.orbital-flag {
+  contain: strict;
+}
+
+/* ========================================
+   MOBILE PERFORMANCE OVERRIDES (< 900px)
+   ======================================== */
+
+@media (max-width: 900px) {
+  
+  /* ========================================
+     FIX #1: Remove ALL backdrop-filter on mobile
+     This is the #1 performance killer
+     ======================================== */
+  
+  .hero-glass,
+  .btn-secondary,
+  .btn-glass,
+  .destination-card,
+  .review-card,
+  .step-item,
+  .tooltip,
+  .header,
+  .header.scrolled::before,
+  .mobile-node,
+  .mobile-center-badge,
+  .graph-container,
+  .graph-node-center,
+  .graph-node-category,
+  .graph-node-country,
+  .graph-node-premium,
+  .graph-node-service,
+  .graph-node-feature,
+  .bottom-sheet-content {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  
+  /* Replace with solid backgrounds for glass effect simulation */
+  .hero-glass {
+    background: rgba(255, 255, 255, 0.95) !important;
+  }
+  
+  .header {
+    background: rgba(248, 249, 250, 0.98) !important;
+  }
+  
+  .destination-card,
+  .review-card {
+    background: rgba(255, 255, 255, 0.97) !important;
+  }
+  
+  .step-item {
+    background: #ffffff !important;
+  }
+  
+  .mobile-node {
+    background: #ffffff !important;
+  }
+  
+  .mobile-center-badge {
+    background: rgba(255, 255, 255, 0.97) !important;
+  }
+  
+  .graph-container {
+    background: rgba(255, 255, 255, 0.95) !important;
+  }
+  
+  .btn-secondary,
+  .btn-glass {
+    background: rgba(255, 255, 255, 0.95) !important;
+  }
+  
+  .bottom-sheet-content {
+    background: #ffffff !important;
+  }
+  
+  /* ========================================
+     FIX #2: Remove filter: blur() from animations
+     Use opacity-only transitions instead
+     ======================================== */
+  
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    /* REMOVED: filter: blur(8px) - causes heavy repaint */
+    filter: none !important;
+    transition:
+      opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+    filter: none !important;
+  }
+  
+  /* Simplified card reveal without blur */
+  .destination-card,
+  .review-card {
+    filter: none !important;
+  }
+  
+  /* Leader section - remove blur transitions */
+  .leader-wrapper.reveal .leader-image-wrapper,
+  .leader-wrapper.reveal .leader-content {
+    filter: none !important;
+  }
+  
+  /* ========================================
+     FIX #3: Pause/Simplify continuous animations
+     ======================================== */
+  
+  /* Pause orbital animations when not in viewport */
+  .orbital-flag {
+    animation-play-state: paused;
+  }
+  
+  .steps-visual.in-view .orbital-flag {
+    animation-play-state: running;
+  }
+  
+  /* Disable wave animations on mobile */
+  .wave-path-1,
+  .wave-path-2,
+  .wave-path-3 {
+    animation: none !important;
+  }
+  
+  /* Disable particle animations */
+  .wave-particle {
+    animation: none !important;
+    display: none !important;
+  }
+  
+  /* Disable hero background decorations animation */
+  .hero-bg-decor {
+    animation: none !important;
+  }
+  
+  /* Disable grain overlay on mobile - very expensive */
+  .grain-overlay {
+    display: none !important;
+  }
+  
+  /* Disable gradient shift animation */
+  .hero-bg::before {
+    animation: none !important;
+  }
+  
+  /* ========================================
+     FIX #4: Simplify box-shadows
+     ======================================== */
+  
+  .hero-glass {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+  }
+  
+  .stat-card {
+    box-shadow: 0 4px 16px rgba(184, 149, 108, 0.2) !important;
+  }
+  
+  .destination-card,
+  .review-card {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06) !important;
+  }
+  
+  .destination-card:hover,
+  .review-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
+  }
+  
+  .step-item {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+  }
+  
+  .mobile-node {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05) !important;
+  }
+  
+  .bottom-sheet-content {
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  /* ========================================
+     FIX #5: Disable hover transforms on touch
+     ======================================== */
+  
+  .destination-card:hover,
+  .review-card:hover,
+  .step-item:hover {
+    transform: none !important;
+  }
+  
+  .destination-card:hover .destination-card-flag,
+  .review-card:hover .review-avatar {
+    transform: none !important;
+  }
+  
+  /* ========================================
+     FIX #6: Optimize scroll containers
+     ======================================== */
+  
+  .mobile-nodes-row {
+    /* Enable momentum scrolling */
+    -webkit-overflow-scrolling: touch;
+    /* Prevent scroll chaining */
+    overscroll-behavior-x: contain;
+    /* GPU acceleration for scroll */
+    transform: translateZ(0);
+  }
+  
+  /* ========================================
+     FIX #7: Reduce paint complexity
+     ======================================== */
+  
+  /* Simplify gradients */
+  .hero-bg {
+    background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%) !important;
+  }
+  
+  .hero-bg::before {
+    display: none !important;
+  }
+  
+  /* Simplify button gradients */
+  .btn-primary {
+    background: var(--color-primary) !important;
+  }
+  
+  .btn-accent {
+    background: var(--color-accent) !important;
+  }
+  
+  /* Remove glow effects */
+  .btn-accent::before,
+  .btn-glass::before {
+    display: none !important;
+  }
+  
+  /* Remove card decorative pseudo-elements */
+  .destination-card::before,
+  .destination-card::after {
+    display: none !important;
+  }
+  
+  /* ========================================
+     FIX #8: Optimize images
+     ======================================== */
+  
+  .destination-card-flag,
+  .mobile-node-flag,
+  .orbital-flag img {
+    /* Prevent layout shift */
+    aspect-ratio: 1;
+    /* GPU layer */
+    transform: translateZ(0);
+  }
+  
+  /* ========================================
+     FIX #9: Reduce repaints during scroll
+     ======================================== */
+  
+  /* Fixed elements should be isolated */
+  .header,
+  .scroll-progress {
+    isolation: isolate;
+    contain: layout style;
+  }
+  
+  /* Hero hint - simplify */
+  .hero-hint {
+    display: none !important;
+  }
+  
+  /* ========================================
+     FIX #10: Optimize typography rendering
+     ======================================== */
+  
+  body {
+    text-rendering: optimizeSpeed;
+  }
+  
+  /* ========================================
+     FIX #11: Passive scroll optimizations
+     ======================================== */
+  
+  /* Disable smooth scroll on mobile for performance */
+  html {
+    scroll-behavior: auto;
+  }
+  
+  /* Main content area */
+  main,
+  .section {
+    contain: content;
+  }
+  
+  /* ========================================
+     FIX #12: Simplify mobile graph node animations
+     ======================================== */
+  
+  .mobile-node {
+    transition: transform 0.15s ease, opacity 0.15s ease !important;
+  }
+  
+  .mobile-node:active {
+    transform: scale(0.97) !important;
+    opacity: 0.9 !important;
+  }
+  
+  /* Remove pulse animation - causes repaints */
+  .mobile-nodes-row:not(.interacted) .mobile-node:first-child {
+    animation: none !important;
+  }
+  
+  /* Simplify hint animation */
+  .graph-hint-mobile {
+    animation: none !important;
+  }
+  
+  .graph-hint-icon {
+    animation: none !important;
+  }
+}
+
+/* ========================================
+   INTERSECTION OBSERVER OPTIMIZATIONS
+   Only animate when in viewport
+   ======================================== */
+
+@media (max-width: 900px) {
+  .destination-card,
+  .review-card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+  }
+  
+  .destination-card.in-view,
+  .review-card.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========================================
+   REDUCED MOTION PREFERENCES
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .orbital-flag,
+  .wave-particle,
+  .hero-bg-decor {
+    animation: none !important;
+  }
+}
+
+/* ========================================
+   LOW-END DEVICE DETECTION
+   For devices with limited GPU/CPU
+   ======================================== */
+
+@media (max-width: 900px) and (hover: none) and (pointer: coarse) {
+  /* Extra optimizations for touch-only devices (likely mobile) */
+  
+  /* Disable all non-essential animations */
+  .hero-line,
+  .hero-title,
+  .hero-subtitle,
+  .hero-buttons {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  
+  .hero-glass {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  
+  .stat-card {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  
+  /* Simplify globe section */
+  .globe-container::before {
+    display: none !important;
+  }
+}
+
+/* ========================================
+   TOUCH DEVICE CLASS (added by JS)
+   ======================================== */
+
+body.touch-device {
+  /* Disable hover states completely */
+  .destination-card:hover,
+  .review-card:hover,
+  .step-item:hover,
+  .btn:hover {
+    transform: none !important;
+  }
+}
+
+/* ========================================
+   LOW-END DEVICE CLASS (added by JS)
+   ======================================== */
+
+body.low-end-device {
+  /* Hide globe completely */
+  .globe-container {
+    display: none !important;
+  }
+  
+  /* Show simple placeholder instead */
+  .steps-visual::before {
+    content: '🌍';
+    font-size: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+  }
+  
+  /* Disable all orbital animations */
+  .orbital-flag {
+    display: none !important;
+  }
+  
+  .orbital-path {
+    display: none !important;
+  }
+  
+  /* Simplify everything */
+  * {
+    transition-duration: 0.1s !important;
+  }
+}
