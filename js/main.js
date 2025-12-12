@@ -1,7 +1,8 @@
 // ========================================
-// VISATOYOU - Main JavaScript v3.1
+// VISATOYOU - Main JavaScript v3.2
 // Premium Animations & Interactions
 // + Mobile Timeline Animation
+// + Hero Hint Visibility (Intersection Observer)
 // ========================================
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -18,8 +19,60 @@ document.addEventListener('DOMContentLoaded', function() {
   initDestinationAccordions();
   initTariffSwitches();
   initDestinationFilter();
-  initMobileTimeline(); // Новая функция для timeline
+  initMobileTimeline();
+  initHeroHintVisibility(); // Новая функция
 });
+
+// ========================================
+// Hero Hint Visibility (Intersection Observer)
+// ========================================
+
+function initHeroHintVisibility() {
+  const heroHint = document.querySelector('.hero-hint');
+  const heroSection = document.querySelector('.hero');
+  
+  if (!heroHint || !heroSection) return;
+  
+  // Скрываем на мобильных (там своя подсказка)
+  if (window.innerWidth < 900) {
+    heroHint.style.display = 'none';
+    return;
+  }
+  
+  // Intersection Observer - следим за Hero секцией
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
+        // Hero виден более чем на 30% - показываем hint
+        heroHint.classList.remove('hint-hidden');
+      } else {
+        // Hero почти не виден - скрываем hint
+        heroHint.classList.add('hint-hidden');
+      }
+    });
+  }, {
+    threshold: [0, 0.3, 0.5, 1], // Несколько точек для плавности
+    rootMargin: '0px'
+  });
+  
+  observer.observe(heroSection);
+  
+  // Также скрываем hint при первом взаимодействии с графом
+  const graphContainer = document.getElementById('graph-container');
+  if (graphContainer) {
+    let interacted = false;
+    
+    graphContainer.addEventListener('mouseenter', () => {
+      if (!interacted) {
+        interacted = true;
+        // Скрываем через 3 секунды после первого взаимодействия
+        setTimeout(() => {
+          heroHint.classList.add('hint-hidden');
+        }, 3000);
+      }
+    }, { once: false });
+  }
+}
 
 // ========================================
 // Grain Texture Overlay
