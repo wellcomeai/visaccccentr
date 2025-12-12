@@ -1060,16 +1060,53 @@
 }
 
 /* ========================================
-   AIRPLANE DIVIDER
+   HORIZON LINE DIVIDER - Premium Minimal
    ======================================== */
 
 .airplane-divider {
   position: relative;
-  height: 80px;
+  height: 100px;
   overflow: hidden;
   background: linear-gradient(180deg, var(--color-bg-light) 0%, var(--color-bg-warm) 100%);
 }
 
+/* Subtle glow under the line */
+.airplane-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(184, 149, 108, 0.08) 20%, 
+    rgba(184, 149, 108, 0.12) 50%, 
+    rgba(184, 149, 108, 0.08) 80%, 
+    transparent 100%
+  );
+  transform: translateY(-50%);
+  filter: blur(8px);
+}
+
+/* Main gradient line */
+.divider-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(184, 149, 108, 0.2) 10%,
+    rgba(184, 149, 108, 0.5) 50%,
+    rgba(184, 149, 108, 0.2) 90%,
+    transparent 100%
+  );
+  transform: translateY(-50%);
+}
+
+/* Airplane track container */
 .airplane-track {
   position: absolute;
   top: 50%;
@@ -1079,47 +1116,86 @@
   height: 40px;
 }
 
+/* Airplane with trail */
 .airplane-icon {
   position: absolute;
-  color: var(--color-accent);
-  animation: flyPlane 8s linear infinite;
-  filter: drop-shadow(0 4px 8px rgba(184, 149, 108, 0.3));
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  animation: horizonFly 30s linear infinite;
+  will-change: left;
+}
+
+/* Trail effect behind airplane */
+.airplane-icon::before {
+  content: '';
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(184, 149, 108, 0.6) 100%
+  );
+  border-radius: 1px;
+}
+
+/* Subtle glow around airplane */
+.airplane-icon::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  background: radial-gradient(circle, rgba(184, 149, 108, 0.25) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
 }
 
 .airplane-icon svg {
-  transform: scaleX(-1); /* Flip to fly right-to-left */
+  width: 18px;
+  height: 18px;
+  color: var(--color-accent);
+  filter: drop-shadow(0 2px 4px rgba(184, 149, 108, 0.3));
+  /* Rotate to fly horizontally to the right */
+  transform: rotate(90deg);
 }
 
-@keyframes flyPlane {
+/* Smooth 30-second animation */
+@keyframes horizonFly {
   0% {
-    right: -50px;
+    left: -5%;
     opacity: 0;
   }
-  5% {
+  3% {
     opacity: 1;
   }
-  95% {
+  97% {
     opacity: 1;
   }
   100% {
-    right: calc(100% + 50px);
+    left: 105%;
     opacity: 0;
   }
 }
 
-.divider-line {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg,
-    transparent 0%,
-    var(--color-accent-light) 20%,
-    var(--color-accent) 50%,
-    var(--color-accent-light) 80%,
-    transparent 100%
-  );
-  transform: translateY(-50%);
-  opacity: 0.4;
+/* Mobile adjustments */
+@media (max-width: 900px) {
+  .airplane-divider {
+    height: 80px;
+  }
+  
+  .airplane-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .airplane-icon::before {
+    width: 50px;
+  }
 }
