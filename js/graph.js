@@ -257,8 +257,7 @@ class SmartGraph {
   showBottomSheet(node) {
     if (!this.bottomSheet) return;
 
-    // Hide the hint when user interacts
-    hideGraphHint();
+    // Подсказка теперь всегда видна - не скрываем
     
     // Mark all rows as interacted to stop pulse animation
     document.querySelectorAll('.mobile-nodes-row').forEach(row => {
@@ -691,26 +690,17 @@ class SmartGraph {
   }
 }
 
-// Hide graph hint function
+// Graph hint - теперь ВСЕГДА видна, не скрываем
+// Функция оставлена пустой для совместимости
 function hideGraphHint() {
-  const hint = document.getElementById('graphHintMobile');
-  if (hint && !hint.classList.contains('hidden')) {
-    hint.classList.add('hidden');
-    // Сохраняем в sessionStorage вместо localStorage — будет показываться при каждом новом визите
-    sessionStorage.setItem('graphHintSeen', 'true');
-  }
+  // Ничего не делаем - подсказка всегда видна
 }
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
-  // Проверяем только sessionStorage (сбрасывается при закрытии браузера)
-  // Также очищаем старое значение из localStorage
+  // Очищаем старые значения из storage
   localStorage.removeItem('graphHintSeen');
-  
-  if (sessionStorage.getItem('graphHintSeen') === 'true') {
-    const hint = document.getElementById('graphHintMobile');
-    if (hint) hint.classList.add('hidden');
-  }
+  sessionStorage.removeItem('graphHintSeen');
 
   new SmartGraph('graph-container');
 });
