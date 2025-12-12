@@ -512,18 +512,34 @@
   }
 
   /* Steps mobile - vertical layout with cards */
+  .steps-section {
+    overflow: hidden; /* Предотвращаем выход за границы */
+  }
+
+  .steps-wrapper {
+    overflow: visible;
+  }
+
+  .steps-content {
+    padding: 0 4px; /* Небольшой отступ от краёв */
+  }
+
   .steps-list {
     gap: 16px;
+    padding: 0; /* Убираем лишние отступы */
   }
 
   .step-item {
-    padding: 20px;
+    padding: 18px 16px;
     background: #fff;
     border-radius: 16px;
     border: 1px solid rgba(0, 0, 0, 0.06);
     box-shadow:
       0 2px 8px rgba(0, 0, 0, 0.04),
       0 4px 16px rgba(0, 0, 0, 0.04);
+    margin: 0; /* Убираем margin */
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .step-item:hover {
