@@ -1,11 +1,13 @@
 // ========================================
-// VISATOYOU - Main JavaScript v3.2
-// Premium Animations & Interactions
-// + Mobile Timeline Animation
-// + Hero Hint Visibility (Intersection Observer)
+// VISANEWS2YOU - Main JavaScript v4.0
+// Performance Optimized Version
 // ========================================
 
 document.addEventListener('DOMContentLoaded', function() {
+  // Performance utilities first
+  initPerformanceOptimizations();
+  
+  // Then initialize features
   initGrainOverlay();
   initScrollProgress();
   initBurgerMenu();
@@ -14,78 +16,232 @@ document.addEventListener('DOMContentLoaded', function() {
   initRevealOnScroll();
   initParallax();
   initButtonEffects();
-  initCardSwiper();
-  initStepsScrollIndicator();
   initDestinationAccordions();
   initTariffSwitches();
   initDestinationFilter();
-  initMobileTimeline();
-  initHeroHintVisibility(); // Новая функция
+  initOrbitalVisibility();
+  initMobileOptimizations();
 });
 
 // ========================================
-// Hero Hint Visibility (Intersection Observer)
+// PERFORMANCE UTILITIES
 // ========================================
 
-function initHeroHintVisibility() {
-  const heroHint = document.querySelector('.hero-hint');
-  const heroSection = document.querySelector('.hero');
-  
-  if (!heroHint || !heroSection) return;
-  
-  // Скрываем на мобильных (там своя подсказка)
-  if (window.innerWidth < 900) {
-    heroHint.style.display = 'none';
-    return;
+const isMobile = () => window.innerWidth < 900;
+
+const isLowEndDevice = () => {
+  return navigator.hardwareConcurrency <= 4 || 
+         navigator.deviceMemory <= 4 ||
+         /Android [4-6]/.test(navigator.userAgent);
+};
+
+// Throttle function - limits execution frequency
+function throttle(func, limit) {
+  let inThrottle;
+  return function(...args) {
+    if (!inThrottle) {
+      func.apply(this, args);
+      inThrottle = true;
+      setTimeout(() => inThrottle = false, limit);
+    }
+  };
+}
+
+// Debounce function - delays execution until pause
+function debounce(func, wait) {
+  let timeout;
+  return function(...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
+  };
+}
+
+// Single global IntersectionObserver for performance
+class PerformantObserver {
+  constructor() {
+    this.callbacks = new Map();
+    this.observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          const callback = this.callbacks.get(entry.target);
+          if (callback) {
+            callback(entry.isIntersecting, entry);
+          }
+        });
+      },
+      {
+        rootMargin: '50px 0px',
+        threshold: [0, 0.1, 0.5]
+      }
+    );
   }
   
-  // Intersection Observer - следим за Hero секцией
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
-        // Hero виден более чем на 30% - показываем hint
-        heroHint.classList.remove('hint-hidden');
-      } else {
-        // Hero почти не виден - скрываем hint
-        heroHint.classList.add('hint-hidden');
-      }
-    });
-  }, {
-    threshold: [0, 0.3, 0.5, 1], // Несколько точек для плавности
-    rootMargin: '0px'
-  });
+  observe(element, callback) {
+    if (!element) return;
+    this.callbacks.set(element, callback);
+    this.observer.observe(element);
+  }
   
-  observer.observe(heroSection);
-  
-  // Также скрываем hint при первом взаимодействии с графом
-  const graphContainer = document.getElementById('graph-container');
-  if (graphContainer) {
-    let interacted = false;
-    
-    graphContainer.addEventListener('mouseenter', () => {
-      if (!interacted) {
-        interacted = true;
-        // Скрываем через 3 секунды после первого взаимодействия
-        setTimeout(() => {
-          heroHint.classList.add('hint-hidden');
-        }, 3000);
-      }
-    }, { once: false });
+  unobserve(element) {
+    if (!element) return;
+    this.callbacks.delete(element);
+    this.observer.unobserve(element);
   }
 }
 
+let globalObserver = null;
+
+// Optimized scroll handler with RAF
+class OptimizedScrollHandler {
+  constructor() {
+    this.callbacks = [];
+    this.ticking = false;
+    this.lastScrollY = 0;
+    
+    window.addEventListener('scroll', () => {
+      this.lastScrollY = window.scrollY;
+      this.requestTick();
+    }, { passive: true });
+  }
+  
+  requestTick() {
+    if (!this.ticking) {
+      requestAnimationFrame(() => {
+        this.update();
+        this.ticking = false;
+      });
+      this.ticking = true;
+    }
+  }
+  
+  update() {
+    const scrollY = this.lastScrollY;
+    this.callbacks.forEach(cb => cb(scrollY));
+  }
+  
+  add(callback) {
+    this.callbacks.push(callback);
+  }
+}
+
+let scrollHandler = null;
+
 // ========================================
-// Grain Texture Overlay
+// PERFORMANCE INITIALIZATION
+// ========================================
+
+function initPerformanceOptimizations() {
+  globalObserver = new PerformantObserver();
+  scrollHandler = new OptimizedScrollHandler();
+  
+  // Add device classes
+  if (isMobile()) {
+    document.body.classList.add('touch-device');
+  }
+  
+  if (isLowEndDevice()) {
+    document.body.classList.add('low-end-device');
+    console.log('Low-end device detected, applying extra optimizations');
+  }
+  
+  // Memory management - pause animations when page hidden
+  document.addEventListener('visibilitychange', () => {
+    const orbitalFlags = document.querySelectorAll('.orbital-flag');
+    if (document.hidden) {
+      orbitalFlags.forEach(flag => {
+        flag.style.animationPlayState = 'paused';
+      });
+    }
+  });
+}
+
+// ========================================
+// MOBILE SPECIFIC OPTIMIZATIONS
+// ========================================
+
+function initMobileOptimizations() {
+  if (!isMobile()) return;
+  
+  // Remove grain overlay on mobile
+  const grain = document.querySelector('.grain-overlay');
+  if (grain) grain.remove();
+  
+  // Remove wave particles
+  const particles = document.querySelectorAll('.wave-particle');
+  particles.forEach(p => p.remove());
+  
+  // Optimize mobile graph scroll
+  const scrollRows = document.querySelectorAll('.mobile-nodes-row');
+  scrollRows.forEach(row => {
+    const category = row.closest('.mobile-category');
+    
+    const handleScroll = throttle(() => {
+      const isAtEnd = row.scrollLeft + row.clientWidth >= row.scrollWidth - 10;
+      if (category) {
+        category.classList.toggle('scrolled-end', isAtEnd);
+      }
+    }, 100);
+    
+    row.addEventListener('scroll', handleScroll, { passive: true });
+  });
+  
+  // Add touch feedback
+  const interactiveElements = document.querySelectorAll('.btn, .mobile-node');
+  interactiveElements.forEach(el => {
+    el.addEventListener('touchstart', () => {
+      el.style.opacity = '0.9';
+    }, { passive: true });
+    
+    el.addEventListener('touchend', () => {
+      el.style.opacity = '';
+    }, { passive: true });
+  });
+}
+
+// ========================================
+// ORBITAL FLAGS VISIBILITY
+// ========================================
+
+function initOrbitalVisibility() {
+  const stepsVisual = document.querySelector('.steps-visual');
+  const orbitalFlags = document.querySelectorAll('.orbital-flag');
+  
+  if (!stepsVisual || !orbitalFlags.length) return;
+  
+  // Start paused on mobile
+  if (isMobile()) {
+    orbitalFlags.forEach(flag => {
+      flag.style.animationPlayState = 'paused';
+    });
+  }
+  
+  globalObserver.observe(stepsVisual, (isVisible) => {
+    requestAnimationFrame(() => {
+      stepsVisual.classList.toggle('in-view', isVisible);
+      if (isMobile()) {
+        orbitalFlags.forEach(flag => {
+          flag.style.animationPlayState = isVisible ? 'running' : 'paused';
+        });
+      }
+    });
+  });
+}
+
+// ========================================
+// GRAIN TEXTURE OVERLAY
 // ========================================
 
 function initGrainOverlay() {
+  // Skip on mobile - handled by CSS/initMobileOptimizations
+  if (isMobile()) return;
+  
   const grain = document.createElement('div');
   grain.className = 'grain-overlay';
   document.body.appendChild(grain);
 }
 
 // ========================================
-// Scroll Progress Indicator
+// SCROLL PROGRESS INDICATOR
 // ========================================
 
 function initScrollProgress() {
@@ -93,31 +249,30 @@ function initScrollProgress() {
   progress.className = 'scroll-progress';
   document.body.appendChild(progress);
 
-  let ticking = false;
+  let scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+  
+  // Update on resize
+  const updateScrollHeight = debounce(() => {
+    scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+  }, 200);
+  
+  window.addEventListener('resize', updateScrollHeight, { passive: true });
 
-  function updateProgress() {
-    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrolled = window.scrollY;
-    const progressValue = scrollHeight > 0 ? scrolled / scrollHeight : 0;
-    progress.style.transform = `scaleX(${progressValue})`;
-    ticking = false;
-  }
-
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(updateProgress);
-      ticking = true;
+  scrollHandler.add((scrollY) => {
+    if (scrollHeight > 0) {
+      const progressValue = scrollY / scrollHeight;
+      progress.style.transform = `scaleX(${progressValue})`;
     }
-  }, { passive: true });
+  });
 }
 
 // ========================================
-// Smooth Parallax System
+// SMOOTH PARALLAX SYSTEM
 // ========================================
 
 function initParallax() {
-  // Only on desktop
-  if (window.innerWidth < 900) return;
+  // Skip on mobile
+  if (isMobile()) return;
 
   const parallaxElements = [
     { el: document.querySelector('.hero-bg-decor-1'), speed: 0.15 },
@@ -127,16 +282,16 @@ function initParallax() {
 
   if (parallaxElements.length === 0) return;
 
-  let scrollY = 0;
   let currentY = 0;
   const ease = 0.06;
-  let rafId = null;
 
   function lerp(start, end, factor) {
     return start + (end - start) * factor;
   }
 
-  function updateParallax() {
+  let rafId = null;
+  
+  function updateParallax(scrollY) {
     currentY = lerp(currentY, scrollY, ease);
 
     parallaxElements.forEach(item => {
@@ -144,50 +299,43 @@ function initParallax() {
       item.el.style.transform = `translate3d(0, ${yPos}px, 0)`;
     });
 
-    // Continue animation if there's still movement
     if (Math.abs(currentY - scrollY) > 0.1) {
-      rafId = requestAnimationFrame(updateParallax);
+      rafId = requestAnimationFrame(() => updateParallax(scrollY));
     } else {
       rafId = null;
     }
   }
 
-  window.addEventListener('scroll', () => {
-    scrollY = window.scrollY;
+  scrollHandler.add((scrollY) => {
     if (!rafId) {
-      rafId = requestAnimationFrame(updateParallax);
+      rafId = requestAnimationFrame(() => updateParallax(scrollY));
     }
-  }, { passive: true });
+  });
 }
 
 // ========================================
-// Button Ripple & Glow Effects
+// BUTTON EFFECTS
 // ========================================
 
 function initButtonEffects() {
+  // Skip magnetic effect on mobile
+  if (isMobile()) return;
+  
   const buttons = document.querySelectorAll('.btn');
 
   buttons.forEach(btn => {
-    // Track mouse position for ripple effect
     btn.addEventListener('mousemove', (e) => {
       const rect = btn.getBoundingClientRect();
       const x = ((e.clientX - rect.left) / rect.width) * 100;
       const y = ((e.clientY - rect.top) / rect.height) * 100;
       btn.style.setProperty('--mouse-x', x + '%');
       btn.style.setProperty('--mouse-y', y + '%');
-    });
-
-    // Magnetic effect on hover (subtle)
-    btn.addEventListener('mousemove', (e) => {
-      if (window.innerWidth < 900) return;
       
-      const rect = btn.getBoundingClientRect();
+      // Subtle magnetic effect
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
-      
       const deltaX = (e.clientX - centerX) * 0.1;
       const deltaY = (e.clientY - centerY) * 0.1;
-      
       btn.style.transform = `translate(${deltaX}px, ${deltaY}px) translateY(-3px)`;
     });
 
@@ -198,46 +346,7 @@ function initButtonEffects() {
 }
 
 // ========================================
-// Card Swiper (Mobile Touch)
-// ========================================
-
-function initCardSwiper() {
-  if (window.innerWidth > 900) return;
-
-  const cards = document.querySelectorAll('.destination-card, .review-card');
-  
-  cards.forEach(card => {
-    let startX = 0;
-    let currentX = 0;
-    let isDragging = false;
-
-    card.addEventListener('touchstart', (e) => {
-      startX = e.touches[0].clientX;
-      isDragging = true;
-      card.style.transition = 'none';
-    }, { passive: true });
-
-    card.addEventListener('touchmove', (e) => {
-      if (!isDragging) return;
-      
-      currentX = e.touches[0].clientX - startX;
-      const maxMove = 30;
-      const move = Math.max(-maxMove, Math.min(maxMove, currentX * 0.3));
-      const rotation = move * 0.08;
-      
-      card.style.transform = `translateX(${move}px) rotate(${rotation}deg)`;
-    }, { passive: true });
-
-    card.addEventListener('touchend', () => {
-      isDragging = false;
-      card.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
-      card.style.transform = '';
-    });
-  });
-}
-
-// ========================================
-// Burger Menu
+// BURGER MENU
 // ========================================
 
 function initBurgerMenu() {
@@ -252,7 +361,6 @@ function initBurgerMenu() {
     document.body.classList.toggle('menu-open');
   });
 
-  // Close on link click
   const mobileLinks = mobileMenu.querySelectorAll('.mobile-nav-link');
   mobileLinks.forEach(link => {
     link.addEventListener('click', function() {
@@ -262,7 +370,6 @@ function initBurgerMenu() {
     });
   });
 
-  // Close on Escape
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
       burger.classList.remove('active');
@@ -273,7 +380,7 @@ function initBurgerMenu() {
 }
 
 // ========================================
-// Active Navigation Links
+// ACTIVE NAVIGATION LINKS
 // ========================================
 
 function initActiveNavLinks() {
@@ -288,139 +395,77 @@ function initActiveNavLinks() {
 }
 
 // ========================================
-// Header Scroll Effect
+// HEADER SCROLL EFFECT
 // ========================================
 
 function initHeaderScroll() {
   const header = document.querySelector('.header');
   if (!header) return;
 
-  let ticking = false;
+  let isScrolled = false;
 
-  function updateHeader() {
-    const currentScroll = window.pageYOffset;
+  scrollHandler.add((scrollY) => {
+    const shouldBeScrolled = scrollY > 50;
     
-    if (currentScroll > 50) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
+    if (shouldBeScrolled !== isScrolled) {
+      isScrolled = shouldBeScrolled;
+      requestAnimationFrame(() => {
+        header.classList.toggle('scrolled', isScrolled);
+      });
     }
-    
-    ticking = false;
-  }
-
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(updateHeader);
-      ticking = true;
-    }
-  }, { passive: true });
+  });
 }
 
 // ========================================
-// Reveal on Scroll Animation - Enhanced
+// REVEAL ON SCROLL ANIMATION - Optimized
 // ========================================
 
 function initRevealOnScroll() {
   const reveals = document.querySelectorAll('.reveal');
   if (!reveals.length) return;
 
-  const observerOptions = {
-    threshold: 0.15,
-    rootMargin: '0px 0px -80px 0px'
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        // Add visible class with slight delay for stagger effect
-        entry.target.classList.add('visible');
-        
-        // Animate children with stagger
-        const children = entry.target.querySelectorAll('.step-item, .destination-card, .review-card');
-        children.forEach((child, index) => {
-          child.style.transitionDelay = `${index * 0.1}s`;
-          child.classList.add('visible');
+  reveals.forEach(el => {
+    globalObserver.observe(el, (isVisible) => {
+      if (isVisible) {
+        requestAnimationFrame(() => {
+          el.classList.add('visible');
         });
-        
-        // Unobserve after animation
-        observer.unobserve(entry.target);
+        globalObserver.unobserve(el);
       }
     });
-  }, observerOptions);
+  });
 
-  reveals.forEach(el => observer.observe(el));
-
-  // Also observe individual cards for grid stagger
+  // Cards with stagger effect
   const cards = document.querySelectorAll('.destination-card, .review-card');
-  const cardObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0) scale(1)';
-        entry.target.style.filter = 'blur(0)';
-        cardObserver.unobserve(entry.target);
-      }
-    });
-  }, {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  });
-
-  cards.forEach((card, index) => {
-    // Set initial state
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(40px) scale(0.96)';
-    card.style.filter = 'blur(6px)';
-    card.style.transition = `
-      opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${index % 4 * 0.1}s,
-      transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) ${index % 4 * 0.1}s,
-      filter 0.6s ease-out ${index % 4 * 0.1}s
-    `;
-    cardObserver.observe(card);
-  });
-}
-
-// ========================================
-// Mobile Timeline Animation (NEW)
-// ========================================
-
-function initMobileTimeline() {
-  // Только для мобильной версии
-  if (window.innerWidth > 900) return;
-
-  const stepsList = document.querySelector('.steps-list');
-  const stepItems = document.querySelectorAll('.step-item');
   
-  if (!stepsList || !stepItems.length) return;
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        // Запускаем анимацию timeline линии
-        stepsList.classList.add('timeline-animated');
-        
-        // Анимируем каждую карточку с задержкой
-        stepItems.forEach((item, index) => {
-          setTimeout(() => {
-            item.classList.add('step-animated');
-          }, 100 + (index * 150));
-        });
-        
-        // Отключаем observer после первой анимации
-        observer.unobserve(entry.target);
-      }
+  // Batch initial styles
+  requestAnimationFrame(() => {
+    cards.forEach((card, index) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(30px)';
+      card.style.transition = `
+        opacity 0.5s ease-out ${(index % 4) * 0.08}s,
+        transform 0.5s ease-out ${(index % 4) * 0.08}s
+      `;
     });
-  }, {
-    threshold: 0.2,
-    rootMargin: '0px 0px -100px 0px'
   });
 
-  observer.observe(stepsList);
+  cards.forEach(card => {
+    globalObserver.observe(card, (isVisible) => {
+      if (isVisible) {
+        requestAnimationFrame(() => {
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+          card.classList.add('in-view');
+        });
+        globalObserver.unobserve(card);
+      }
+    });
+  });
 }
 
 // ========================================
-// Smooth Scroll
+// SMOOTH SCROLL
 // ========================================
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -429,7 +474,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     const target = document.querySelector(this.getAttribute('href'));
     if (target) {
       target.scrollIntoView({
-        behavior: 'smooth',
+        behavior: isMobile() ? 'auto' : 'smooth',
         block: 'start'
       });
     }
@@ -437,7 +482,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // ========================================
-// Performance: Reduce motion for users who prefer it
+// REDUCED MOTION PREFERENCE
 // ========================================
 
 if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -447,40 +492,7 @@ if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
 }
 
 // ========================================
-// Steps Scroll Indicator (Mobile)
-// ========================================
-
-function initStepsScrollIndicator() {
-  const stepsList = document.querySelector('.steps-list');
-  const dots = document.querySelectorAll('.steps-dot');
-
-  if (!stepsList || !dots.length || window.innerWidth > 900) return;
-
-  stepsList.addEventListener('scroll', () => {
-    const scrollLeft = stepsList.scrollLeft;
-    const cardWidth = 280 + 16; // card width + gap
-    const currentIndex = Math.round(scrollLeft / cardWidth);
-
-    dots.forEach((dot, index) => {
-      dot.classList.toggle('active', index === currentIndex);
-    });
-  }, { passive: true });
-
-  // Click on dot to scroll
-  dots.forEach(dot => {
-    dot.addEventListener('click', () => {
-      const index = parseInt(dot.dataset.step);
-      const cardWidth = 280 + 16;
-      stepsList.scrollTo({
-        left: index * cardWidth,
-        behavior: 'smooth'
-      });
-    });
-  });
-}
-
-// ========================================
-// Destination Accordions
+// DESTINATION ACCORDIONS
 // ========================================
 
 function initDestinationAccordions() {
@@ -493,7 +505,7 @@ function initDestinationAccordions() {
 }
 
 // ========================================
-// Tariff Switches
+// TARIFF SWITCHES
 // ========================================
 
 function initTariffSwitches() {
@@ -502,17 +514,14 @@ function initTariffSwitches() {
       const card = btn.closest('.destination-card');
       const tariff = btn.dataset.tariff;
 
-      // Update active button
       card.querySelectorAll('.tariff-switch-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
-      // Update price
       const priceEl = card.querySelector('.destination-card-price-value');
       if (priceEl && priceEl.dataset[tariff]) {
         priceEl.textContent = priceEl.dataset[tariff];
       }
 
-      // Update features visibility
       const goldFeatures = card.querySelector('.included-list:not(.premium-only)');
       const premiumFeatures = card.querySelector('.included-list.premium-only');
 
@@ -525,7 +534,7 @@ function initTariffSwitches() {
 }
 
 // ========================================
-// Destination Filter
+// DESTINATION FILTER
 // ========================================
 
 function initDestinationFilter() {
@@ -538,20 +547,18 @@ function initDestinationFilter() {
     btn.addEventListener('click', () => {
       const filter = btn.dataset.filter;
 
-      // Update active button
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
-      // Filter cards
-      cards.forEach(card => {
-        const category = card.dataset.category;
-        if (filter === 'all' || category === filter) {
-          card.style.display = '';
-          card.style.opacity = '1';
-          card.style.transform = '';
-        } else {
-          card.style.display = 'none';
-        }
+      requestAnimationFrame(() => {
+        cards.forEach(card => {
+          const category = card.dataset.category;
+          if (filter === 'all' || category === filter) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
       });
     });
   });
