@@ -548,40 +548,41 @@
   transform: translate(-50%, -50%);
   width: 100%;
   height: 100%;
-  border: 1px dashed rgba(184, 149, 108, 0.2);
+  border: 1px dashed rgba(184, 149, 108, 0.25);
   border-radius: 50%;
 }
 
-/* Airplane orbit */
+/* Airplane orbit - 40 seconds, smooth flight */
 .orbital-airplane {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 36px;
-  height: 36px;
-  margin-left: -18px;
-  margin-top: -18px;
-  animation: orbitAirplane 20s linear infinite;
+  width: 32px;
+  height: 32px;
+  margin-left: -16px;
+  margin-top: -16px;
+  animation: orbitAirplane 40s ease-in-out infinite;
   z-index: 10;
 }
 
 .orbital-airplane svg {
   width: 100%;
   height: 100%;
-  filter: drop-shadow(0 4px 8px rgba(184, 149, 108, 0.4));
+  filter: drop-shadow(0 4px 12px rgba(184, 149, 108, 0.5));
   color: var(--color-accent);
 }
 
+/* Airplane orbit animation - nose follows direction of flight */
 @keyframes orbitAirplane {
   0% {
-    transform: rotate(0deg) translateX(240px) rotate(-90deg);
+    transform: rotate(0deg) translateX(240px) rotate(0deg);
   }
   100% {
-    transform: rotate(360deg) translateX(240px) rotate(-90deg);
+    transform: rotate(360deg) translateX(240px) rotate(0deg);
   }
 }
 
-/* Flags orbit container */
+/* Flags orbit container - slow rotation */
 .orbital-flags {
   position: absolute;
   top: 50%;
@@ -589,7 +590,7 @@
   transform: translate(-50%, -50%);
   width: 100%;
   height: 100%;
-  animation: orbitFlags 60s linear infinite;
+  animation: orbitFlags 80s linear infinite;
 }
 
 @keyframes orbitFlags {
@@ -604,9 +605,9 @@
 /* Individual flag items */
 .orbital-flag {
   position: absolute;
-  width: 32px;
-  height: 32px;
-  background: rgba(255, 255, 255, 0.9);
+  width: 30px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(8px);
   border-radius: 50%;
   padding: 4px;
@@ -615,7 +616,7 @@
   align-items: center;
   justify-content: center;
   /* Counter-rotate to keep flags upright */
-  animation: counterRotate 60s linear infinite;
+  animation: counterRotate 80s linear infinite;
 }
 
 @keyframes counterRotate {
@@ -628,149 +629,73 @@
 }
 
 .orbital-flag img {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   border-radius: 2px;
 }
 
-/* Position flags around the orbit */
+/* Position 9 flags evenly around the orbit (40 degrees apart) */
+/* Flag 1 - Portugal (0°) */
 .orbital-flag:nth-child(1) {
   top: 0;
   left: 50%;
-  margin-left: -16px;
-  margin-top: -16px;
+  transform: translate(-50%, -50%);
 }
 
+/* Flag 2 - Italy (40°) */
 .orbital-flag:nth-child(2) {
-  top: 50%;
-  right: 0;
-  margin-right: -16px;
-  margin-top: -16px;
+  top: 11.7%;
+  right: 11.7%;
+  transform: translate(50%, -50%);
 }
 
+/* Flag 3 - France (80°) */
 .orbital-flag:nth-child(3) {
-  bottom: 0;
-  left: 50%;
-  margin-left: -16px;
-  margin-bottom: -16px;
-}
-
-.orbital-flag:nth-child(4) {
-  top: 50%;
-  left: 0;
-  margin-left: -16px;
-  margin-top: -16px;
-}
-
-/* ========================================
-   FLOATING DOCUMENTS
-   ======================================== */
-
-.floating-documents {
-  position: absolute;
-  top: 0;
-  left: 0;
+  top: 41.3%;
   right: 0;
-  bottom: 0;
-  pointer-events: none;
-  z-index: 5;
+  transform: translate(50%, -50%);
 }
 
-.floating-doc {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(184, 149, 108, 0.2);
-  border-radius: 12px;
-  padding: 12px;
-  box-shadow: 0 8px 32px rgba(184, 149, 108, 0.15);
-  opacity: 0;
-  animation: floatDocAppear 0.8s var(--ease-out) forwards;
+/* Flag 4 - Germany (120°) */
+.orbital-flag:nth-child(4) {
+  top: 75%;
+  right: 6.7%;
+  transform: translate(50%, -50%);
 }
 
-.floating-doc svg,
-.floating-doc img {
-  width: 28px;
-  height: 28px;
+/* Flag 5 - Greece (160°) */
+.orbital-flag:nth-child(5) {
+  bottom: 6.7%;
+  right: 25%;
+  transform: translate(50%, 50%);
 }
 
-/* Passport - top right */
-.floating-doc-passport {
-  top: 10%;
-  right: 5%;
-  animation-delay: 0.3s;
+/* Flag 6 - Hungary (200°) */
+.orbital-flag:nth-child(6) {
+  bottom: 6.7%;
+  left: 25%;
+  transform: translate(-50%, 50%);
 }
 
-.floating-doc-passport::after {
-  animation: floatUpDown 4s ease-in-out infinite;
+/* Flag 7 - USA (240°) */
+.orbital-flag:nth-child(7) {
+  top: 75%;
+  left: 6.7%;
+  transform: translate(-50%, -50%);
 }
 
-/* Ticket - bottom left */
-.floating-doc-ticket {
-  bottom: 20%;
-  left: 5%;
-  animation-delay: 0.5s;
+/* Flag 8 - UK (280°) */
+.orbital-flag:nth-child(8) {
+  top: 41.3%;
+  left: 0;
+  transform: translate(-50%, -50%);
 }
 
-/* Stamp - bottom right */
-.floating-doc-stamp {
-  bottom: 10%;
-  right: 15%;
-  animation-delay: 0.7s;
-}
-
-/* Float animations for documents */
-@keyframes floatDocAppear {
-  0% {
-    opacity: 0;
-    transform: translateY(20px) scale(0.8);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes floatUpDown {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-12px);
-  }
-}
-
-@keyframes floatRotate {
-  0%, 100% {
-    transform: translateY(0) rotate(-3deg);
-  }
-  50% {
-    transform: translateY(-10px) rotate(3deg);
-  }
-}
-
-@keyframes floatScale {
-  0%, 100% {
-    transform: translateY(0) scale(1);
-  }
-  50% {
-    transform: translateY(-8px) scale(1.05);
-  }
-}
-
-.floating-doc-passport {
-  animation: floatDocAppear 0.8s var(--ease-out) 0.3s forwards, floatUpDown 5s ease-in-out 1.1s infinite;
-}
-
-.floating-doc-ticket {
-  animation: floatDocAppear 0.8s var(--ease-out) 0.5s forwards, floatRotate 6s ease-in-out 1.3s infinite;
-}
-
-.floating-doc-stamp {
-  animation: floatDocAppear 0.8s var(--ease-out) 0.7s forwards, floatScale 4.5s ease-in-out 1.5s infinite;
+/* Flag 9 - Canada (320°) */
+.orbital-flag:nth-child(9) {
+  top: 11.7%;
+  left: 11.7%;
+  transform: translate(-50%, -50%);
 }
 
 /* ========================================
@@ -779,13 +704,14 @@
 
 .globe-quote {
   position: absolute;
-  bottom: -20px;
+  bottom: -70px;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
   max-width: 380px;
   opacity: 0;
   animation: quoteAppear 1s var(--ease-out) 0.8s forwards;
+  z-index: 20;
 }
 
 @keyframes quoteAppear {
