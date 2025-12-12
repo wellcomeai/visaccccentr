@@ -552,7 +552,7 @@
   border-radius: 50%;
 }
 
-/* Airplane orbit - 40 seconds, smooth flight */
+/* Airplane orbit - 40 seconds, smooth flight, nose forward */
 .orbital-airplane {
   position: absolute;
   top: 50%;
@@ -561,7 +561,7 @@
   height: 32px;
   margin-left: -16px;
   margin-top: -16px;
-  animation: orbitAirplane 40s ease-in-out infinite;
+  animation: orbitAirplane 40s linear infinite;
   z-index: 10;
 }
 
@@ -572,41 +572,34 @@
   color: var(--color-accent);
 }
 
-/* Airplane orbit animation - nose follows direction of flight */
+/* Airplane animation - rotate(90deg) at end keeps nose pointing forward */
 @keyframes orbitAirplane {
   0% {
-    transform: rotate(0deg) translateX(240px) rotate(0deg);
+    transform: rotate(0deg) translateX(240px) rotate(90deg);
   }
   100% {
-    transform: rotate(360deg) translateX(240px) rotate(0deg);
+    transform: rotate(360deg) translateX(240px) rotate(90deg);
   }
 }
 
-/* Flags orbit container - slow rotation */
+/* Flags container - just for grouping, no rotation */
 .orbital-flags {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Individual flag items - each orbits independently */
+.orbital-flag {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  height: 100%;
-  animation: orbitFlags 80s linear infinite;
-}
-
-@keyframes orbitFlags {
-  0% {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  100% {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
-}
-
-/* Individual flag items */
-.orbital-flag {
-  position: absolute;
   width: 30px;
   height: 30px;
+  margin-left: -15px;
+  margin-top: -15px;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(8px);
   border-radius: 50%;
@@ -615,17 +608,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Counter-rotate to keep flags upright */
-  animation: counterRotate 80s linear infinite;
-}
-
-@keyframes counterRotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(-360deg);
-  }
 }
 
 .orbital-flag img {
@@ -634,68 +616,62 @@
   border-radius: 2px;
 }
 
-/* Position 9 flags evenly around the orbit (40 degrees apart) */
-/* Flag 1 - Portugal (0°) */
-.orbital-flag:nth-child(1) {
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, -50%);
+/* Each flag orbits with its own starting angle (40° apart) */
+/* Counter-rotation keeps flags upright */
+
+.orbital-flag:nth-child(1) { animation: orbitFlag0 80s linear infinite; }
+.orbital-flag:nth-child(2) { animation: orbitFlag40 80s linear infinite; }
+.orbital-flag:nth-child(3) { animation: orbitFlag80 80s linear infinite; }
+.orbital-flag:nth-child(4) { animation: orbitFlag120 80s linear infinite; }
+.orbital-flag:nth-child(5) { animation: orbitFlag160 80s linear infinite; }
+.orbital-flag:nth-child(6) { animation: orbitFlag200 80s linear infinite; }
+.orbital-flag:nth-child(7) { animation: orbitFlag240 80s linear infinite; }
+.orbital-flag:nth-child(8) { animation: orbitFlag280 80s linear infinite; }
+.orbital-flag:nth-child(9) { animation: orbitFlag320 80s linear infinite; }
+
+@keyframes orbitFlag0 {
+  0% { transform: rotate(0deg) translateX(240px) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(240px) rotate(-360deg); }
 }
 
-/* Flag 2 - Italy (40°) */
-.orbital-flag:nth-child(2) {
-  top: 11.7%;
-  right: 11.7%;
-  transform: translate(50%, -50%);
+@keyframes orbitFlag40 {
+  0% { transform: rotate(40deg) translateX(240px) rotate(-40deg); }
+  100% { transform: rotate(400deg) translateX(240px) rotate(-400deg); }
 }
 
-/* Flag 3 - France (80°) */
-.orbital-flag:nth-child(3) {
-  top: 41.3%;
-  right: 0;
-  transform: translate(50%, -50%);
+@keyframes orbitFlag80 {
+  0% { transform: rotate(80deg) translateX(240px) rotate(-80deg); }
+  100% { transform: rotate(440deg) translateX(240px) rotate(-440deg); }
 }
 
-/* Flag 4 - Germany (120°) */
-.orbital-flag:nth-child(4) {
-  top: 75%;
-  right: 6.7%;
-  transform: translate(50%, -50%);
+@keyframes orbitFlag120 {
+  0% { transform: rotate(120deg) translateX(240px) rotate(-120deg); }
+  100% { transform: rotate(480deg) translateX(240px) rotate(-480deg); }
 }
 
-/* Flag 5 - Greece (160°) */
-.orbital-flag:nth-child(5) {
-  bottom: 6.7%;
-  right: 25%;
-  transform: translate(50%, 50%);
+@keyframes orbitFlag160 {
+  0% { transform: rotate(160deg) translateX(240px) rotate(-160deg); }
+  100% { transform: rotate(520deg) translateX(240px) rotate(-520deg); }
 }
 
-/* Flag 6 - Hungary (200°) */
-.orbital-flag:nth-child(6) {
-  bottom: 6.7%;
-  left: 25%;
-  transform: translate(-50%, 50%);
+@keyframes orbitFlag200 {
+  0% { transform: rotate(200deg) translateX(240px) rotate(-200deg); }
+  100% { transform: rotate(560deg) translateX(240px) rotate(-560deg); }
 }
 
-/* Flag 7 - USA (240°) */
-.orbital-flag:nth-child(7) {
-  top: 75%;
-  left: 6.7%;
-  transform: translate(-50%, -50%);
+@keyframes orbitFlag240 {
+  0% { transform: rotate(240deg) translateX(240px) rotate(-240deg); }
+  100% { transform: rotate(600deg) translateX(240px) rotate(-600deg); }
 }
 
-/* Flag 8 - UK (280°) */
-.orbital-flag:nth-child(8) {
-  top: 41.3%;
-  left: 0;
-  transform: translate(-50%, -50%);
+@keyframes orbitFlag280 {
+  0% { transform: rotate(280deg) translateX(240px) rotate(-280deg); }
+  100% { transform: rotate(640deg) translateX(240px) rotate(-640deg); }
 }
 
-/* Flag 9 - Canada (320°) */
-.orbital-flag:nth-child(9) {
-  top: 11.7%;
-  left: 11.7%;
-  transform: translate(-50%, -50%);
+@keyframes orbitFlag320 {
+  0% { transform: rotate(320deg) translateX(240px) rotate(-320deg); }
+  100% { transform: rotate(680deg) translateX(240px) rotate(-680deg); }
 }
 
 /* ========================================
