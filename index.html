@@ -13,13 +13,16 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   
-  <!-- Fonts -->
+  <!-- Preconnect -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   
-  <!-- Twemoji for cross-platform emoji rendering -->
-  <script src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js" crossorigin="anonymous"></script>
+  <!-- Twemoji for cross-platform emoji rendering (deferred) -->
+  <script src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js" crossorigin="anonymous" defer></script>
   
   <!-- Styles -->
   <link rel="stylesheet" href="css/styles.css">
@@ -31,7 +34,7 @@
        ======================================== -->
   <header class="header">
     <a href="index.html" class="logo">
-      <img src="images/logo.webp" alt="VISANEWS2YOU" class="logo-img">
+      <img src="images/logo.webp" alt="" class="logo-img">
       <span class="logo-text">visanews2you</span>
     </a>
     
@@ -246,7 +249,7 @@
         <div class="steps-visual reveal">
           <!-- Mobile-only branding before globe -->
           <div class="steps-mobile-branding">
-            <img src="images/logo.webp" alt="VISANEWS2YOU" class="steps-mobile-logo">
+            <img src="images/logo.webp" alt="" class="steps-mobile-logo">
             <p class="steps-mobile-quote">«От первой консультации до штампа в паспорте — мы рядом на каждом шаге»</p>
           </div>
 
@@ -701,7 +704,7 @@
         <!-- Header info (reorderable on mobile) -->
         <div class="leader-header">
           <span class="section-label">Основатель</span>
-          <h2 class="leader-name">Ольга Игнатьева</h2>
+          <h3 class="leader-name">Ольга Игнатьева</h3>
           <p class="leader-role">Руководитель визового агентства</p>
         </div>
 
@@ -709,7 +712,7 @@
           <div class="leader-image-glow"></div>
           <img
             src="images/leader.webp"
-            alt="Ольга Игнатьева"
+            alt="Фото руководителя визового агентства"
             class="leader-image"
           >
           <div class="leader-image-badge">
@@ -720,7 +723,7 @@
 
         <div class="leader-content">
           <span class="section-label">Основатель</span>
-          <h2 class="leader-name">Ольга Игнатьева</h2>
+          <h3 class="leader-name">Ольга Игнатьева</h3>
           <p class="leader-role">Руководитель визового агентства</p>
 
           <p class="leader-bio">
@@ -774,7 +777,7 @@
         <!-- Ольга Снегирёва -->
         <div class="team-card">
           <div class="team-card-photo-wrapper">
-            <img src="images/olga-snegireva.webp" alt="Ольга Снегирёва" class="team-card-photo">
+            <img src="images/olga-snegireva.webp" alt="Фото специалиста по визам" class="team-card-photo">
           </div>
           <h3 class="team-card-name">Ольга Снегирёва</h3>
           <p class="team-card-role">Финансовый директор</p>
@@ -798,7 +801,7 @@
         <!-- Любовь Малькова -->
         <div class="team-card">
           <div class="team-card-photo-wrapper">
-            <img src="images/lyubov-malkova.webp" alt="Любовь Малькова" class="team-card-photo">
+            <img src="images/lyubov-malkova.webp" alt="Фото специалиста по визам" class="team-card-photo">
           </div>
           <h3 class="team-card-name">Любовь Малькова</h3>
           <p class="team-card-role">Визовый специалист</p>
@@ -822,7 +825,7 @@
         <!-- Алёна Шишкова -->
         <div class="team-card">
           <div class="team-card-photo-wrapper">
-            <img src="images/alena-shishkova.webp" alt="Алёна Шишкова" class="team-card-photo">
+            <img src="images/alena-shishkova.webp" alt="Фото специалиста по визам" class="team-card-photo">
           </div>
           <h3 class="team-card-name">Алёна Шишкова</h3>
           <p class="team-card-role">Переводчик и визовый специалист</p>
@@ -1033,7 +1036,7 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <div class="footer-logo">
-          <img src="images/logo.webp" alt="VISANEWS2YOU" class="footer-logo-img">
+          <img src="images/logo.webp" alt="" class="footer-logo-img">
           <span class="footer-logo-text">visanews2you</span>
         </div>
         <p class="footer-desc">
@@ -1049,7 +1052,7 @@
       </div>
 
       <div class="footer-column">
-        <h4>Визы</h4>
+        <h3 class="footer-heading">Визы</h3>
         <ul class="footer-links">
           <li class="footer-link"><a href="#destinations">Шенген</a></li>
           <li class="footer-link"><a href="#destinations">США</a></li>
@@ -1060,7 +1063,7 @@
       </div>
 
       <div class="footer-column">
-        <h4>Компания</h4>
+        <h3 class="footer-heading">Компания</h3>
         <ul class="footer-links">
           <li class="footer-link"><a href="#team">О нас</a></li>
           <li class="footer-link"><a href="#steps">Услуги</a></li>
@@ -1069,7 +1072,7 @@
       </div>
 
       <div class="footer-column">
-        <h4>Контакты</h4>
+        <h3 class="footer-heading">Контакты</h3>
         <div class="footer-contact-item">
           <svg class="footer-contact-icon" viewBox="0 0 24 24" fill="currentColor">
             <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
@@ -1080,7 +1083,7 @@
           <svg class="footer-contact-icon" viewBox="0 0 24 24" fill="currentColor">
             <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
           </svg>
-          ignatyeva.05@mail.ru
+          <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cca5aba2adb8b5a9baade2fcf98ca1ada5a0e2beb9">[email&#160;protected]</a>
         </div>
         <div class="footer-contact-item">
           <svg class="footer-contact-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -1124,9 +1127,4 @@
   </footer>
 
   <!-- Scripts -->
-  <script src="js/main.js"></script>
-  <script src="js/graph.js"></script>
-  <script src="js/globe.js"></script>
-  <script src="js/reviews-carousel.js"></script>
-</body>
-</html>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c
