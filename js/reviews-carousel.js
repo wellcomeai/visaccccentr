@@ -257,15 +257,21 @@ class ReviewsCarousel {
       });
     }
 
-    // Card clicks (для перехода к соседним)
+    // Card clicks (для перехода к соседним или открытия модала)
     this.cards.forEach((card, index) => {
       card.addEventListener('click', () => {
         const position = parseInt(card.dataset.position, 10);
         if (position !== 0) {
           this.goTo(index);
+        } else {
+          // Открываем модальное окно для центральной карточки
+          this.openModal(index);
         }
       });
     });
+
+    // Modal events
+    this.setupModal();
 
     // Touch events
     this.container.addEventListener('touchstart', (e) => this.handleTouchStart(e), { passive: true });
@@ -332,6 +338,96 @@ class ReviewsCarousel {
     }, { threshold: 0.3 });
 
     observer.observe(this.container);
+  }
+
+  // ========================================
+  // MODAL FUNCTIONALITY
+  // ========================================
+  setupModal() {
+    // Создаём модальное окно если его нет
+    if (!document.querySelector('.review-modal')) {
+      const modal = document.createElement('div');
+      modal.className = 'review-modal';
+      modal.innerHTML = `
+        <button class="review-modal-close" aria-label="Закрыть">×</button>
+        <button class="review-modal-nav review-modal-prev" aria-label="Предыдущий">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M15 18l-6-6 6-6"/>
+          </svg>
+        </button>
+        <img class="review-modal-image" src="" alt="Отзыв">
+        <button class="review-modal-nav review-modal-next" aria-label="Следующий">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </button>
+      `;
+      document.body.appendChild(modal);
+    }
+
+    this.modal = document.querySelector('.review-modal');
+    this.modalImage = this.modal.querySelector('.review-modal-image');
+    this.modalClose = this.modal.querySelector('.review-modal-close');
+    this.modalPrev = this.modal.querySelector('.review-modal-prev');
+    this.modalNext = this.modal.querySelector('.review-modal-next');
+
+    // Close on click
+    this.modalClose.addEventListener('click', () => this.closeModal());
+    this.modal.addEventListener('click', (e) => {
+      if (e.target === this.modal) this.closeModal();
+    });
+
+    // Navigation in modal
+    this.modalPrev.addEventListener('click', (e) => {
+      e.stopPropagation();
+      this.prev();
+      this.updateModalImage();
+    });
+    this.modalNext.addEventListener('click', (e) => {
+      e.stopPropagation();
+      this.next();
+      this.updateModalImage();
+    });
+
+    // Keyboard in modal
+    document.addEventListener('keydown', (e) => {
+      if (!this.modal.classList.contains('active')) return;
+      
+      if (e.key === 'Escape') {
+        this.closeModal();
+      } else if (e.key === 'ArrowRight') {
+        this.next();
+        this.updateModalImage();
+      } else if (e.key === 'ArrowLeft') {
+        this.prev();
+        this.updateModalImage();
+      }
+    });
+  }
+
+  openModal(index) {
+    this.pauseAutoPlay();
+    const card = this.cards[index];
+    const img = card.querySelector('.review-image');
+    if (img) {
+      this.modalImage.src = img.src;
+      this.modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  updateModalImage() {
+    const card = this.cards[this.currentIndex];
+    const img = card.querySelector('.review-image');
+    if (img) {
+      this.modalImage.src = img.src;
+    }
+  }
+
+  closeModal() {
+    this.modal.classList.remove('active');
+    document.body.style.overflow = '';
+    this.resumeAutoPlay();
   }
 }
 
