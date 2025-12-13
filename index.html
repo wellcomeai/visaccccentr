@@ -17,6 +17,7 @@
   
   <!-- Styles -->
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/reviews-carousel.css">
 </head>
 <body>
   <!-- ========================================
@@ -876,9 +877,9 @@
   </section>
 
   <!-- ========================================
-       REVIEWS SECTION
+       REVIEWS SECTION - 3D Perspective Carousel
        ======================================== -->
-  <section class="section section-warm">
+  <section class="section section-warm" id="reviews">
     <div class="container">
       <div class="section-header centered reveal">
         <span class="section-label">Отзывы</span>
@@ -888,67 +889,145 @@
         </p>
       </div>
 
-      <div class="reviews-grid">
-        <div class="review-card">
-          <div class="review-stars">
-            <span class="review-star">★</span>
-            <span class="review-star">★</span>
-            <span class="review-star">★</span>
-            <span class="review-star">★</span>
-            <span class="review-star">★</span>
-          </div>
-          <p class="review-text">
-            «Оформили визу в США с первого раза! Ребята подготовили к собеседованию так, что я чувствовал себя уверенно. Рекомендую всем!»
-          </p>
-          <div class="review-author">
-            <div class="review-avatar">АК</div>
-            <div class="review-author-info">
-              <div class="review-author-name">Алексей Козлов</div>
-              <div class="review-author-country">Виза в США</div>
+      <!-- 3D Carousel -->
+      <div class="reviews-carousel-wrapper reveal">
+        <div class="reviews-carousel">
+          <div class="reviews-track">
+            
+            <!-- Card 1 -->
+            <div class="review-card-3d" data-position="0">
+              <span class="review-quote-icon">"</span>
+              <div class="review-stars">
+                <span class="review-star">★</span>
+                <span class="review-star">★</span>
+                <span class="review-star">★</span>
+                <span class="review-star">★</span>
+                <span class="review-star">★</span>
+              </div>
+              <p class="review-text">
+                Оформили визу в США с первого раза! Ребята подготовили к собеседованию так, что я чувствовал себя уверенно. Рекомендую всем!
+              </p>
+              <div class="review-author">
+                <div class="review-avatar">АК</div>
+                <div class="review-author-info">
+                  <div class="review-author-name">Алексей Козлов</div>
+                  <div class="review-author-country">Виза в США</div>
+                </div>
+              </div>
             </div>
+
+            <!-- Card 2 -->
+            <div class="review-card-3d" data-position="1">
+              <span class="review-quote-icon">"</span>
+              <div class="review-stars">
+                <span class="review-star">★</span>
+                <span class="review-star">★</span>
+                <span class="review-star">★</span>
+                <span class="review-star">★</span>
+                <span class="review-star">★</span>
+              </div>
+              <p class="review-text">
+                Делала шенген во Францию удалённо — ни разу не пришлось куда-то ехать! Всё прошло идеально, виза на 5 лет.
+              </p>
+              <div class="review-author">
+                <div class="review-avatar">МС</div>
+                <div class="review-author-info">
+                  <div class="review-author-name">Мария Соколова</div>
+                  <div class="review-author-country">Виза во Францию</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="review-card-3d" data-position="2">
+              <span class="review-quote-icon">"</span>
+              <div class="review-stars">
+                <span class="review-star">★</span>
+                <span class="review-star">★</span>
+                <span class="review-star">★</span>
+                <span class="review-star">★</span>
+                <span class="review-star">★</span>
+              </div>
+              <p class="review-text">
+                После отказа в другой компании обратился сюда. Проанализировали ситуацию, нашли ошибки и успешно получили визу.
+              </p>
+              <div class="review-author">
+                <div class="review-avatar">ДП</div>
+                <div class="review-author-info">
+                  <div class="review-author-name">Дмитрий Петров</div>
+                  <div class="review-author-country">Виза в Великобританию</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="review-card-3d" data-position="-2">
+              <span class="review-quote-icon">"</span>
+              <div class="review-stars">
+                <span class="review-star">★</span>
+                <span class="review-star">★</span>
+                <span class="review-star">★</span>
+                <span class="review-star">★</span>
+                <span class="review-star">★</span>
+              </div>
+              <p class="review-text">
+                Очень благодарна за помощь с канадской визой. Процесс казался сложным, но команда всё объяснила и сделала за меня. Теперь еду к родственникам!
+              </p>
+              <div class="review-author">
+                <div class="review-avatar">ЕВ</div>
+                <div class="review-author-info">
+                  <div class="review-author-name">Елена Волкова</div>
+                  <div class="review-author-country">Виза в Канаду</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="review-card-3d" data-position="-1">
+              <span class="review-quote-icon">"</span>
+              <div class="review-stars">
+                <span class="review-star">★</span>
+                <span class="review-star">★</span>
+                <span class="review-star">★</span>
+                <span class="review-star">★</span>
+                <span class="review-star">★</span>
+              </div>
+              <p class="review-text">
+                Срочно нужна была виза в Италию — сделали за 5 дней! Профессионалы своего дела. Отдельное спасибо за терпение и ответы на все вопросы.
+              </p>
+              <div class="review-author">
+                <div class="review-avatar">ИС</div>
+                <div class="review-author-info">
+                  <div class="review-author-name">Игорь Сидоров</div>
+                  <div class="review-author-country">Виза в Италию</div>
+                </div>
+              </div>
+            </div>
+
           </div>
+
+          <!-- Navigation Arrows -->
+          <button class="carousel-nav carousel-nav-prev" aria-label="Предыдущий отзыв">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 18l-6-6 6-6"/>
+            </svg>
+          </button>
+          <button class="carousel-nav carousel-nav-next" aria-label="Следующий отзыв">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </button>
         </div>
 
-        <div class="review-card">
-          <div class="review-stars">
-            <span class="review-star">★</span>
-            <span class="review-star">★</span>
-            <span class="review-star">★</span>
-            <span class="review-star">★</span>
-            <span class="review-star">★</span>
-          </div>
-          <p class="review-text">
-            «Делала шенген во Францию удалённо — ни разу не пришлось куда-то ехать! Всё прошло идеально, виза на 5 лет.»
-          </p>
-          <div class="review-author">
-            <div class="review-avatar">МС</div>
-            <div class="review-author-info">
-              <div class="review-author-name">Мария Соколова</div>
-              <div class="review-author-country">Виза во Францию</div>
-            </div>
-          </div>
-        </div>
+        <!-- Pagination Dots -->
+        <div class="carousel-dots"></div>
 
-        <div class="review-card">
-          <div class="review-stars">
-            <span class="review-star">★</span>
-            <span class="review-star">★</span>
-            <span class="review-star">★</span>
-            <span class="review-star">★</span>
-            <span class="review-star">★</span>
-          </div>
-          <p class="review-text">
-            «После отказа в другой компании обратился сюда. Проанализировали ситуацию, нашли ошибки и успешно получили визу.»
-          </p>
-          <div class="review-author">
-            <div class="review-avatar">ДП</div>
-            <div class="review-author-info">
-              <div class="review-author-name">Дмитрий Петров</div>
-              <div class="review-author-country">Виза в Великобританию</div>
-            </div>
-          </div>
+        <!-- Progress Bar -->
+        <div class="carousel-progress">
+          <div class="carousel-progress-bar"></div>
         </div>
       </div>
+
     </div>
   </section>
 
@@ -1082,5 +1161,6 @@
   <script src="js/main.js"></script>
   <script src="js/graph.js"></script>
   <script src="js/globe.js"></script>
+  <script src="js/reviews-carousel.js"></script>
 </body>
 </html>
