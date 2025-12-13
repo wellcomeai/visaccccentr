@@ -1,7 +1,151 @@
 /* ========================================
    VISANEWS2YOU - 3D Perspective Reviews Carousel
-   Premium Depth Effect with Image Support
+   Two-column layout with image cards
    ======================================== */
+
+/* ========================================
+   SECTION LAYOUT - Two Columns Desktop
+   ======================================== */
+
+.reviews-section {
+  padding: var(--section-padding) 40px;
+  overflow: hidden;
+}
+
+.reviews-section .container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+}
+
+.reviews-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.8fr;
+  gap: 60px;
+  align-items: center;
+}
+
+/* Left Column - Text Content */
+.reviews-text-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.reviews-text-column .section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-accent);
+  margin-bottom: 20px;
+}
+
+.reviews-text-column .section-label::before {
+  content: '';
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-accent-light));
+  border-radius: 1px;
+}
+
+.reviews-text-column h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 600;
+  color: var(--color-primary);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin-bottom: 16px;
+}
+
+.reviews-text-column .section-subtitle {
+  font-size: 17px;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin-bottom: 32px;
+  max-width: 320px;
+}
+
+/* Telegram Link */
+.reviews-telegram-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 24px;
+  background: linear-gradient(135deg, rgba(0, 136, 204, 0.08) 0%, rgba(0, 136, 204, 0.04) 100%);
+  border: 1.5px solid rgba(0, 136, 204, 0.2);
+  border-radius: 16px;
+  text-decoration: none;
+  transition: all 0.4s var(--ease-out);
+}
+
+.reviews-telegram-link:hover {
+  background: linear-gradient(135deg, rgba(0, 136, 204, 0.12) 0%, rgba(0, 136, 204, 0.06) 100%);
+  border-color: rgba(0, 136, 204, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 136, 204, 0.15);
+}
+
+.reviews-telegram-icon {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, #0088cc 0%, #0077b5 100%);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  flex-shrink: 0;
+  transition: transform 0.4s var(--ease-spring);
+}
+
+.reviews-telegram-link:hover .reviews-telegram-icon {
+  transform: scale(1.1) rotate(-5deg);
+}
+
+.reviews-telegram-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.reviews-telegram-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.reviews-telegram-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.reviews-telegram-subtitle {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.reviews-telegram-subtitle svg {
+  width: 14px;
+  height: 14px;
+  color: var(--color-accent);
+  transition: transform 0.3s ease;
+}
+
+.reviews-telegram-link:hover .reviews-telegram-subtitle svg {
+  transform: translateX(4px);
+}
+
+/* Right Column - Carousel */
+.reviews-carousel-column {
+  position: relative;
+}
 
 /* ========================================
    CAROUSEL CONTAINER
@@ -9,8 +153,7 @@
 
 .reviews-carousel-wrapper {
   position: relative;
-  padding: 40px 0 80px;
-  overflow: hidden;
+  padding: 20px 0 60px;
 }
 
 .reviews-carousel {
@@ -18,8 +161,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 520px;
-  perspective: 1200px;
+  height: 420px;
+  perspective: 1000px;
   perspective-origin: center center;
 }
 
@@ -43,14 +186,14 @@
 
 .review-card-3d {
   position: absolute;
-  width: 380px;
+  width: 240px;
   background: rgba(255, 255, 255, 0.98);
-  border-radius: 24px;
+  border-radius: 20px;
   overflow: hidden;
   border: 1px solid rgba(184, 149, 108, 0.15);
   box-shadow: 
-    0 4px 24px rgba(44, 36, 24, 0.08),
-    0 12px 48px rgba(44, 36, 24, 0.06);
+    0 4px 20px rgba(44, 36, 24, 0.08),
+    0 8px 40px rgba(44, 36, 24, 0.05);
   transition: 
     transform 0.7s cubic-bezier(0.23, 1, 0.32, 1),
     opacity 0.5s ease,
@@ -67,10 +210,10 @@
   width: 100%;
   height: auto;
   display: block;
-  aspect-ratio: 4/5;
+  aspect-ratio: 9/16;
   object-fit: cover;
   object-position: top;
-  border-radius: 24px;
+  border-radius: 20px;
   background: linear-gradient(135deg, #f5f0e8 0%, #ebe5db 100%);
 }
 
@@ -80,69 +223,84 @@
 
 /* Центральная карточка - в фокусе */
 .review-card-3d[data-position="0"] {
-  transform: translateX(0) translateZ(100px) scale(1);
+  transform: translateX(0) translateZ(80px) scale(1);
   opacity: 1;
   filter: blur(0);
   z-index: 50;
   box-shadow: 
-    0 8px 32px rgba(184, 149, 108, 0.15),
-    0 24px 64px rgba(44, 36, 24, 0.12);
+    0 8px 28px rgba(184, 149, 108, 0.15),
+    0 20px 50px rgba(44, 36, 24, 0.1);
 }
 
 /* Ближние соседи - слегка отодвинуты */
 .review-card-3d[data-position="1"] {
-  transform: translateX(340px) translateZ(0) scale(0.85) rotateY(-8deg);
+  transform: translateX(220px) translateZ(0) scale(0.85) rotateY(-8deg);
   opacity: 0.7;
-  filter: blur(2px);
+  filter: blur(1.5px);
   z-index: 40;
 }
 
 .review-card-3d[data-position="-1"] {
-  transform: translateX(-340px) translateZ(0) scale(0.85) rotateY(8deg);
+  transform: translateX(-220px) translateZ(0) scale(0.85) rotateY(8deg);
   opacity: 0.7;
-  filter: blur(2px);
+  filter: blur(1.5px);
   z-index: 40;
 }
 
-/* Дальние карточки - почти скрыты */
+/* Дальние карточки */
 .review-card-3d[data-position="2"] {
-  transform: translateX(560px) translateZ(-100px) scale(0.7) rotateY(-12deg);
+  transform: translateX(380px) translateZ(-80px) scale(0.7) rotateY(-12deg);
   opacity: 0.35;
-  filter: blur(4px);
+  filter: blur(3px);
   z-index: 30;
 }
 
 .review-card-3d[data-position="-2"] {
-  transform: translateX(-560px) translateZ(-100px) scale(0.7) rotateY(12deg);
+  transform: translateX(-380px) translateZ(-80px) scale(0.7) rotateY(12deg);
   opacity: 0.35;
-  filter: blur(4px);
+  filter: blur(3px);
   z-index: 30;
 }
 
+/* Очень дальние */
+.review-card-3d[data-position="3"] {
+  transform: translateX(500px) translateZ(-150px) scale(0.55) rotateY(-15deg);
+  opacity: 0.15;
+  filter: blur(5px);
+  z-index: 20;
+}
+
+.review-card-3d[data-position="-3"] {
+  transform: translateX(-500px) translateZ(-150px) scale(0.55) rotateY(15deg);
+  opacity: 0.15;
+  filter: blur(5px);
+  z-index: 20;
+}
+
 /* Скрытые карточки */
-.review-card-3d[data-position="3"],
-.review-card-3d[data-position="-3"],
 .review-card-3d[data-position="4"],
 .review-card-3d[data-position="-4"],
+.review-card-3d[data-position="5"],
+.review-card-3d[data-position="-5"],
 .review-card-3d.hidden {
-  transform: translateX(750px) translateZ(-200px) scale(0.5);
+  transform: translateX(600px) translateZ(-200px) scale(0.4);
   opacity: 0;
   filter: blur(8px);
   z-index: 10;
   pointer-events: none;
 }
 
-.review-card-3d[data-position="-3"],
-.review-card-3d[data-position="-4"] {
-  transform: translateX(-750px) translateZ(-200px) scale(0.5);
+.review-card-3d[data-position="-4"],
+.review-card-3d[data-position="-5"] {
+  transform: translateX(-600px) translateZ(-200px) scale(0.4);
 }
 
 /* Hover effect on center card */
 .review-card-3d[data-position="0"]:hover {
-  transform: translateX(0) translateZ(120px) scale(1.02);
+  transform: translateX(0) translateZ(100px) scale(1.03);
   box-shadow: 
-    0 12px 40px rgba(184, 149, 108, 0.2),
-    0 32px 80px rgba(44, 36, 24, 0.15);
+    0 12px 36px rgba(184, 149, 108, 0.2),
+    0 28px 70px rgba(44, 36, 24, 0.12);
 }
 
 /* ========================================
@@ -153,8 +311,8 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 56px;
-  height: 56px;
+  width: 48px;
+  height: 48px;
   background: rgba(255, 255, 255, 0.95);
   border: 1px solid rgba(184, 149, 108, 0.2);
   border-radius: 50%;
@@ -172,7 +330,7 @@
 
 .carousel-nav:hover {
   transform: translateY(-50%) scale(1.1);
-  box-shadow: 0 8px 32px rgba(184, 149, 108, 0.2);
+  box-shadow: 0 8px 28px rgba(184, 149, 108, 0.2);
   background: #fff;
 }
 
@@ -181,26 +339,26 @@
 }
 
 .carousel-nav svg {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   color: var(--color-primary);
   transition: transform 0.3s ease;
 }
 
 .carousel-nav-prev {
-  left: 40px;
+  left: 0;
 }
 
 .carousel-nav-next {
-  right: 40px;
+  right: 0;
 }
 
 .carousel-nav-prev:hover svg {
-  transform: translateX(-3px);
+  transform: translateX(-2px);
 }
 
 .carousel-nav-next:hover svg {
-  transform: translateX(3px);
+  transform: translateX(2px);
 }
 
 /* ========================================
@@ -210,13 +368,13 @@
 .carousel-dots {
   display: flex;
   justify-content: center;
-  gap: 12px;
-  margin-top: 40px;
+  gap: 10px;
+  margin-top: 28px;
 }
 
 .carousel-dot {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: rgba(184, 149, 108, 0.25);
   border: none;
@@ -234,8 +392,8 @@
 }
 
 .carousel-dot.active {
-  width: 32px;
-  border-radius: 5px;
+  width: 28px;
+  border-radius: 4px;
   background: linear-gradient(90deg, var(--color-accent), var(--color-accent-dark));
 }
 
@@ -248,9 +406,9 @@
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 200px;
-  height: 3px;
-  background: rgba(184, 149, 108, 0.15);
+  width: 160px;
+  height: 2px;
+  background: rgba(184, 149, 108, 0.12);
   border-radius: 2px;
   overflow: hidden;
 }
@@ -277,33 +435,84 @@
    ======================================== */
 
 @media (max-width: 1200px) {
+  .reviews-layout {
+    grid-template-columns: 1fr 1.6fr;
+    gap: 40px;
+  }
+
   .reviews-carousel {
-    height: 480px;
+    height: 380px;
   }
 
   .review-card-3d {
-    width: 340px;
+    width: 200px;
   }
 
   .review-card-3d[data-position="1"] {
-    transform: translateX(300px) translateZ(0) scale(0.82) rotateY(-8deg);
+    transform: translateX(180px) translateZ(0) scale(0.82) rotateY(-8deg);
   }
 
   .review-card-3d[data-position="-1"] {
-    transform: translateX(-300px) translateZ(0) scale(0.82) rotateY(8deg);
+    transform: translateX(-180px) translateZ(0) scale(0.82) rotateY(8deg);
   }
 
   .review-card-3d[data-position="2"],
   .review-card-3d[data-position="-2"] {
     opacity: 0.25;
+    transform: translateX(320px) translateZ(-80px) scale(0.65) rotateY(-12deg);
+  }
+
+  .review-card-3d[data-position="-2"] {
+    transform: translateX(-320px) translateZ(-80px) scale(0.65) rotateY(12deg);
+  }
+
+  .review-card-3d[data-position="3"],
+  .review-card-3d[data-position="-3"] {
+    opacity: 0;
   }
 
   .carousel-nav-prev {
-    left: 20px;
+    left: -10px;
   }
 
   .carousel-nav-next {
-    right: 20px;
+    right: -10px;
+  }
+}
+
+/* ========================================
+   RESPONSIVE - TABLET SMALL (1024px)
+   ======================================== */
+
+@media (max-width: 1024px) {
+  .reviews-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .reviews-text-column {
+    align-items: center;
+    text-align: center;
+  }
+
+  .reviews-text-column .section-subtitle {
+    max-width: 500px;
+  }
+
+  .reviews-carousel {
+    height: 400px;
+  }
+
+  .review-card-3d {
+    width: 220px;
+  }
+
+  .review-card-3d[data-position="1"] {
+    transform: translateX(200px) translateZ(0) scale(0.82) rotateY(-8deg);
+  }
+
+  .review-card-3d[data-position="-1"] {
+    transform: translateX(-200px) translateZ(0) scale(0.82) rotateY(8deg);
   }
 }
 
@@ -312,45 +521,92 @@
    ======================================== */
 
 @media (max-width: 900px) {
+  .reviews-section {
+    padding: 60px 20px;
+  }
+
+  .reviews-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .reviews-text-column {
+    align-items: center;
+    text-align: center;
+  }
+
+  .reviews-text-column h2 {
+    font-size: clamp(1.75rem, 6vw, 2.25rem);
+  }
+
+  .reviews-text-column .section-subtitle {
+    font-size: 15px;
+    margin-bottom: 24px;
+    max-width: 100%;
+  }
+
+  .reviews-telegram-link {
+    padding: 12px 20px;
+    gap: 10px;
+  }
+
+  .reviews-telegram-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .reviews-telegram-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .reviews-telegram-title {
+    font-size: 13px;
+  }
+
+  .reviews-telegram-subtitle {
+    font-size: 12px;
+  }
+
   .reviews-carousel-wrapper {
-    padding: 20px 0 60px;
+    padding: 16px 0 50px;
   }
 
   .reviews-carousel {
     height: auto;
-    min-height: 480px;
-    perspective: 1000px;
-    padding: 20px 0;
+    min-height: 380px;
+    perspective: 800px;
+    padding: 16px 0;
   }
 
   .review-card-3d {
-    width: calc(100vw - 100px);
-    max-width: 320px;
+    width: calc(55vw);
+    max-width: 220px;
   }
 
   .review-card-3d .review-image {
-    border-radius: 20px;
+    border-radius: 16px;
   }
 
   /* Mobile: центральная и соседние */
   .review-card-3d[data-position="0"] {
-    transform: translateX(0) translateZ(60px) scale(1);
+    transform: translateX(0) translateZ(50px) scale(1);
   }
 
   .review-card-3d[data-position="0"]:hover {
-    transform: translateX(0) translateZ(60px) scale(1);
+    transform: translateX(0) translateZ(50px) scale(1);
   }
 
   .review-card-3d[data-position="1"] {
-    transform: translateX(75%) translateZ(-30px) scale(0.7) rotateY(-6deg);
-    opacity: 0.4;
-    filter: blur(3px);
+    transform: translateX(65%) translateZ(-20px) scale(0.75) rotateY(-6deg);
+    opacity: 0.5;
+    filter: blur(2px);
   }
 
   .review-card-3d[data-position="-1"] {
-    transform: translateX(-75%) translateZ(-30px) scale(0.7) rotateY(6deg);
-    opacity: 0.4;
-    filter: blur(3px);
+    transform: translateX(-65%) translateZ(-20px) scale(0.75) rotateY(6deg);
+    opacity: 0.5;
+    filter: blur(2px);
   }
 
   .review-card-3d[data-position="2"],
@@ -361,40 +617,40 @@
     pointer-events: none;
   }
 
-  /* Arrows - компактнее и ближе к краям */
+  /* Arrows - компактнее */
   .carousel-nav {
-    width: 44px;
-    height: 44px;
-    background: rgba(255, 255, 255, 0.9);
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.92);
     box-shadow: 0 2px 12px rgba(44, 36, 24, 0.1);
   }
 
   .carousel-nav svg {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
   }
 
   .carousel-nav-prev {
-    left: 8px;
+    left: 4px;
   }
 
   .carousel-nav-next {
-    right: 8px;
+    right: 4px;
   }
 
   /* Dots */
   .carousel-dots {
-    margin-top: 24px;
+    margin-top: 20px;
     gap: 8px;
   }
 
   .carousel-dot {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
   }
 
   .carousel-dot.active {
-    width: 24px;
+    width: 20px;
   }
 
   /* Hide progress on mobile */
@@ -409,40 +665,40 @@
 
 @media (max-width: 480px) {
   .reviews-carousel {
-    min-height: 420px;
+    min-height: 340px;
   }
 
   .review-card-3d {
-    width: calc(100vw - 80px);
-    max-width: 280px;
+    width: calc(60vw);
+    max-width: 200px;
   }
 
   .review-card-3d[data-position="1"] {
-    transform: translateX(80%) translateZ(-40px) scale(0.65) rotateY(-5deg);
-    opacity: 0.3;
+    transform: translateX(70%) translateZ(-30px) scale(0.7) rotateY(-5deg);
+    opacity: 0.4;
   }
 
   .review-card-3d[data-position="-1"] {
-    transform: translateX(-80%) translateZ(-40px) scale(0.65) rotateY(5deg);
-    opacity: 0.3;
+    transform: translateX(-70%) translateZ(-30px) scale(0.7) rotateY(5deg);
+    opacity: 0.4;
   }
 
   .carousel-nav {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
   }
 
   .carousel-nav svg {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
   }
 
   .carousel-nav-prev {
-    left: 4px;
+    left: 2px;
   }
 
   .carousel-nav-next {
-    right: 4px;
+    right: 2px;
   }
 }
 
@@ -472,100 +728,4 @@
   .carousel-progress-bar {
     animation: none;
   }
-}
-
-/* ========================================
-   FULLSCREEN MODAL (for image zoom)
-   ======================================== */
-
-.review-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 10000;
-  background: rgba(0, 0, 0, 0.92);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s;
-  padding: 20px;
-  cursor: zoom-out;
-}
-
-.review-modal.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.review-modal-image {
-  max-width: 90%;
-  max-height: 90vh;
-  border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-  transform: scale(0.9);
-  transition: transform 0.3s ease;
-  cursor: default;
-}
-
-.review-modal.active .review-modal-image {
-  transform: scale(1);
-}
-
-.review-modal-close {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 48px;
-  height: 48px;
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
-  border-radius: 50%;
-  color: #fff;
-  font-size: 28px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.3s ease, transform 0.3s ease;
-}
-
-.review-modal-close:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: rotate(90deg);
-}
-
-/* Modal navigation */
-.review-modal-nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 56px;
-  height: 56px;
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
-  border-radius: 50%;
-  color: #fff;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.3s ease;
-}
-
-.review-modal-nav:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.review-modal-nav svg {
-  width: 28px;
-  height: 28px;
-}
-
-.review-modal-prev {
-  left: 20px;
-}
-
-.review-modal-next {
-  right: 20px;
 }
