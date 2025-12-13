@@ -1,0 +1,230 @@
+/* ========================================
+   VISANEWS2YOU - Animations
+   @keyframes, Reveal, Transitions
+   ======================================== */
+
+/* ========================================
+   KEYFRAMES
+   ======================================== */
+
+@keyframes gradientShift {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(20px, -20px) scale(1.05); }
+  50% { transform: translate(-10px, 20px) scale(0.95); }
+  75% { transform: translate(-20px, -10px) scale(1.02); }
+}
+
+@keyframes flyAcross {
+  0% {
+    left: -10%;
+    top: 25%;
+    opacity: 0;
+    transform: rotate(105deg) scale(0.8);
+  }
+  5% {
+    opacity: 1;
+    transform: rotate(105deg) scale(1);
+  }
+  25% {
+    top: 18%;
+    transform: rotate(95deg) scale(1);
+  }
+  50% {
+    top: 22%;
+    transform: rotate(110deg) scale(1);
+  }
+  75% {
+    top: 15%;
+    transform: rotate(100deg) scale(1);
+  }
+  95% {
+    opacity: 1;
+    transform: rotate(108deg) scale(1);
+  }
+  100% {
+    left: 110%;
+    top: 20%;
+    opacity: 0;
+    transform: rotate(108deg) scale(0.8);
+  }
+}
+
+@keyframes flyAcross2 {
+  0% {
+    left: -8%;
+    top: 65%;
+    opacity: 0;
+    transform: rotate(95deg) scale(0.8);
+  }
+  5% {
+    opacity: 0.7;
+    transform: rotate(95deg) scale(1);
+  }
+  30% {
+    top: 58%;
+    transform: rotate(85deg);
+  }
+  60% {
+    top: 62%;
+    transform: rotate(100deg);
+  }
+  95% {
+    opacity: 0.7;
+  }
+  100% {
+    left: 110%;
+    top: 55%;
+    opacity: 0;
+    transform: rotate(92deg) scale(0.8);
+  }
+}
+
+@keyframes heroGlassReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes lineReveal {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes textReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes statReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.3); }
+}
+
+@keyframes nodeAppear {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.7);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes starPop {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+}
+
+@keyframes hintPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.02); }
+}
+
+@keyframes orbitGlobe {
+  0% {
+    transform: rotate(0deg) translateX(220px) rotate(90deg);
+  }
+  100% {
+    transform: rotate(360deg) translateX(220px) rotate(90deg);
+  }
+}
+
+/* ========================================
+   REVEAL ANIMATIONS - Premium Staggered
+   ======================================== */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(60px) scale(0.96);
+  filter: blur(8px);
+  transition:
+    opacity 0.9s var(--ease-out),
+    transform 1.1s var(--ease-out),
+    filter 0.7s ease-out;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+/* Stagger children */
+.reveal.visible .section-label { transition-delay: 0s; }
+.reveal.visible h2 { transition-delay: 0.08s; }
+.reveal.visible .section-subtitle { transition-delay: 0.16s; }
+
+/* Stagger grid items */
+.destinations-grid .reveal:nth-child(1) { transition-delay: 0s; }
+.destinations-grid .reveal:nth-child(2) { transition-delay: 0.1s; }
+.destinations-grid .reveal:nth-child(3) { transition-delay: 0.2s; }
+.destinations-grid .reveal:nth-child(4) { transition-delay: 0.3s; }
+
+.reviews-grid .reveal:nth-child(1) { transition-delay: 0s; }
+.reviews-grid .reveal:nth-child(2) { transition-delay: 0.12s; }
+.reviews-grid .reveal:nth-child(3) { transition-delay: 0.24s; }
+
+.steps-list .step-item:nth-child(1) { transition-delay: 0s; }
+.steps-list .step-item:nth-child(2) { transition-delay: 0.1s; }
+.steps-list .step-item:nth-child(3) { transition-delay: 0.2s; }
+.steps-list .step-item:nth-child(4) { transition-delay: 0.3s; }
+
+/* Star pop animation on hover */
+.review-card:hover .review-star {
+  animation: starPop 0.5s var(--ease-spring);
+}
+
+.review-card:hover .review-star:nth-child(1) { animation-delay: 0s; }
+.review-card:hover .review-star:nth-child(2) { animation-delay: 0.05s; }
+.review-card:hover .review-star:nth-child(3) { animation-delay: 0.1s; }
+.review-card:hover .review-star:nth-child(4) { animation-delay: 0.15s; }
+.review-card:hover .review-star:nth-child(5) { animation-delay: 0.2s; }
+
+/* ========================================
+   LEADER SECTION REVEAL ANIMATIONS
+   ======================================== */
+
+.leader-wrapper.reveal .leader-image-wrapper {
+  opacity: 0;
+  transform: translateX(-60px) scale(0.9);
+  filter: blur(8px);
+  transition:
+    opacity 0.9s var(--ease-out),
+    transform 1s var(--ease-out),
+    filter 0.7s ease;
+}
+
+.leader-wrapper.reveal .leader-content {
+  opacity: 0;
+  transform: translateX(60px);
+  transition:
+    opacity 0.9s var(--ease-out) 0.15s,
+    transform 1s var(--ease-out) 0.15s;
+}
+
+.leader-wrapper.reveal.visible .leader-image-wrapper,
+.leader-wrapper.reveal.visible .leader-content {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+  filter: blur(0);
+}

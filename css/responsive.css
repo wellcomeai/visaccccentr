@@ -1,0 +1,1042 @@
+/* ========================================
+   VISANEWS2YOU - Responsive
+   All @media queries
+   ======================================== */
+
+/* ========================================
+   LARGE SCREENS (1200px)
+   ======================================== */
+
+@media (max-width: 1200px) {
+  .graph-container {
+    left: 450px;
+  }
+
+  .hero-content {
+    max-width: 420px;
+  }
+
+  .steps-wrapper {
+    gap: 60px;
+  }
+
+  .globe-container {
+    width: 350px;
+    height: 350px;
+  }
+
+  .globe-orbital-system {
+    width: 420px;
+    height: 420px;
+  }
+
+  /* Flags orbit - smaller radius */
+  @keyframes orbitFlag0 { 0% { transform: rotate(0deg) translateX(210px) rotate(0deg); } 100% { transform: rotate(360deg) translateX(210px) rotate(-360deg); } }
+  @keyframes orbitFlag40 { 0% { transform: rotate(40deg) translateX(210px) rotate(-40deg); } 100% { transform: rotate(400deg) translateX(210px) rotate(-400deg); } }
+  @keyframes orbitFlag80 { 0% { transform: rotate(80deg) translateX(210px) rotate(-80deg); } 100% { transform: rotate(440deg) translateX(210px) rotate(-440deg); } }
+  @keyframes orbitFlag120 { 0% { transform: rotate(120deg) translateX(210px) rotate(-120deg); } 100% { transform: rotate(480deg) translateX(210px) rotate(-480deg); } }
+  @keyframes orbitFlag160 { 0% { transform: rotate(160deg) translateX(210px) rotate(-160deg); } 100% { transform: rotate(520deg) translateX(210px) rotate(-520deg); } }
+  @keyframes orbitFlag200 { 0% { transform: rotate(200deg) translateX(210px) rotate(-200deg); } 100% { transform: rotate(560deg) translateX(210px) rotate(-560deg); } }
+  @keyframes orbitFlag240 { 0% { transform: rotate(240deg) translateX(210px) rotate(-240deg); } 100% { transform: rotate(600deg) translateX(210px) rotate(-600deg); } }
+  @keyframes orbitFlag280 { 0% { transform: rotate(280deg) translateX(210px) rotate(-280deg); } 100% { transform: rotate(640deg) translateX(210px) rotate(-640deg); } }
+  @keyframes orbitFlag320 { 0% { transform: rotate(320deg) translateX(210px) rotate(-320deg); } 100% { transform: rotate(680deg) translateX(210px) rotate(-680deg); } }
+
+  .destinations-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .team-grid {
+    gap: 24px;
+  }
+
+  /* Telegram Promo - 1200px */
+  .telegram-promo-card {
+    margin-top: 80px;
+    padding: 32px 40px;
+    gap: 28px;
+  }
+}
+
+/* ========================================
+   MEDIUM SCREENS (1024px)
+   ======================================== */
+
+@media (max-width: 1024px) {
+  .steps-wrapper {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .steps-content {
+    order: 2;
+  }
+
+  .steps-visual {
+    order: 1;
+    height: 450px;
+  }
+
+  .globe-container {
+    width: 320px;
+    height: 320px;
+  }
+
+  .globe-orbital-system {
+    width: 400px;
+    height: 400px;
+  }
+
+  /* Flags orbit - smaller radius */
+  @keyframes orbitFlag0 { 0% { transform: rotate(0deg) translateX(200px) rotate(0deg); } 100% { transform: rotate(360deg) translateX(200px) rotate(-360deg); } }
+  @keyframes orbitFlag40 { 0% { transform: rotate(40deg) translateX(200px) rotate(-40deg); } 100% { transform: rotate(400deg) translateX(200px) rotate(-400deg); } }
+  @keyframes orbitFlag80 { 0% { transform: rotate(80deg) translateX(200px) rotate(-80deg); } 100% { transform: rotate(440deg) translateX(200px) rotate(-440deg); } }
+  @keyframes orbitFlag120 { 0% { transform: rotate(120deg) translateX(200px) rotate(-120deg); } 100% { transform: rotate(480deg) translateX(200px) rotate(-480deg); } }
+  @keyframes orbitFlag160 { 0% { transform: rotate(160deg) translateX(200px) rotate(-160deg); } 100% { transform: rotate(520deg) translateX(200px) rotate(-520deg); } }
+  @keyframes orbitFlag200 { 0% { transform: rotate(200deg) translateX(200px) rotate(-200deg); } 100% { transform: rotate(560deg) translateX(200px) rotate(-560deg); } }
+  @keyframes orbitFlag240 { 0% { transform: rotate(240deg) translateX(200px) rotate(-240deg); } 100% { transform: rotate(600deg) translateX(200px) rotate(-600deg); } }
+  @keyframes orbitFlag280 { 0% { transform: rotate(280deg) translateX(200px) rotate(-280deg); } 100% { transform: rotate(640deg) translateX(200px) rotate(-640deg); } }
+  @keyframes orbitFlag320 { 0% { transform: rotate(320deg) translateX(200px) rotate(-320deg); } 100% { transform: rotate(680deg) translateX(200px) rotate(-680deg); } }
+
+  .globe-quote {
+    bottom: -60px;
+    max-width: 340px;
+  }
+
+  .reviews-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .team-grid .team-card:last-child {
+    grid-column: 1 / -1;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+
+  /* Telegram Promo - 1024px - Stack vertically */
+  .telegram-promo-card {
+    margin-top: 72px;
+    flex-direction: column;
+    text-align: center;
+    padding: 36px 28px;
+    gap: 24px;
+  }
+
+  .telegram-promo-channel {
+    justify-content: center;
+  }
+
+  .telegram-promo-btn {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+/* ========================================
+   MOBILE SCREENS (900px)
+   ======================================== */
+
+@media (max-width: 900px) {
+  .header {
+    padding: 16px 20px;
+    background: rgba(248, 249, 250, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .header::before {
+    display: none;
+  }
+
+  .logo-img {
+    width: 44px;
+    height: 44px;
+  }
+
+  .logo-text {
+    font-size: 22px;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .burger {
+    display: flex;
+  }
+
+  /* Hero Mobile */
+  .hero {
+    min-height: auto;
+    padding-top: 80px;
+  }
+
+  .hero-content {
+    position: relative;
+    left: 0;
+    top: 0;
+    transform: none;
+    max-width: 100%;
+    padding: 32px 20px;
+  }
+
+  .hero-glass {
+    padding: 28px;
+    border-radius: 24px;
+  }
+
+  .hero-stats {
+    margin-top: 24px;
+  }
+
+  /* ========================================
+     FIX #1: Центрирование статистики Hero
+     ======================================== */
+  .hero-stats {
+    display: flex;
+    gap: 10px;
+  }
+
+  .stat-card {
+    padding: 16px 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    min-width: 0; /* Важно для flex */
+  }
+
+  .stat-num {
+    font-size: 22px !important; /* Уменьшаем размер */
+    display: block;
+    text-align: center;
+    line-height: 1.2;
+    width: 100%;
+  }
+
+  .stat-label {
+    font-size: 11px !important;
+    display: block;
+    text-align: center;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Airplane Mobile */
+  .airplane {
+    width: 28px;
+    height: 28px;
+  }
+
+  .airplane::after {
+    width: 60px;
+  }
+
+  .airplane-2 {
+    display: none;
+  }
+
+  /* Graph Mobile - New Vertical Layout */
+  .graph-container {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: auto;
+    min-height: auto;
+    margin: 0 16px 20px;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    border: 1px solid var(--glass-border);
+    padding: 20px 16px;
+  }
+
+  .graph-container.graph-mobile {
+    display: block;
+  }
+
+  /* Hide desktop graph elements on mobile */
+  .graph-mobile .graph-svg,
+  .graph-mobile .graph-node {
+    display: none !important;
+  }
+
+  /* Mobile Center Badge - LIGHT GLASS EFFECT */
+  .mobile-graph-center {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+
+  .mobile-center-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1.5px solid rgba(184, 149, 108, 0.3);
+    color: var(--color-primary);
+    padding: 14px 24px;
+    border-radius: 16px;
+    font-weight: 600;
+    font-size: 15px;
+    box-shadow:
+      0 8px 32px rgba(184, 149, 108, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+
+  .mobile-center-logo {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+  }
+
+  /* Mobile Category */
+  .mobile-category {
+    margin-bottom: 20px;
+  }
+
+  .mobile-category-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    padding-left: 4px;
+  }
+
+  .mobile-category-icon {
+    font-size: 18px;
+  }
+
+  .mobile-category-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .mobile-category-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(184, 149, 108, 0.3), transparent);
+  }
+
+  /* ========================================
+     FIX #3: Индикатор горизонтального скролла (SUBTLE)
+     ======================================== */
+  .mobile-nodes-row {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 4px 0 8px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+    padding-right: 8px;
+    padding-left: 2px;
+    /* Scroll snap для плавной прокрутки */
+    scroll-snap-type: x proximity;
+    scroll-padding: 0 16px;
+  }
+
+  .mobile-nodes-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Убираем старый fade, делаем более subtle индикатор */
+  .mobile-category {
+    position: relative;
+  }
+
+  /* Маленькая стрелка-индикатор вместо fade */
+  .mobile-category::after {
+    content: '›';
+    position: absolute;
+    right: 4px;
+    bottom: 24px;
+    font-size: 20px;
+    font-weight: 300;
+    color: var(--color-accent);
+    opacity: 0.4;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Скрываем когда докрутили до конца */
+  .mobile-category.scrolled-end::after {
+    opacity: 0;
+  }
+
+  /* ========================================
+     FIX #2: Индикатор кликабельности нодов
+     ======================================== */
+  .mobile-node {
+    background: #fff;
+    padding: 10px 14px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+    /* Добавляем рамку для визуального акцента */
+    border: 1.5px solid rgba(184, 149, 108, 0.15);
+    /* Scroll snap */
+    scroll-snap-align: start;
+    /* Минимальная ширина для консистентности */
+    min-width: fit-content;
+    position: relative;
+    padding-right: 28px; /* Место для стрелки */
+  }
+
+  /* Стрелка-индикатор кликабельности */
+  .mobile-node::after {
+    content: '›';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--color-accent);
+    opacity: 0.6;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .mobile-node:hover::after,
+  .mobile-node:active::after {
+    opacity: 1;
+    transform: translateY(-50%) translateX(2px);
+  }
+
+  /* Пульсация для первых нескольких нодов */
+  @keyframes nodePulse {
+    0%, 100% {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 0 0 0 rgba(184, 149, 108, 0);
+    }
+    50% {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 0 0 3px rgba(184, 149, 108, 0.15);
+    }
+  }
+
+  /* Пульсация только для первого нода в каждой категории пока не было взаимодействия */
+  .mobile-nodes-row:not(.interacted) .mobile-node:first-child {
+    animation: nodePulse 2s ease-in-out infinite;
+  }
+
+  .mobile-node:active {
+    transform: scale(0.97);
+    border-color: var(--color-accent);
+  }
+
+  .mobile-node-premium {
+    border: 1.5px solid var(--color-accent);
+    background: linear-gradient(135deg, #fff, #faf8f5);
+  }
+
+  .mobile-node-premium::after {
+    color: var(--color-accent-dark);
+    opacity: 0.8;
+  }
+
+  .mobile-node-flag {
+    width: 22px;
+    height: 22px;
+  }
+
+  .mobile-node-icon {
+    font-size: 18px;
+  }
+
+  .mobile-node-text {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text);
+    white-space: nowrap;
+  }
+
+  .hero-hint {
+    display: none;
+  }
+
+  /* ========================================
+     FIX #2: Улучшенная текстовая подсказка
+     ======================================== */
+  .graph-hint-mobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px 20px;
+    margin: 16px 16px 24px;
+    background: linear-gradient(135deg, #faf8f5, #f5f0e8);
+    border: 1.5px solid var(--color-accent);
+    border-radius: 16px;
+    font-size: 14px;
+    color: var(--color-primary);
+    box-shadow: 0 4px 16px rgba(184, 149, 108, 0.2);
+    /* Анимация привлечения внимания */
+    animation: hintAttention 2s ease-in-out infinite;
+  }
+
+  @keyframes hintAttention {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow: 0 4px 16px rgba(184, 149, 108, 0.2);
+    }
+    50% {
+      transform: scale(1.02);
+      box-shadow: 0 6px 24px rgba(184, 149, 108, 0.35);
+    }
+  }
+
+  .graph-hint-mobile.hidden {
+    display: none !important;
+  }
+
+  .graph-hint-icon {
+    font-size: 22px;
+    animation: pointBounce 1.2s ease-in-out infinite;
+  }
+
+  @keyframes pointBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+
+  .graph-hint-text {
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  /* Акцент на ключевые слова */
+  .graph-hint-text strong {
+    color: var(--color-accent-dark);
+    font-weight: 700;
+  }
+
+  /* ========================================
+     GLOBE SECTION MOBILE
+     ======================================== */
+  .steps-visual {
+    height: 350px;
+    padding-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .globe-container {
+    width: 180px;
+    height: 180px;
+  }
+
+  /* Orbital system mobile */
+  .globe-orbital-system {
+    width: 260px;
+    height: 260px;
+  }
+
+  .orbital-path {
+    border-width: 1px;
+  }
+
+  .orbital-flag {
+    width: 24px;
+    height: 24px;
+    padding: 3px;
+    margin-left: -12px;
+    margin-top: -12px;
+  }
+
+  .orbital-flag img {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Flags orbit - mobile radius 130px, slower 100s */
+  @keyframes orbitFlag0 { 0% { transform: rotate(0deg) translateX(130px) rotate(0deg); } 100% { transform: rotate(360deg) translateX(130px) rotate(-360deg); } }
+  @keyframes orbitFlag40 { 0% { transform: rotate(40deg) translateX(130px) rotate(-40deg); } 100% { transform: rotate(400deg) translateX(130px) rotate(-400deg); } }
+  @keyframes orbitFlag80 { 0% { transform: rotate(80deg) translateX(130px) rotate(-80deg); } 100% { transform: rotate(440deg) translateX(130px) rotate(-440deg); } }
+  @keyframes orbitFlag120 { 0% { transform: rotate(120deg) translateX(130px) rotate(-120deg); } 100% { transform: rotate(480deg) translateX(130px) rotate(-480deg); } }
+  @keyframes orbitFlag160 { 0% { transform: rotate(160deg) translateX(130px) rotate(-160deg); } 100% { transform: rotate(520deg) translateX(130px) rotate(-520deg); } }
+  @keyframes orbitFlag200 { 0% { transform: rotate(200deg) translateX(130px) rotate(-200deg); } 100% { transform: rotate(560deg) translateX(130px) rotate(-560deg); } }
+  @keyframes orbitFlag240 { 0% { transform: rotate(240deg) translateX(130px) rotate(-240deg); } 100% { transform: rotate(600deg) translateX(130px) rotate(-600deg); } }
+  @keyframes orbitFlag280 { 0% { transform: rotate(280deg) translateX(130px) rotate(-280deg); } 100% { transform: rotate(640deg) translateX(130px) rotate(-640deg); } }
+  @keyframes orbitFlag320 { 0% { transform: rotate(320deg) translateX(130px) rotate(-320deg); } 100% { transform: rotate(680deg) translateX(130px) rotate(-680deg); } }
+
+  .orbital-flag:nth-child(1) { animation: orbitFlag0 100s linear infinite; }
+  .orbital-flag:nth-child(2) { animation: orbitFlag40 100s linear infinite; }
+  .orbital-flag:nth-child(3) { animation: orbitFlag80 100s linear infinite; }
+  .orbital-flag:nth-child(4) { animation: orbitFlag120 100s linear infinite; }
+  .orbital-flag:nth-child(5) { animation: orbitFlag160 100s linear infinite; }
+  .orbital-flag:nth-child(6) { animation: orbitFlag200 100s linear infinite; }
+  .orbital-flag:nth-child(7) { animation: orbitFlag240 100s linear infinite; }
+  .orbital-flag:nth-child(8) { animation: orbitFlag280 100s linear infinite; }
+  .orbital-flag:nth-child(9) { animation: orbitFlag320 100s linear infinite; }
+
+  /* Hide globe quote on mobile - using branding quote instead */
+  .globe-quote {
+    display: none !important;
+  }
+
+  /* Tooltip Mobile - Hidden (using Bottom Sheet instead) */
+  .tooltip {
+    display: none !important;
+  }
+
+  /* Sections Mobile */
+  .section {
+    padding: 60px 20px;
+  }
+
+  .section-header {
+    margin-bottom: 40px;
+  }
+
+  .destinations-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .reviews-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* ========================================
+     TEAM GRID MOBILE
+     ======================================== */
+  .team-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-top: 40px;
+  }
+
+  .team-grid .team-card:last-child {
+    grid-column: auto;
+    max-width: none;
+  }
+
+  .team-card {
+    padding: 24px;
+  }
+
+  .team-card-photo-wrapper {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 20px;
+  }
+
+  .team-card-name {
+    font-size: 20px;
+  }
+
+  .team-card-specialization {
+    font-size: 13px;
+  }
+
+  /* ========================================
+     TELEGRAM PROMO MOBILE (inside team section)
+     ======================================== */
+  .telegram-promo-card {
+    margin-top: 32px;
+    flex-direction: column;
+    text-align: center;
+    padding: 28px 20px;
+    gap: 20px;
+    border-radius: 20px;
+  }
+
+  .telegram-promo-badge {
+    width: 80px;
+    height: 80px;
+    border-radius: 18px;
+  }
+
+  .telegram-promo-badge-icon {
+    font-size: 26px;
+  }
+
+  .telegram-promo-badge-text {
+    font-size: 15px;
+  }
+
+  .telegram-promo-title {
+    font-size: 20px;
+  }
+
+  .telegram-promo-desc {
+    font-size: 14px;
+  }
+
+  .telegram-promo-channel {
+    justify-content: center;
+  }
+
+  .telegram-promo-btn {
+    width: 100%;
+  }
+
+  /* Steps mobile - vertical layout with cards */
+  .steps-section {
+    overflow: hidden;
+  }
+
+  .steps-section .container {
+    padding: 0;
+  }
+
+  .steps-content {
+    padding: 0 20px;
+  }
+
+  .section-header {
+    padding: 0 20px;
+  }
+
+  .steps-list {
+    gap: 16px;
+    padding: 0;
+  }
+
+  .step-item {
+    padding: 18px 16px;
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow:
+      0 2px 8px rgba(0, 0, 0, 0.04),
+      0 4px 16px rgba(0, 0, 0, 0.04);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .step-item:hover {
+    transform: none;
+    box-shadow:
+      0 2px 8px rgba(0, 0, 0, 0.04),
+      0 4px 16px rgba(0, 0, 0, 0.04);
+  }
+
+  .step-number {
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .step-content h3 {
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+
+  .step-content p {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* Steps dots hidden */
+  .steps-dots {
+    display: none;
+  }
+
+  /* Steps mobile branding - visible on mobile */
+  /* Vertical layout: logo → quote → globe */
+  .steps-mobile-branding {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+
+  .steps-mobile-logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 14px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 16px rgba(184, 149, 108, 0.25);
+  }
+
+  .steps-mobile-quote {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-style: italic;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    max-width: 300px;
+    padding: 0 16px;
+    margin-bottom: 24px;
+  }
+
+  /* Leader section mobile - reordered: header → image → content */
+  .leader-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    text-align: center;
+  }
+
+  .leader-header {
+    display: block;
+    order: 1;
+  }
+
+  .leader-header .section-label {
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+
+  .leader-header .leader-name {
+    font-size: clamp(1.75rem, 5vw, 2.25rem);
+    margin-bottom: 8px;
+  }
+
+  .leader-header .leader-role {
+    font-size: 16px;
+    color: var(--color-accent);
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .leader-image-wrapper {
+    order: 2;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+
+  .leader-image-badge {
+    right: -10px;
+    bottom: -10px;
+    padding: 12px 18px;
+  }
+
+  .leader-image-badge span {
+    font-size: 22px;
+  }
+
+  .leader-content {
+    order: 3;
+  }
+
+  .leader-bio {
+    text-align: left;
+  }
+
+  .leader-credentials {
+    justify-content: center;
+  }
+
+  .leader-quote {
+    border-left: none;
+    border-top: 3px solid var(--color-accent);
+    padding: 24px 0 0 0;
+    text-align: center;
+  }
+
+  .leader-stats {
+    justify-content: center;
+  }
+
+  .leader-content .btn {
+    width: 100%;
+  }
+
+  /* Hide duplicate header elements on mobile (shown in .leader-header instead) */
+  .leader-content .section-label,
+  .leader-content .leader-name,
+  .leader-content .leader-role {
+    display: none;
+  }
+
+  /* Footer Mobile */
+  .footer {
+    padding: 60px 20px 32px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .footer-legal-info {
+    margin: 32px 0 0;
+    padding: 20px;
+  }
+
+  .footer-legal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Fix auto-detected phone numbers and INN - make them white */
+  .footer-contact-item,
+  .footer-legal-value {
+    color: rgba(255, 255, 255, 0.8) !important;
+    -webkit-text-fill-color: rgba(255, 255, 255, 0.8);
+  }
+
+  .footer-contact-item a,
+  .footer-legal-value a {
+    color: rgba(255, 255, 255, 0.8) !important;
+    -webkit-text-fill-color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+  }
+
+  /* Disable parallax on mobile for performance */
+  [data-parallax] {
+    transform: none !important;
+  }
+
+  /* Destinations filter mobile */
+  .destinations-filter {
+    justify-content: center;
+  }
+}
+
+/* ========================================
+   SMALL SCREENS (600px)
+   ======================================== */
+
+@media (max-width: 600px) {
+  .destinations-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+  }
+
+  .hero-buttons .btn {
+    width: 100%;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+  }
+
+  .cta-buttons .btn {
+    width: 100%;
+  }
+
+  .leader-stats {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .leader-stat {
+    flex: 1 1 80px;
+  }
+
+  .leader-credentials {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .credential-tag {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Even smaller orbital on small screens */
+  .globe-container {
+    width: 160px;
+    height: 160px;
+  }
+
+  .globe-orbital-system {
+    width: 240px;
+    height: 240px;
+  }
+
+  .orbital-flag {
+    width: 20px;
+    height: 20px;
+    padding: 2px;
+    margin-left: -10px;
+    margin-top: -10px;
+  }
+
+  .orbital-flag img {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Flags orbit - small screen radius 120px */
+  @keyframes orbitFlag0 { 0% { transform: rotate(0deg) translateX(120px) rotate(0deg); } 100% { transform: rotate(360deg) translateX(120px) rotate(-360deg); } }
+  @keyframes orbitFlag40 { 0% { transform: rotate(40deg) translateX(120px) rotate(-40deg); } 100% { transform: rotate(400deg) translateX(120px) rotate(-400deg); } }
+  @keyframes orbitFlag80 { 0% { transform: rotate(80deg) translateX(120px) rotate(-80deg); } 100% { transform: rotate(440deg) translateX(120px) rotate(-440deg); } }
+  @keyframes orbitFlag120 { 0% { transform: rotate(120deg) translateX(120px) rotate(-120deg); } 100% { transform: rotate(480deg) translateX(120px) rotate(-480deg); } }
+  @keyframes orbitFlag160 { 0% { transform: rotate(160deg) translateX(120px) rotate(-160deg); } 100% { transform: rotate(520deg) translateX(120px) rotate(-520deg); } }
+  @keyframes orbitFlag200 { 0% { transform: rotate(200deg) translateX(120px) rotate(-200deg); } 100% { transform: rotate(560deg) translateX(120px) rotate(-560deg); } }
+  @keyframes orbitFlag240 { 0% { transform: rotate(240deg) translateX(120px) rotate(-240deg); } 100% { transform: rotate(600deg) translateX(120px) rotate(-600deg); } }
+  @keyframes orbitFlag280 { 0% { transform: rotate(280deg) translateX(120px) rotate(-280deg); } 100% { transform: rotate(640deg) translateX(120px) rotate(-640deg); } }
+  @keyframes orbitFlag320 { 0% { transform: rotate(320deg) translateX(120px) rotate(-320deg); } 100% { transform: rotate(680deg) translateX(120px) rotate(-680deg); } }
+
+  /* Telegram Promo - 600px */
+  .telegram-promo-card {
+    margin-top: 28px;
+    padding: 24px 18px;
+    gap: 16px;
+  }
+
+  .telegram-promo-badge {
+    width: 72px;
+    height: 72px;
+    border-radius: 16px;
+  }
+
+  .telegram-promo-badge-icon {
+    font-size: 22px;
+  }
+
+  .telegram-promo-badge-text {
+    font-size: 14px;
+  }
+
+  .telegram-promo-title {
+    font-size: 18px;
+  }
+
+  .telegram-promo-desc {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .telegram-promo-channel {
+    padding: 8px 14px;
+    gap: 8px;
+  }
+
+  .telegram-promo-channel-icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .telegram-promo-channel-name {
+    font-size: 13px;
+  }
+}
