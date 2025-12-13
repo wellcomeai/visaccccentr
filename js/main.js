@@ -1,7 +1,8 @@
 // ========================================
-// VISATOYOU - Main JavaScript v3.3
+// VISATOYOU - Main JavaScript v3.4
 // Premium Animations & Interactions
 // OPTIMIZED: grain overlay removed
+// ADDED: Twemoji flags parsing for team cards
 // ========================================
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -20,7 +21,89 @@ document.addEventListener('DOMContentLoaded', function() {
   initDestinationFilter();
   initMobileTimeline();
   initHeroHintVisibility();
+  initTwemojiFlags();
+  initSmoothScrollForMobileMenu();
 });
+
+// ========================================
+// TWEMOJI FLAGS - Parse emoji flags in team cards
+// ========================================
+
+function initTwemojiFlags() {
+  // Check if twemoji is available
+  if (typeof twemoji === 'undefined') {
+    console.warn('Twemoji not loaded, flags may not display correctly on Windows');
+    return;
+  }
+
+  // Parse flags in team card tags
+  document.querySelectorAll('.team-card-tags').forEach(el => {
+    twemoji.parse(el, {
+      folder: 'svg',
+      ext: '.svg',
+      base: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/'
+    });
+  });
+
+  // Also parse any other elements that might contain flag emojis
+  document.querySelectorAll('.mobile-node-icon, .graph-hint-icon, .bottom-sheet-icon').forEach(el => {
+    twemoji.parse(el, {
+      folder: 'svg',
+      ext: '.svg',
+      base: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/'
+    });
+  });
+
+  // Style the parsed emoji images
+  const style = document.createElement('style');
+  style.textContent = `
+    .team-card-tags img.emoji,
+    .team-tag img.emoji {
+      width: 1.2em;
+      height: 1.2em;
+      vertical-align: -0.15em;
+      margin-right: 0.1em;
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+// ========================================
+// SMOOTH SCROLL FOR MOBILE MENU
+// Close menu and scroll smoothly when clicking anchor links
+// ========================================
+
+function initSmoothScrollForMobileMenu() {
+  const mobileMenu = document.querySelector('.mobile-menu');
+  const burger = document.querySelector('.burger');
+  
+  if (!mobileMenu) return;
+
+  // Handle clicks on mobile nav links with hash anchors
+  mobileMenu.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href');
+      const targetElement = document.querySelector(targetId);
+      
+      if (targetElement) {
+        e.preventDefault();
+        
+        // Close mobile menu
+        burger.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        document.body.classList.remove('menu-open');
+        
+        // Wait for menu animation to complete, then scroll
+        setTimeout(() => {
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }, 300);
+      }
+    });
+  });
+}
 
 // ========================================
 // GRAIN TEXTURE OVERLAY - REMOVED FOR PERFORMANCE
@@ -251,8 +334,8 @@ function initBurgerMenu() {
     document.body.classList.toggle('menu-open');
   });
 
-  // Close on link click
-  const mobileLinks = mobileMenu.querySelectorAll('.mobile-nav-link');
+  // Close on link click (for non-anchor links)
+  const mobileLinks = mobileMenu.querySelectorAll('.mobile-nav-link:not([href^="#"])');
   mobileLinks.forEach(link => {
     link.addEventListener('click', function() {
       burger.classList.remove('active');
@@ -419,14 +502,19 @@ function initMobileTimeline() {
 }
 
 // ========================================
-// Smooth Scroll
+// Smooth Scroll for all anchor links
 // ========================================
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function(e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
+    const targetId = this.getAttribute('href');
+    
+    // Skip if it's just "#" or empty
+    if (targetId === '#' || targetId === '') return;
+    
+    const target = document.querySelector(targetId);
     if (target) {
+      e.preventDefault();
       target.scrollIntoView({
         behavior: 'smooth',
         block: 'start'
