@@ -223,9 +223,9 @@ const nodesData = [
     id: 'bankcards', 
     label: 'Карты', 
     labelShort: 'Карты', 
-    type: 'extra-service', 
+    type: 'service', 
     x: 60, 
-    y: 85, 
+    y: 88, 
     description: 'Оформление карт иностранных банков для граждан РФ. Условия обсуждаются индивидуально.', 
     price: 'По запросу', 
     icon: '💳', 
@@ -236,8 +236,8 @@ const nodesData = [
     id: 'vnj', 
     label: 'ВНЖ', 
     labelShort: 'ВНЖ', 
-    type: 'extra-service', 
-    x: 82, 
+    type: 'service', 
+    x: 85, 
     y: 88, 
     description: 'Вид на жительство в Италии, Испании, Кипре, Франции. Стоимость и условия обсуждаются на встрече.', 
     price: 'По запросу', 
@@ -406,7 +406,7 @@ class SmartGraph {
       
       categoryNodes.forEach(node => {
         const nodeEl = document.createElement('div');
-        const isPremiumStyle = node.type === 'premium' || node.type === 'extra-service';
+        const isPremiumStyle = node.type === 'premium' || node.category === 'extra';
         nodeEl.className = `mobile-node ${isPremiumStyle ? 'mobile-node-premium' : ''}`;
         nodeEl.dataset.id = node.id;
         
@@ -549,8 +549,8 @@ class SmartGraph {
     }
     
     // Show button for countries and extra services
-    if (node.type === 'country' || node.type === 'premium' || node.type === 'extra-service') {
-      btn.textContent = node.type === 'extra-service' ? 'Узнать подробнее' : 'Оформить визу';
+    if (node.type === 'country' || node.type === 'premium' || node.category === 'extra') {
+      btn.textContent = node.category === 'extra' ? 'Узнать подробнее' : 'Оформить визу';
       btn.style.display = 'block';
     } else {
       btn.style.display = 'none';
@@ -612,7 +612,7 @@ class SmartGraph {
           <img src="${node.logo}" alt="Logo" class="center-logo">
           <span class="center-text">${node.label}</span>
         `;
-      } else if ((node.type === 'country' || node.type === 'premium' || node.type === 'extra-service') && node.flag) {
+      } else if ((node.type === 'country' || node.type === 'premium') && node.flag) {
         el.innerHTML = `
           <img src="${flagUrls[node.flag]}" alt="" class="country-flag">
           <span>${node.label}</span>
@@ -796,7 +796,7 @@ class SmartGraph {
 
     if (!this.tooltip) return;
 
-    const hasDetails = node.type === 'country' || node.type === 'premium' || node.type === 'extra-service';
+    const hasDetails = node.type === 'country' || node.type === 'premium' || node.category === 'extra';
     const flagUrl = node.flag ? flagUrls[node.flag] : null;
     
     let price, description, features;
@@ -854,7 +854,7 @@ class SmartGraph {
     }
 
     if (hasDetails) {
-      const btnText = node.type === 'extra-service' ? 'Узнать подробнее' : 'Оставить заявку';
+      const btnText = node.category === 'extra' ? 'Узнать подробнее' : 'Оставить заявку';
       html += `
         <a href="https://t.me/schengenru" target="_blank" class="btn btn-accent tooltip-btn">
           ${btnText}
