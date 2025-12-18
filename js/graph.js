@@ -33,7 +33,7 @@ const nodesData = [
     description: 'Ваш надёжный визовый партнёр', 
     price: null, 
     icon: '🌍', 
-    logo: 'images/logo.webp', 
+    logo: 'images/visa.png', 
     category: 'center' 
   },
   
