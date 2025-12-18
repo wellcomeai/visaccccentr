@@ -1,7 +1,8 @@
 // ========================================
-// VISANEWS2YOU - Smart Graph Visualization v3.1
+// VISANEWS2U - Smart Graph Visualization v3.2
 // Desktop: Original working tooltip logic
 // Mobile: Vertical categories + Bottom Sheet + Enhanced UX
+// UPDATED: Prices, features, descriptions
 // ========================================
 
 // Twemoji flag URLs (Twitter emoji as SVG)
@@ -20,9 +21,50 @@ const flagUrls = {
 
 // Данные узлов с Twemoji флагами
 const nodesData = [
-  { id: 'center', label: 'VISANEWS2YOU', type: 'center', x: 50, y: 50, description: 'Ваш надёжный визовый партнёр', price: null, icon: '🌍', logo: 'images/logo.webp', category: 'center' },
-  { id: 'schengen', label: 'Шенген', type: 'category', x: 25, y: 32, description: 'Визы в страны Шенгенской зоны', price: null, icon: '🇪🇺', flag: 'EU', category: 'schengen' },
-  { id: 'portugal', label: 'Португалия', labelShort: 'Португалия', type: 'country', x: 10, y: 18, description: 'Туристическая виза в Португалию. Срок оформления от 7 дней.', price: '18 000 ₽', icon: '🇵🇹', flag: 'PT', features: ['Мультивиза', '7-14 дней'], tariff: 'gold', category: 'schengen' },
+  // === CENTER ===
+  { 
+    id: 'center', 
+    label: 'VISANEWS2U', 
+    type: 'center', 
+    x: 50, 
+    y: 50, 
+    description: 'Ваш надёжный визовый партнёр', 
+    price: null, 
+    icon: '🌍', 
+    logo: 'images/logo.webp', 
+    category: 'center' 
+  },
+  
+  // === SCHENGEN CATEGORY ===
+  { 
+    id: 'schengen', 
+    label: 'Шенген', 
+    type: 'category', 
+    x: 25, 
+    y: 32, 
+    description: 'Визы в страны Шенгенской зоны', 
+    price: null, 
+    icon: '🇪🇺', 
+    flag: 'EU', 
+    category: 'schengen' 
+  },
+  
+  // === SCHENGEN COUNTRIES ===
+  { 
+    id: 'portugal', 
+    label: 'Португалия', 
+    labelShort: 'Португалия', 
+    type: 'country', 
+    x: 10, 
+    y: 18, 
+    description: 'Туристическая виза в Португалию. Срок оформления от 7 дней.', 
+    price: '18 000 ₽', 
+    icon: '🇵🇹', 
+    flag: 'PT', 
+    features: ['Сборы включены', '7-14 дней'], 
+    tariff: 'gold', 
+    category: 'schengen' 
+  },
   { 
     id: 'italy', 
     label: 'Италия',
@@ -30,7 +72,7 @@ const nodesData = [
     type: 'country', 
     x: 8, 
     y: 38, 
-    description: 'Виза в солнечную Италию для туризма и бизнеса.',
+    description: 'Идеальный вариант для первого Шенгена. Виза для туризма и бизнеса.',
     icon: '🇮🇹', 
     flag: 'IT',
     category: 'schengen',
@@ -39,7 +81,7 @@ const nodesData = [
       gold: {
         price: 'от 13 000 ₽',
         description: 'Москва, СПб и СЗ регионы — от 13 000 ₽. Регионы — 25 000 ₽ + сервисный сбор.',
-        features: ['Туризм', 'Бизнес', 'Личная подача']
+        features: ['Первый Шенген', 'Личная подача', 'Сборы включены']
       },
       premium: {
         price: '55 000 ₽',
@@ -62,9 +104,9 @@ const nodesData = [
     hasTariffs: true,
     tariffs: {
       gold: {
-        price: '25 000 ₽',
+        price: '27 000 ₽',
         description: 'Стандартное оформление визы + сервисный сбор 35 евро.',
-        features: ['Туризм', 'До 5 лет', 'Личная подача']
+        features: ['Туризм', 'Личная подача', 'Сборы включены']
       },
       premium: {
         price: '55 000 ₽',
@@ -73,19 +115,180 @@ const nodesData = [
       }
     }
   },
-  { id: 'germany', label: 'Германия', labelShort: 'Германия', type: 'country', x: 25, y: 12, description: 'Виза в Германию по приглашению. Необходимы выкупленные билеты.', price: '15 000 ₽', icon: '🇩🇪', flag: 'DE', features: ['Приглашение', '5-10 дней'], tariff: 'gold', category: 'schengen' },
-  { id: 'greece', label: 'Греция', labelShort: 'Греция', type: 'country', x: 38, y: 15, description: 'Быстрое оформление визы в Грецию. Необходимы выкупленные билеты.', price: '15 000 ₽', icon: '🇬🇷', flag: 'GR', features: ['Быстро', 'Туризм'], tariff: 'gold', category: 'schengen' },
-  { id: 'hungary', label: 'Венгрия', labelShort: 'Венгрия', type: 'country', x: 40, y: 35, description: 'Виза в Венгрию — отличный вариант для первого Шенгена. Нужны билеты и отель.', price: '15 000 ₽', icon: '🇭🇺', flag: 'HU', features: ['Первый Шенген', '98% одобрений'], tariff: 'gold', category: 'schengen' },
-  { id: 'usa', label: 'США', labelShort: 'США', type: 'premium', x: 78, y: 22, description: 'Полное сопровождение B1/B2, F1: документы, DS-160, подготовка к собеседованию. Консульский сбор $185 оплачивается отдельно.', price: '35 000 ₽', icon: '🇺🇸', flag: 'US', features: ['Собеседование', 'Запись ботом', 'Гарантия'], category: 'premium' },
-  { id: 'uk', label: 'Великобритания', labelShort: 'UK', type: 'premium', x: 85, y: 42, description: 'Туристическая, студенческая и рабочая виза в UK. Перевод документов включён. Консульский сбор £127.', price: '37 000 ₽', icon: '🇬🇧', flag: 'GB', features: ['Все типы виз', 'Перевод', 'Сопровождение'], category: 'premium' },
-  { id: 'canada', label: 'Канада', labelShort: 'Канада', type: 'premium', x: 80, y: 62, description: 'Туристическая виза в Канаду. Помощь с биометрией и оплатой. Консульский сбор CAD $100.', price: '30 000 ₽', icon: '🇨🇦', flag: 'CA', features: ['Биометрия', 'До 10 лет', 'Перевод'], category: 'premium' },
-  { id: 'services', label: 'Услуги', type: 'category', x: 32, y: 75, description: 'Что входит в стоимость наших услуг', price: null, icon: '⭐', category: 'services' },
-  { id: 'forms', label: 'Анкеты', labelShort: 'Анкеты', type: 'service', x: 15, y: 85, description: 'Профессиональное заполнение анкет на любом языке', price: null, icon: '📝', category: 'services' },
-  { id: 'booking', label: 'Запись', labelShort: 'Запись', type: 'service', x: 28, y: 90, description: 'Запись в визовый центр на удобную дату (с ботом или без)', price: null, icon: '📅', category: 'services' },
-  { id: 'translation', label: 'Переводы', labelShort: 'Переводы', type: 'service', x: 42, y: 88, description: 'Нотариальный перевод документов с русского на английский', price: null, icon: '🌐', category: 'services' },
-  { id: 'consulting', label: 'Консультации', labelShort: 'Консультации', type: 'service', x: 55, y: 80, description: 'Оценка ситуации и подбор оптимальной стратегии', price: null, icon: '💬', category: 'services' },
-  { id: 'remote', label: 'Удалённая подача', labelShort: 'Удалённо', type: 'feature', x: 68, y: 70, description: 'Подача без вашего присутствия при наличии биометрии', price: null, icon: '🚀', category: 'services' },
-  { id: 'support', label: 'Поддержка', labelShort: 'Поддержка', type: 'feature', x: 75, y: 78, description: 'На связи 24/7 в любом мессенджере', price: null, icon: '🛟', category: 'services' },
+  { 
+    id: 'germany', 
+    label: 'Германия', 
+    labelShort: 'Германия', 
+    type: 'country', 
+    x: 25, 
+    y: 12, 
+    description: 'Виза в Германию по приглашению. Необходимы выкупленные билеты.', 
+    price: '15 000 ₽', 
+    icon: '🇩🇪', 
+    flag: 'DE', 
+    features: ['15 дней', 'Сборы включены'], 
+    tariff: 'gold', 
+    category: 'schengen' 
+  },
+  { 
+    id: 'greece', 
+    label: 'Греция', 
+    labelShort: 'Греция', 
+    type: 'country', 
+    x: 38, 
+    y: 15, 
+    description: 'Быстрое оформление визы в Грецию. Необходимы выкупленные билеты.', 
+    price: '15 000 ₽', 
+    icon: '🇬🇷', 
+    flag: 'GR', 
+    features: ['7 дней', 'Сборы включены'], 
+    tariff: 'gold', 
+    category: 'schengen' 
+  },
+  { 
+    id: 'hungary', 
+    label: 'Венгрия', 
+    labelShort: 'Венгрия', 
+    type: 'country', 
+    x: 40, 
+    y: 35, 
+    description: 'Туристические и бизнес-визы. Необходимы выкупленные билеты и оплаченный отель.', 
+    price: '15 000 ₽', 
+    icon: '🇭🇺', 
+    flag: 'HU', 
+    features: ['Билеты + отель', 'Сборы включены'], 
+    tariff: 'gold', 
+    category: 'schengen' 
+  },
+  
+  // === OTHER COUNTRIES (Premium) ===
+  { 
+    id: 'usa', 
+    label: 'США', 
+    labelShort: 'США', 
+    type: 'premium', 
+    x: 78, 
+    y: 22, 
+    description: 'Полное сопровождение B1/B2, F1: документы, DS-160, подготовка к интервью. Консульский сбор $185 оплачивается отдельно.', 
+    price: '35 000 ₽', 
+    icon: '🇺🇸', 
+    flag: 'US', 
+    features: ['На 3 года', 'Запись ботом', 'Подготовка к интервью'], 
+    category: 'premium' 
+  },
+  { 
+    id: 'uk', 
+    label: 'Великобритания', 
+    labelShort: 'UK', 
+    type: 'premium', 
+    x: 85, 
+    y: 42, 
+    description: 'Виза в Великобританию. Перевод документов включён. Консульский сбор £127.', 
+    price: '37 000 ₽', 
+    icon: '🇬🇧', 
+    flag: 'GB', 
+    features: ['До 2 лет', 'Перевод включён'], 
+    category: 'premium' 
+  },
+  { 
+    id: 'canada', 
+    label: 'Канада', 
+    labelShort: 'Канада', 
+    type: 'premium', 
+    x: 80, 
+    y: 62, 
+    description: 'Туристическая виза в Канаду. Перевод документов включён. Консульский сбор CAD $100.', 
+    price: '30 000 ₽', 
+    icon: '🇨🇦', 
+    flag: 'CA', 
+    features: ['До 10 лет', 'Перевод включён'], 
+    category: 'premium' 
+  },
+  
+  // === SERVICES CATEGORY ===
+  { 
+    id: 'services', 
+    label: 'Услуги', 
+    type: 'category', 
+    x: 32, 
+    y: 75, 
+    description: 'Что входит в стоимость наших услуг', 
+    price: null, 
+    icon: '⭐', 
+    category: 'services' 
+  },
+  { 
+    id: 'forms', 
+    label: 'Анкеты', 
+    labelShort: 'Анкеты', 
+    type: 'service', 
+    x: 15, 
+    y: 85, 
+    description: 'Профессиональное заполнение анкет на любом языке', 
+    price: null, 
+    icon: '📝', 
+    category: 'services' 
+  },
+  { 
+    id: 'booking', 
+    label: 'Запись', 
+    labelShort: 'Запись', 
+    type: 'service', 
+    x: 28, 
+    y: 90, 
+    description: 'Запись в визовый центр на удобную дату (с ботом или без)', 
+    price: null, 
+    icon: '📅', 
+    category: 'services' 
+  },
+  { 
+    id: 'translation', 
+    label: 'Переводы', 
+    labelShort: 'Переводы', 
+    type: 'service', 
+    x: 42, 
+    y: 88, 
+    description: 'Перевод документов с русского на английский', 
+    price: null, 
+    icon: '🌐', 
+    category: 'services' 
+  },
+  { 
+    id: 'consulting', 
+    label: 'Консультации', 
+    labelShort: 'Консультации', 
+    type: 'service', 
+    x: 55, 
+    y: 80, 
+    description: 'Оценка ситуации и подбор оптимальной стратегии', 
+    price: null, 
+    icon: '💬', 
+    category: 'services' 
+  },
+  { 
+    id: 'remote', 
+    label: 'Удалённая подача', 
+    labelShort: 'Удалённо', 
+    type: 'feature', 
+    x: 68, 
+    y: 70, 
+    description: 'Подача без вашего присутствия при наличии биометрии', 
+    price: null, 
+    icon: '🚀', 
+    category: 'services' 
+  },
+  { 
+    id: 'support', 
+    label: 'Поддержка', 
+    labelShort: 'Поддержка', 
+    type: 'feature', 
+    x: 75, 
+    y: 78, 
+    description: 'На связи 24/7 в любом мессенджере', 
+    price: null, 
+    icon: '🛟', 
+    category: 'services' 
+  },
 ];
 
 // Связи между узлами
@@ -114,7 +317,7 @@ const connections = [
 // Categories for mobile layout
 const mobileCategories = [
   { id: 'schengen', label: 'Шенген', icon: '🇪🇺' },
-  { id: 'premium', label: 'Premium', icon: '⭐' },
+  { id: 'premium', label: 'Другие страны', icon: '🌍' },
   { id: 'services', label: 'Услуги', icon: '📋' },
 ];
 
@@ -155,7 +358,7 @@ class SmartGraph {
     center.innerHTML = `
       <div class="mobile-center-badge">
         <img src="images/logo.webp" alt="Logo" class="mobile-center-logo">
-        <span>VISANEWS2YOU</span>
+        <span>VISANEWS2U</span>
       </div>
     `;
     this.container.appendChild(center);
@@ -243,7 +446,7 @@ class SmartGraph {
         <div class="bottom-sheet-desc"></div>
         <div class="bottom-sheet-features"></div>
         <div class="bottom-sheet-tariffs"></div>
-        <a href="contacts.html" class="bottom-sheet-btn">Оформить визу</a>
+        <a href="https://t.me/schengenru" class="bottom-sheet-btn" target="_blank">Оформить визу</a>
       </div>
     `;
     
@@ -257,8 +460,6 @@ class SmartGraph {
   showBottomSheet(node) {
     if (!this.bottomSheet) return;
 
-    // Подсказка теперь всегда видна - не скрываем
-    
     // Mark all rows as interacted to stop pulse animation
     document.querySelectorAll('.mobile-nodes-row').forEach(row => {
       row.classList.add('interacted');
@@ -637,7 +838,7 @@ class SmartGraph {
 
     if (hasDetails) {
       html += `
-        <a href="contacts.html" class="btn btn-accent tooltip-btn">
+        <a href="https://t.me/schengenru" target="_blank" class="btn btn-accent tooltip-btn">
           Оставить заявку
           <span class="btn-icon">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -690,15 +891,14 @@ class SmartGraph {
   }
 }
 
-// Graph hint - теперь ВСЕГДА видна, не скрываем
-// Функция оставлена пустой для совместимости
+// Graph hint - always visible
 function hideGraphHint() {
-  // Ничего не делаем - подсказка всегда видна
+  // Do nothing - hint is always visible
 }
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
-  // Очищаем старые значения из storage
+  // Clear old storage values
   localStorage.removeItem('graphHintSeen');
   sessionStorage.removeItem('graphHintSeen');
 
