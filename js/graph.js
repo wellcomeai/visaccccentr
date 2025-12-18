@@ -1,8 +1,8 @@
 // ========================================
-// VISANEWS2U - Smart Graph Visualization v3.2
+// VISANEWS2U - Smart Graph Visualization v3.3
 // Desktop: Original working tooltip logic
 // Mobile: Vertical categories + Bottom Sheet + Enhanced UX
-// UPDATED: Prices, features, descriptions
+// UPDATED: Added "Доп. услуги" category with bank cards and residence permits
 // ========================================
 
 // Twemoji flag URLs (Twitter emoji as SVG)
@@ -17,6 +17,8 @@ const flagUrls = {
   'GB': 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1ec-1f1e7.svg',
   'CA': 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1e8-1f1e6.svg',
   'EU': 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1ea-1f1fa.svg',
+  'ES': 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1ea-1f1f8.svg',
+  'CY': 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1e8-1f1fe.svg',
 };
 
 // Данные узлов с Twemoji флагами
@@ -205,6 +207,88 @@ const nodesData = [
     category: 'premium' 
   },
   
+  // === ADDITIONAL SERVICES (Доп. услуги) ===
+  { 
+    id: 'extra', 
+    label: 'Доп. услуги', 
+    type: 'category', 
+    x: 65, 
+    y: 80, 
+    description: 'Дополнительные услуги: карты банков и ВНЖ', 
+    price: null, 
+    icon: '✨', 
+    category: 'extra' 
+  },
+  { 
+    id: 'bankcards', 
+    label: 'Карты банков', 
+    labelShort: 'Карты', 
+    type: 'extra-service', 
+    x: 50, 
+    y: 88, 
+    description: 'Оформление карт иностранных банков для граждан РФ. Условия обсуждаются индивидуально.', 
+    price: 'По запросу', 
+    icon: '💳', 
+    features: ['Консультация', 'Сопровождение'], 
+    category: 'extra' 
+  },
+  { 
+    id: 'vnj-italy', 
+    label: 'ВНЖ Италия', 
+    labelShort: 'ВНЖ Италия', 
+    type: 'extra-service', 
+    x: 58, 
+    y: 92, 
+    description: 'Вид на жительство в Италии. Стоимость и условия обсуждаются на встрече.', 
+    price: 'По запросу', 
+    icon: '🇮🇹', 
+    flag: 'IT',
+    features: ['Полное сопровождение'], 
+    category: 'extra' 
+  },
+  { 
+    id: 'vnj-spain', 
+    label: 'ВНЖ Испания', 
+    labelShort: 'ВНЖ Испания', 
+    type: 'extra-service', 
+    x: 68, 
+    y: 92, 
+    description: 'Вид на жительство в Испании. Стоимость и условия обсуждаются на встрече.', 
+    price: 'По запросу', 
+    icon: '🇪🇸', 
+    flag: 'ES',
+    features: ['Полное сопровождение'], 
+    category: 'extra' 
+  },
+  { 
+    id: 'vnj-cyprus', 
+    label: 'ВНЖ Кипр', 
+    labelShort: 'ВНЖ Кипр', 
+    type: 'extra-service', 
+    x: 78, 
+    y: 88, 
+    description: 'Вид на жительство на Кипре. Стоимость и условия обсуждаются на встрече.', 
+    price: 'По запросу', 
+    icon: '🇨🇾', 
+    flag: 'CY',
+    features: ['Полное сопровождение'], 
+    category: 'extra' 
+  },
+  { 
+    id: 'vnj-france', 
+    label: 'ВНЖ Франция', 
+    labelShort: 'ВНЖ Франция', 
+    type: 'extra-service', 
+    x: 85, 
+    y: 82, 
+    description: 'Вид на жительство во Франции. Стоимость и условия обсуждаются на встрече.', 
+    price: 'По запросу', 
+    icon: '🇫🇷', 
+    flag: 'FR',
+    features: ['Полное сопровождение'], 
+    category: 'extra' 
+  },
+  
   // === SERVICES CATEGORY ===
   { 
     id: 'services', 
@@ -258,35 +342,11 @@ const nodesData = [
     label: 'Консультации', 
     labelShort: 'Консультации', 
     type: 'service', 
-    x: 55, 
-    y: 80, 
+    x: 20, 
+    y: 70, 
     description: 'Оценка ситуации и подбор оптимальной стратегии', 
     price: null, 
     icon: '💬', 
-    category: 'services' 
-  },
-  { 
-    id: 'remote', 
-    label: 'Удалённая подача', 
-    labelShort: 'Удалённо', 
-    type: 'feature', 
-    x: 68, 
-    y: 70, 
-    description: 'Подача без вашего присутствия при наличии биометрии', 
-    price: null, 
-    icon: '🚀', 
-    category: 'services' 
-  },
-  { 
-    id: 'support', 
-    label: 'Поддержка', 
-    labelShort: 'Поддержка', 
-    type: 'feature', 
-    x: 75, 
-    y: 78, 
-    description: 'На связи 24/7 в любом мессенджере', 
-    price: null, 
-    icon: '🛟', 
     category: 'services' 
   },
 ];
@@ -298,6 +358,7 @@ const connections = [
   { from: 'center', to: 'uk' },
   { from: 'center', to: 'canada' },
   { from: 'center', to: 'services' },
+  { from: 'center', to: 'extra' },
   { from: 'schengen', to: 'portugal' },
   { from: 'schengen', to: 'italy' },
   { from: 'schengen', to: 'france' },
@@ -308,8 +369,11 @@ const connections = [
   { from: 'services', to: 'booking' },
   { from: 'services', to: 'translation' },
   { from: 'services', to: 'consulting' },
-  { from: 'consulting', to: 'remote' },
-  { from: 'remote', to: 'support' },
+  { from: 'extra', to: 'bankcards' },
+  { from: 'extra', to: 'vnj-italy' },
+  { from: 'extra', to: 'vnj-spain' },
+  { from: 'extra', to: 'vnj-cyprus' },
+  { from: 'extra', to: 'vnj-france' },
   { from: 'usa', to: 'uk' },
   { from: 'uk', to: 'canada' },
 ];
@@ -318,6 +382,7 @@ const connections = [
 const mobileCategories = [
   { id: 'schengen', label: 'Шенген', icon: '🇪🇺' },
   { id: 'premium', label: 'Другие страны', icon: '🌍' },
+  { id: 'extra', label: 'Доп. услуги', icon: '✨' },
   { id: 'services', label: 'Услуги', icon: '📋' },
 ];
 
@@ -387,7 +452,8 @@ class SmartGraph {
       
       categoryNodes.forEach(node => {
         const nodeEl = document.createElement('div');
-        nodeEl.className = `mobile-node ${node.type === 'premium' ? 'mobile-node-premium' : ''}`;
+        const isPremiumStyle = node.type === 'premium' || node.type === 'extra-service';
+        nodeEl.className = `mobile-node ${isPremiumStyle ? 'mobile-node-premium' : ''}`;
         nodeEl.dataset.id = node.id;
         
         if (node.flag) {
@@ -420,7 +486,6 @@ class SmartGraph {
     };
 
     row.addEventListener('scroll', checkScrollEnd, { passive: true });
-    // Проверяем при инициализации
     setTimeout(checkScrollEnd, 100);
   }
 
@@ -446,7 +511,7 @@ class SmartGraph {
         <div class="bottom-sheet-desc"></div>
         <div class="bottom-sheet-features"></div>
         <div class="bottom-sheet-tariffs"></div>
-        <a href="https://t.me/schengenru" class="bottom-sheet-btn" target="_blank">Оформить визу</a>
+        <a href="https://t.me/schengenru" class="bottom-sheet-btn" target="_blank">Узнать подробнее</a>
       </div>
     `;
     
@@ -484,7 +549,7 @@ class SmartGraph {
     }
     
     if (node.price) {
-      price.textContent = node.price + ' под ключ';
+      price.textContent = node.price === 'По запросу' ? node.price : node.price + ' под ключ';
       price.style.display = 'block';
     } else if (node.hasTariffs && node.tariffs?.gold?.price) {
       price.textContent = node.tariffs.gold.price;
@@ -529,7 +594,9 @@ class SmartGraph {
       tariffs.style.display = 'none';
     }
     
-    if (node.type === 'country' || node.type === 'premium') {
+    // Show button for countries and extra services
+    if (node.type === 'country' || node.type === 'premium' || node.type === 'extra-service') {
+      btn.textContent = node.type === 'extra-service' ? 'Узнать подробнее' : 'Оформить визу';
       btn.style.display = 'block';
     } else {
       btn.style.display = 'none';
@@ -591,7 +658,7 @@ class SmartGraph {
           <img src="${node.logo}" alt="Logo" class="center-logo">
           <span class="center-text">${node.label}</span>
         `;
-      } else if ((node.type === 'country' || node.type === 'premium') && node.flag) {
+      } else if ((node.type === 'country' || node.type === 'premium' || node.type === 'extra-service') && node.flag) {
         el.innerHTML = `
           <img src="${flagUrls[node.flag]}" alt="" class="country-flag">
           <span>${node.label}</span>
@@ -666,7 +733,6 @@ class SmartGraph {
     });
 
     if (this.isMobile) {
-      // Mobile: click opens bottom sheet
       this.container.addEventListener('click', (e) => {
         const nodeEl = e.target.closest('.mobile-node');
         if (nodeEl) {
@@ -677,7 +743,6 @@ class SmartGraph {
         }
       });
     } else {
-      // Desktop: hover shows tooltip
       this.nodes.forEach(el => {
         const nodeData = nodesData.find(n => n.id === el.dataset.id);
         
@@ -709,7 +774,6 @@ class SmartGraph {
     }
   }
 
-  // Smart tooltip positioning - NEVER covers the node
   calculateTooltipPosition(node, e) {
     const nodeEl = this.container.querySelector(`[data-id="${node.id}"]`);
     const nodeRect = nodeEl.getBoundingClientRect();
@@ -768,7 +832,6 @@ class SmartGraph {
     this.hoveredNode = node;
     this.currentTariff = selectedTariff;
     
-    // Highlight connected lines
     this.lines.forEach(line => {
       if (line.dataset.from === node.id || line.dataset.to === node.id) {
         line.classList.add('highlighted');
@@ -779,7 +842,7 @@ class SmartGraph {
 
     if (!this.tooltip) return;
 
-    const hasDetails = node.type === 'country' || node.type === 'premium';
+    const hasDetails = node.type === 'country' || node.type === 'premium' || node.type === 'extra-service';
     const flagUrl = node.flag ? flagUrls[node.flag] : null;
     
     let price, description, features;
@@ -837,9 +900,10 @@ class SmartGraph {
     }
 
     if (hasDetails) {
+      const btnText = node.type === 'extra-service' ? 'Узнать подробнее' : 'Оставить заявку';
       html += `
         <a href="https://t.me/schengenru" target="_blank" class="btn btn-accent tooltip-btn">
-          Оставить заявку
+          ${btnText}
           <span class="btn-icon">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -891,16 +955,9 @@ class SmartGraph {
   }
 }
 
-// Graph hint - always visible
-function hideGraphHint() {
-  // Do nothing - hint is always visible
-}
-
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
-  // Clear old storage values
   localStorage.removeItem('graphHintSeen');
   sessionStorage.removeItem('graphHintSeen');
-
   new SmartGraph('graph-container');
 });
