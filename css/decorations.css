@@ -1,6 +1,6 @@
 /* ========================================
    VISANEWS2U - Decorative Elements
-   Vintage line icons with parallax effect
+   Много мелких винтажных иконок с parallax
    ======================================== */
 
 /* ========================================
@@ -26,129 +26,155 @@
 
 .decor-icon {
   position: absolute;
-  opacity: 0.06;
+  opacity: 0.05;
   color: var(--color-accent);
   stroke: currentColor;
   fill: none;
   transition: opacity 0.3s ease;
 }
 
-/* Different sizes */
-.decor-icon.decor-passport,
-.decor-icon.decor-globe,
-.decor-icon.decor-badge {
-  width: 120px;
-  height: 120px;
-}
-
-.decor-icon.decor-plane,
-.decor-icon.decor-ticket,
-.decor-icon.decor-star,
-.decor-icon.decor-quote {
+/* Size variants */
+.decor-icon.decor-lg {
   width: 80px;
   height: 80px;
 }
 
-.decor-icon.decor-stamp,
-.decor-icon.decor-compass,
-.decor-icon.decor-award,
-.decor-icon.decor-heart,
-.decor-icon.decor-thumbsup {
-  width: 60px;
-  height: 60px;
+.decor-icon.decor-md {
+  width: 50px;
+  height: 50px;
 }
+
+.decor-icon.decor-sm {
+  width: 35px;
+  height: 35px;
+}
+
+.decor-icon.decor-xs {
+  width: 24px;
+  height: 24px;
+}
+
+/* ========================================
+   HERO SECTION DECORATIONS
+   ======================================== */
+
+.hero .section-decorations .decor-icon:nth-child(1) { top: 8%; left: 2%; }
+.hero .section-decorations .decor-icon:nth-child(2) { top: 15%; left: 6%; }
+.hero .section-decorations .decor-icon:nth-child(3) { top: 25%; left: 3%; }
+.hero .section-decorations .decor-icon:nth-child(4) { top: 35%; left: 8%; }
+.hero .section-decorations .decor-icon:nth-child(5) { top: 50%; left: 2%; }
+.hero .section-decorations .decor-icon:nth-child(6) { top: 60%; left: 5%; }
+.hero .section-decorations .decor-icon:nth-child(7) { top: 75%; left: 3%; }
+.hero .section-decorations .decor-icon:nth-child(8) { top: 85%; left: 7%; }
+.hero .section-decorations .decor-icon:nth-child(9) { bottom: 5%; left: 2%; }
+.hero .section-decorations .decor-icon:nth-child(10) { top: 12%; left: 10%; }
 
 /* ========================================
    STEPS SECTION DECORATIONS
    ======================================== */
 
-.steps-section .decor-passport {
-  top: 10%;
-  right: 5%;
-  transform: rotate(-15deg);
-}
-
-.steps-section .decor-plane {
-  bottom: 20%;
-  left: 3%;
-  transform: rotate(25deg);
-}
-
-.steps-section .decor-stamp {
-  top: 60%;
-  right: 8%;
-  transform: rotate(10deg);
-}
+.steps-section .decor-icon:nth-child(1) { top: 3%; right: 2%; transform: rotate(-15deg); }
+.steps-section .decor-icon:nth-child(2) { top: 8%; right: 6%; transform: rotate(10deg); }
+.steps-section .decor-icon:nth-child(3) { top: 15%; right: 3%; transform: rotate(-5deg); }
+.steps-section .decor-icon:nth-child(4) { top: 22%; left: 2%; transform: rotate(20deg); }
+.steps-section .decor-icon:nth-child(5) { top: 30%; right: 5%; transform: rotate(-10deg); }
+.steps-section .decor-icon:nth-child(6) { top: 38%; left: 3%; transform: rotate(15deg); }
+.steps-section .decor-icon:nth-child(7) { top: 45%; right: 2%; transform: rotate(-20deg); }
+.steps-section .decor-icon:nth-child(8) { top: 52%; left: 5%; transform: rotate(5deg); }
+.steps-section .decor-icon:nth-child(9) { top: 60%; right: 4%; transform: rotate(-8deg); }
+.steps-section .decor-icon:nth-child(10) { top: 68%; left: 2%; transform: rotate(12deg); }
+.steps-section .decor-icon:nth-child(11) { top: 75%; right: 3%; transform: rotate(-12deg); }
+.steps-section .decor-icon:nth-child(12) { top: 82%; left: 4%; transform: rotate(8deg); }
+.steps-section .decor-icon:nth-child(13) { bottom: 12%; right: 5%; transform: rotate(-6deg); }
+.steps-section .decor-icon:nth-child(14) { bottom: 6%; left: 3%; transform: rotate(18deg); }
+.steps-section .decor-icon:nth-child(15) { bottom: 3%; right: 2%; transform: rotate(-14deg); }
+.steps-section .decor-icon:nth-child(16) { top: 5%; left: 5%; transform: rotate(6deg); }
 
 /* ========================================
    DESTINATIONS SECTION DECORATIONS
    ======================================== */
 
-.section-light.has-decorations .decor-globe {
-  top: 8%;
-  left: 2%;
-  transform: rotate(-5deg);
-}
-
-.section-light.has-decorations .decor-ticket {
-  bottom: 15%;
-  right: 3%;
-  transform: rotate(15deg);
-}
-
-.section-light.has-decorations .decor-compass {
-  top: 40%;
-  left: 5%;
-  transform: rotate(-20deg);
-}
+#destinations .decor-icon:nth-child(1) { top: 2%; left: 2%; transform: rotate(-5deg); }
+#destinations .decor-icon:nth-child(2) { top: 5%; right: 3%; transform: rotate(15deg); }
+#destinations .decor-icon:nth-child(3) { top: 8%; left: 5%; transform: rotate(-12deg); }
+#destinations .decor-icon:nth-child(4) { top: 12%; right: 2%; transform: rotate(8deg); }
+#destinations .decor-icon:nth-child(5) { top: 18%; left: 2%; transform: rotate(-18deg); }
+#destinations .decor-icon:nth-child(6) { top: 22%; right: 4%; transform: rotate(10deg); }
+#destinations .decor-icon:nth-child(7) { top: 28%; left: 4%; transform: rotate(-6deg); }
+#destinations .decor-icon:nth-child(8) { top: 32%; right: 2%; transform: rotate(14deg); }
+#destinations .decor-icon:nth-child(9) { top: 38%; left: 2%; transform: rotate(-10deg); }
+#destinations .decor-icon:nth-child(10) { top: 42%; right: 5%; transform: rotate(20deg); }
+#destinations .decor-icon:nth-child(11) { top: 48%; left: 5%; transform: rotate(-15deg); }
+#destinations .decor-icon:nth-child(12) { top: 52%; right: 2%; transform: rotate(5deg); }
+#destinations .decor-icon:nth-child(13) { top: 58%; left: 2%; transform: rotate(-8deg); }
+#destinations .decor-icon:nth-child(14) { top: 62%; right: 4%; transform: rotate(12deg); }
+#destinations .decor-icon:nth-child(15) { top: 68%; left: 4%; transform: rotate(-14deg); }
+#destinations .decor-icon:nth-child(16) { top: 72%; right: 2%; transform: rotate(6deg); }
+#destinations .decor-icon:nth-child(17) { top: 78%; left: 2%; transform: rotate(-20deg); }
+#destinations .decor-icon:nth-child(18) { top: 82%; right: 5%; transform: rotate(8deg); }
+#destinations .decor-icon:nth-child(19) { bottom: 8%; left: 5%; transform: rotate(-12deg); }
+#destinations .decor-icon:nth-child(20) { bottom: 3%; right: 2%; transform: rotate(15deg); }
 
 /* ========================================
    TEAM SECTION DECORATIONS
    ======================================== */
 
-.team-section .decor-badge {
-  top: 5%;
-  right: 3%;
-  transform: rotate(10deg);
-}
-
-.team-section .decor-star {
-  bottom: 25%;
-  left: 2%;
-  transform: rotate(-10deg);
-}
-
-.team-section .decor-award {
-  top: 50%;
-  right: 5%;
-  transform: rotate(15deg);
-}
+.team-section .decor-icon:nth-child(1) { top: 2%; right: 2%; transform: rotate(10deg); }
+.team-section .decor-icon:nth-child(2) { top: 6%; left: 2%; transform: rotate(-8deg); }
+.team-section .decor-icon:nth-child(3) { top: 12%; right: 4%; transform: rotate(15deg); }
+.team-section .decor-icon:nth-child(4) { top: 18%; left: 3%; transform: rotate(-12deg); }
+.team-section .decor-icon:nth-child(5) { top: 25%; right: 2%; transform: rotate(6deg); }
+.team-section .decor-icon:nth-child(6) { top: 32%; left: 2%; transform: rotate(-18deg); }
+.team-section .decor-icon:nth-child(7) { top: 40%; right: 3%; transform: rotate(12deg); }
+.team-section .decor-icon:nth-child(8) { top: 48%; left: 4%; transform: rotate(-5deg); }
+.team-section .decor-icon:nth-child(9) { top: 55%; right: 5%; transform: rotate(8deg); }
+.team-section .decor-icon:nth-child(10) { top: 62%; left: 2%; transform: rotate(-14deg); }
+.team-section .decor-icon:nth-child(11) { top: 70%; right: 2%; transform: rotate(20deg); }
+.team-section .decor-icon:nth-child(12) { top: 78%; left: 3%; transform: rotate(-10deg); }
+.team-section .decor-icon:nth-child(13) { bottom: 15%; right: 4%; transform: rotate(6deg); }
+.team-section .decor-icon:nth-child(14) { bottom: 8%; left: 5%; transform: rotate(-16deg); }
+.team-section .decor-icon:nth-child(15) { bottom: 4%; right: 2%; transform: rotate(14deg); }
+.team-section .decor-icon:nth-child(16) { top: 8%; left: 6%; transform: rotate(-6deg); }
 
 /* ========================================
    REVIEWS SECTION DECORATIONS
    ======================================== */
 
-.reviews-section .decor-quote {
-  top: 10%;
-  left: 3%;
-  transform: rotate(-5deg);
-  opacity: 0.08;
-}
-
-.reviews-section .decor-heart {
-  bottom: 20%;
-  right: 5%;
-  transform: rotate(10deg);
-}
-
-.reviews-section .decor-thumbsup {
-  top: 40%;
-  right: 2%;
-  transform: rotate(-15deg);
-}
+.reviews-section .decor-icon:nth-child(1) { top: 3%; left: 2%; transform: rotate(-5deg); }
+.reviews-section .decor-icon:nth-child(2) { top: 8%; right: 3%; transform: rotate(12deg); }
+.reviews-section .decor-icon:nth-child(3) { top: 15%; left: 4%; transform: rotate(-10deg); }
+.reviews-section .decor-icon:nth-child(4) { top: 22%; right: 2%; transform: rotate(8deg); }
+.reviews-section .decor-icon:nth-child(5) { top: 32%; left: 2%; transform: rotate(-15deg); }
+.reviews-section .decor-icon:nth-child(6) { top: 42%; right: 4%; transform: rotate(10deg); }
+.reviews-section .decor-icon:nth-child(7) { top: 52%; left: 3%; transform: rotate(-8deg); }
+.reviews-section .decor-icon:nth-child(8) { top: 62%; right: 2%; transform: rotate(15deg); }
+.reviews-section .decor-icon:nth-child(9) { top: 72%; left: 5%; transform: rotate(-12deg); }
+.reviews-section .decor-icon:nth-child(10) { bottom: 18%; right: 3%; transform: rotate(6deg); }
+.reviews-section .decor-icon:nth-child(11) { bottom: 8%; left: 2%; transform: rotate(-18deg); }
+.reviews-section .decor-icon:nth-child(12) { bottom: 3%; right: 5%; transform: rotate(10deg); }
 
 /* ========================================
-   SERVICES PROMO CARD (NEW)
+   CTA SECTION DECORATIONS
+   ======================================== */
+
+#cta .decor-icon {
+  opacity: 0.08;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+#cta .decor-icon:nth-child(1) { top: 5%; left: 3%; transform: rotate(-10deg); }
+#cta .decor-icon:nth-child(2) { top: 10%; right: 5%; transform: rotate(15deg); }
+#cta .decor-icon:nth-child(3) { top: 20%; left: 5%; transform: rotate(-5deg); }
+#cta .decor-icon:nth-child(4) { top: 30%; right: 3%; transform: rotate(12deg); }
+#cta .decor-icon:nth-child(5) { top: 45%; left: 2%; transform: rotate(-18deg); }
+#cta .decor-icon:nth-child(6) { top: 55%; right: 4%; transform: rotate(8deg); }
+#cta .decor-icon:nth-child(7) { bottom: 35%; left: 4%; transform: rotate(-12deg); }
+#cta .decor-icon:nth-child(8) { bottom: 25%; right: 2%; transform: rotate(6deg); }
+#cta .decor-icon:nth-child(9) { bottom: 12%; left: 6%; transform: rotate(-8deg); }
+#cta .decor-icon:nth-child(10) { bottom: 5%; right: 5%; transform: rotate(14deg); }
+
+/* ========================================
+   SERVICES PROMO CARD
    ======================================== */
 
 .services-promo-card {
@@ -180,7 +206,6 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
-/* Decorative gradient background */
 .services-promo-card::before {
   content: '';
   position: absolute;
@@ -193,7 +218,6 @@
   pointer-events: none;
 }
 
-/* Badge */
 .services-promo-badge {
   flex-shrink: 0;
   display: flex;
@@ -222,7 +246,6 @@
   letter-spacing: 0.05em;
 }
 
-/* Content */
 .services-promo-content {
   flex: 1;
   min-width: 0;
@@ -243,7 +266,6 @@
   margin-bottom: 16px;
 }
 
-/* Tags */
 .services-promo-tags {
   display: flex;
   flex-wrap: wrap;
@@ -268,14 +290,13 @@
   border-color: rgba(184, 149, 108, 0.3);
 }
 
-/* CTA Button */
 .services-promo-btn {
   flex-shrink: 0;
   white-space: nowrap;
 }
 
 /* ========================================
-   PARALLAX ANIMATION (Scroll-based)
+   PARALLAX ANIMATION
    ======================================== */
 
 @keyframes floatDecor {
@@ -283,58 +304,39 @@
     transform: translateY(0) rotate(var(--rotation, 0deg));
   }
   50% {
-    transform: translateY(-10px) rotate(calc(var(--rotation, 0deg) + 3deg));
+    transform: translateY(-8px) rotate(calc(var(--rotation, 0deg) + 2deg));
   }
 }
 
 .decor-icon {
-  animation: floatDecor 8s ease-in-out infinite;
+  animation: floatDecor 6s ease-in-out infinite;
   animation-delay: var(--delay, 0s);
 }
 
-.decor-passport { --rotation: -15deg; --delay: 0s; }
-.decor-plane { --rotation: 25deg; --delay: 1s; }
-.decor-stamp { --rotation: 10deg; --delay: 2s; }
-.decor-globe { --rotation: -5deg; --delay: 0.5s; }
-.decor-ticket { --rotation: 15deg; --delay: 1.5s; }
-.decor-compass { --rotation: -20deg; --delay: 2.5s; }
-.decor-badge { --rotation: 10deg; --delay: 0.3s; }
-.decor-star { --rotation: -10deg; --delay: 1.2s; }
-.decor-award { --rotation: 15deg; --delay: 2.2s; }
-.decor-quote { --rotation: -5deg; --delay: 0.8s; }
-.decor-heart { --rotation: 10deg; --delay: 1.8s; }
-.decor-thumbsup { --rotation: -15deg; --delay: 2.8s; }
+/* Staggered delays for natural movement */
+.decor-icon:nth-child(1) { --delay: 0s; --rotation: -5deg; }
+.decor-icon:nth-child(2) { --delay: 0.5s; --rotation: 10deg; }
+.decor-icon:nth-child(3) { --delay: 1s; --rotation: -8deg; }
+.decor-icon:nth-child(4) { --delay: 1.5s; --rotation: 12deg; }
+.decor-icon:nth-child(5) { --delay: 2s; --rotation: -10deg; }
+.decor-icon:nth-child(6) { --delay: 2.5s; --rotation: 6deg; }
+.decor-icon:nth-child(7) { --delay: 3s; --rotation: -12deg; }
+.decor-icon:nth-child(8) { --delay: 3.5s; --rotation: 8deg; }
+.decor-icon:nth-child(9) { --delay: 4s; --rotation: -6deg; }
+.decor-icon:nth-child(10) { --delay: 4.5s; --rotation: 14deg; }
+.decor-icon:nth-child(11) { --delay: 5s; --rotation: -14deg; }
+.decor-icon:nth-child(12) { --delay: 5.5s; --rotation: 4deg; }
 
 /* ========================================
    RESPONSIVE - TABLET (1024px)
    ======================================== */
 
 @media (max-width: 1024px) {
-  .decor-icon.decor-passport,
-  .decor-icon.decor-globe,
-  .decor-icon.decor-badge {
-    width: 100px;
-    height: 100px;
-  }
+  .decor-icon.decor-lg { width: 60px; height: 60px; }
+  .decor-icon.decor-md { width: 40px; height: 40px; }
+  .decor-icon.decor-sm { width: 28px; height: 28px; }
+  .decor-icon.decor-xs { width: 20px; height: 20px; }
 
-  .decor-icon.decor-plane,
-  .decor-icon.decor-ticket,
-  .decor-icon.decor-star,
-  .decor-icon.decor-quote {
-    width: 70px;
-    height: 70px;
-  }
-
-  .decor-icon.decor-stamp,
-  .decor-icon.decor-compass,
-  .decor-icon.decor-award,
-  .decor-icon.decor-heart,
-  .decor-icon.decor-thumbsup {
-    width: 50px;
-    height: 50px;
-  }
-
-  /* Services promo card - stack */
   .services-promo-card {
     flex-direction: column;
     text-align: center;
@@ -357,53 +359,15 @@
    ======================================== */
 
 @media (max-width: 900px) {
-  /* Smaller icons on mobile */
-  .decor-icon.decor-passport,
-  .decor-icon.decor-globe,
-  .decor-icon.decor-badge {
-    width: 70px;
-    height: 70px;
-  }
+  .decor-icon.decor-lg { width: 45px; height: 45px; }
+  .decor-icon.decor-md { width: 32px; height: 32px; }
+  .decor-icon.decor-sm { width: 22px; height: 22px; }
+  .decor-icon.decor-xs { width: 16px; height: 16px; }
 
-  .decor-icon.decor-plane,
-  .decor-icon.decor-ticket,
-  .decor-icon.decor-star,
-  .decor-icon.decor-quote {
-    width: 50px;
-    height: 50px;
-  }
-
-  .decor-icon.decor-stamp,
-  .decor-icon.decor-compass,
-  .decor-icon.decor-award,
-  .decor-icon.decor-heart,
-  .decor-icon.decor-thumbsup {
-    width: 40px;
-    height: 40px;
-  }
-
-  /* Lower opacity on mobile */
   .decor-icon {
     opacity: 0.04;
   }
 
-  /* Adjust positions for mobile */
-  .steps-section .decor-passport {
-    top: 5%;
-    right: 2%;
-  }
-
-  .steps-section .decor-plane {
-    bottom: 10%;
-    left: 2%;
-  }
-
-  .section-light.has-decorations .decor-globe {
-    top: 3%;
-    left: 1%;
-  }
-
-  /* Services promo card */
   .services-promo-card {
     margin: 32px 0 24px;
     padding: 24px 20px;
