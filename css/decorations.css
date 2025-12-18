@@ -1,0 +1,450 @@
+/* ========================================
+   VISANEWS2U - Decorative Elements
+   Vintage line icons with parallax effect
+   ======================================== */
+
+/* ========================================
+   SECTION WITH DECORATIONS
+   ======================================== */
+
+.has-decorations {
+  position: relative;
+  overflow: hidden;
+}
+
+.section-decorations {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+/* ========================================
+   DECORATIVE ICONS - Base Styles
+   ======================================== */
+
+.decor-icon {
+  position: absolute;
+  opacity: 0.06;
+  color: var(--color-accent);
+  stroke: currentColor;
+  fill: none;
+  transition: opacity 0.3s ease;
+}
+
+/* Different sizes */
+.decor-icon.decor-passport,
+.decor-icon.decor-globe,
+.decor-icon.decor-badge {
+  width: 120px;
+  height: 120px;
+}
+
+.decor-icon.decor-plane,
+.decor-icon.decor-ticket,
+.decor-icon.decor-star,
+.decor-icon.decor-quote {
+  width: 80px;
+  height: 80px;
+}
+
+.decor-icon.decor-stamp,
+.decor-icon.decor-compass,
+.decor-icon.decor-award,
+.decor-icon.decor-heart,
+.decor-icon.decor-thumbsup {
+  width: 60px;
+  height: 60px;
+}
+
+/* ========================================
+   STEPS SECTION DECORATIONS
+   ======================================== */
+
+.steps-section .decor-passport {
+  top: 10%;
+  right: 5%;
+  transform: rotate(-15deg);
+}
+
+.steps-section .decor-plane {
+  bottom: 20%;
+  left: 3%;
+  transform: rotate(25deg);
+}
+
+.steps-section .decor-stamp {
+  top: 60%;
+  right: 8%;
+  transform: rotate(10deg);
+}
+
+/* ========================================
+   DESTINATIONS SECTION DECORATIONS
+   ======================================== */
+
+.section-light.has-decorations .decor-globe {
+  top: 8%;
+  left: 2%;
+  transform: rotate(-5deg);
+}
+
+.section-light.has-decorations .decor-ticket {
+  bottom: 15%;
+  right: 3%;
+  transform: rotate(15deg);
+}
+
+.section-light.has-decorations .decor-compass {
+  top: 40%;
+  left: 5%;
+  transform: rotate(-20deg);
+}
+
+/* ========================================
+   TEAM SECTION DECORATIONS
+   ======================================== */
+
+.team-section .decor-badge {
+  top: 5%;
+  right: 3%;
+  transform: rotate(10deg);
+}
+
+.team-section .decor-star {
+  bottom: 25%;
+  left: 2%;
+  transform: rotate(-10deg);
+}
+
+.team-section .decor-award {
+  top: 50%;
+  right: 5%;
+  transform: rotate(15deg);
+}
+
+/* ========================================
+   REVIEWS SECTION DECORATIONS
+   ======================================== */
+
+.reviews-section .decor-quote {
+  top: 10%;
+  left: 3%;
+  transform: rotate(-5deg);
+  opacity: 0.08;
+}
+
+.reviews-section .decor-heart {
+  bottom: 20%;
+  right: 5%;
+  transform: rotate(10deg);
+}
+
+.reviews-section .decor-thumbsup {
+  top: 40%;
+  right: 2%;
+  transform: rotate(-15deg);
+}
+
+/* ========================================
+   SERVICES PROMO CARD (NEW)
+   ======================================== */
+
+.services-promo-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  max-width: 800px;
+  margin: 60px auto 40px;
+  padding: 40px 48px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(250, 248, 245, 0.95) 100%);
+  border: 1.5px solid rgba(184, 149, 108, 0.25);
+  border-radius: 28px;
+  box-shadow:
+    0 4px 24px rgba(44, 36, 24, 0.06),
+    0 12px 48px rgba(184, 149, 108, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  overflow: hidden;
+  transition:
+    transform 0.5s var(--ease-smooth),
+    box-shadow 0.4s var(--ease-out);
+}
+
+.services-promo-card:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 8px 32px rgba(44, 36, 24, 0.08),
+    0 20px 60px rgba(184, 149, 108, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+/* Decorative gradient background */
+.services-promo-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(184, 149, 108, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Badge */
+.services-promo-badge {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #4a9c6d 0%, #2d7a4d 100%);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(74, 156, 109, 0.35);
+  position: relative;
+  z-index: 1;
+}
+
+.services-promo-badge-icon {
+  font-size: 32px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.services-promo-badge-text {
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.05em;
+}
+
+/* Content */
+.services-promo-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.services-promo-title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 8px;
+}
+
+.services-promo-desc {
+  font-size: 15px;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+/* Tags */
+.services-promo-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.services-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: rgba(184, 149, 108, 0.1);
+  border: 1px solid rgba(184, 149, 108, 0.2);
+  border-radius: 20px;
+  font-size: 13px;
+  color: var(--color-text);
+  transition: all 0.3s ease;
+}
+
+.services-tag:hover {
+  background: rgba(184, 149, 108, 0.15);
+  border-color: rgba(184, 149, 108, 0.3);
+}
+
+/* CTA Button */
+.services-promo-btn {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* ========================================
+   PARALLAX ANIMATION (Scroll-based)
+   ======================================== */
+
+@keyframes floatDecor {
+  0%, 100% {
+    transform: translateY(0) rotate(var(--rotation, 0deg));
+  }
+  50% {
+    transform: translateY(-10px) rotate(calc(var(--rotation, 0deg) + 3deg));
+  }
+}
+
+.decor-icon {
+  animation: floatDecor 8s ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+.decor-passport { --rotation: -15deg; --delay: 0s; }
+.decor-plane { --rotation: 25deg; --delay: 1s; }
+.decor-stamp { --rotation: 10deg; --delay: 2s; }
+.decor-globe { --rotation: -5deg; --delay: 0.5s; }
+.decor-ticket { --rotation: 15deg; --delay: 1.5s; }
+.decor-compass { --rotation: -20deg; --delay: 2.5s; }
+.decor-badge { --rotation: 10deg; --delay: 0.3s; }
+.decor-star { --rotation: -10deg; --delay: 1.2s; }
+.decor-award { --rotation: 15deg; --delay: 2.2s; }
+.decor-quote { --rotation: -5deg; --delay: 0.8s; }
+.decor-heart { --rotation: 10deg; --delay: 1.8s; }
+.decor-thumbsup { --rotation: -15deg; --delay: 2.8s; }
+
+/* ========================================
+   RESPONSIVE - TABLET (1024px)
+   ======================================== */
+
+@media (max-width: 1024px) {
+  .decor-icon.decor-passport,
+  .decor-icon.decor-globe,
+  .decor-icon.decor-badge {
+    width: 100px;
+    height: 100px;
+  }
+
+  .decor-icon.decor-plane,
+  .decor-icon.decor-ticket,
+  .decor-icon.decor-star,
+  .decor-icon.decor-quote {
+    width: 70px;
+    height: 70px;
+  }
+
+  .decor-icon.decor-stamp,
+  .decor-icon.decor-compass,
+  .decor-icon.decor-award,
+  .decor-icon.decor-heart,
+  .decor-icon.decor-thumbsup {
+    width: 50px;
+    height: 50px;
+  }
+
+  /* Services promo card - stack */
+  .services-promo-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 32px 24px;
+    gap: 24px;
+  }
+
+  .services-promo-tags {
+    justify-content: center;
+  }
+
+  .services-promo-btn {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+/* ========================================
+   RESPONSIVE - MOBILE (900px)
+   ======================================== */
+
+@media (max-width: 900px) {
+  /* Smaller icons on mobile */
+  .decor-icon.decor-passport,
+  .decor-icon.decor-globe,
+  .decor-icon.decor-badge {
+    width: 70px;
+    height: 70px;
+  }
+
+  .decor-icon.decor-plane,
+  .decor-icon.decor-ticket,
+  .decor-icon.decor-star,
+  .decor-icon.decor-quote {
+    width: 50px;
+    height: 50px;
+  }
+
+  .decor-icon.decor-stamp,
+  .decor-icon.decor-compass,
+  .decor-icon.decor-award,
+  .decor-icon.decor-heart,
+  .decor-icon.decor-thumbsup {
+    width: 40px;
+    height: 40px;
+  }
+
+  /* Lower opacity on mobile */
+  .decor-icon {
+    opacity: 0.04;
+  }
+
+  /* Adjust positions for mobile */
+  .steps-section .decor-passport {
+    top: 5%;
+    right: 2%;
+  }
+
+  .steps-section .decor-plane {
+    bottom: 10%;
+    left: 2%;
+  }
+
+  .section-light.has-decorations .decor-globe {
+    top: 3%;
+    left: 1%;
+  }
+
+  /* Services promo card */
+  .services-promo-card {
+    margin: 32px 0 24px;
+    padding: 24px 20px;
+    gap: 16px;
+    border-radius: 20px;
+  }
+
+  .services-promo-badge {
+    width: 72px;
+    height: 72px;
+    border-radius: 16px;
+  }
+
+  .services-promo-badge-icon {
+    font-size: 24px;
+  }
+
+  .services-promo-badge-text {
+    font-size: 12px;
+  }
+
+  .services-promo-title {
+    font-size: 20px;
+  }
+
+  .services-promo-desc {
+    font-size: 14px;
+  }
+
+  .services-tag {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+
+/* ========================================
+   REDUCED MOTION
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .decor-icon {
+    animation: none;
+  }
+}
