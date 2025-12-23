@@ -476,6 +476,12 @@
   border-radius: 20px;
 }
 
+.destination-card-badge-multiline {
+  text-align: center;
+  line-height: 1.4;
+  padding: 8px 14px;
+}
+
 .destination-card-flag {
   width: 48px;
   height: 48px;
