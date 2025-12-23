@@ -2,6 +2,7 @@
    VISANEWS2YOU - Components
    Buttons, Cards, Tooltips, Bottom Sheet, Team
    OPTIMIZED: backdrop-filter removed, using shadows instead
+   UPDATED: Team grid 4 columns
    ======================================== */
 
 /* ========================================
@@ -615,7 +616,7 @@
 }
 
 /* ========================================
-   TEAM CARDS - New Component
+   TEAM CARDS - UPDATED: 4 columns
    ======================================== */
 
 .team-section {
@@ -624,15 +625,15 @@
 
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
   margin-top: 60px;
 }
 
 .team-card {
   background: var(--card-bg);
   border-radius: 24px;
-  padding: 32px;
+  padding: 28px;
   border: var(--card-border);
   box-shadow: var(--card-shadow);
   text-align: center;
@@ -649,10 +650,10 @@
 }
 
 .team-card-photo-wrapper {
-  width: 140px;
-  height: 140px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
-  margin: 0 auto 24px;
+  margin: 0 auto 20px;
   overflow: hidden;
   box-shadow: 0 8px 32px rgba(184, 149, 108, 0.2);
   border: 4px solid #fff;
@@ -672,51 +673,51 @@
 
 .team-card-name {
   font-family: var(--font-display);
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 600;
   color: var(--color-primary);
   margin-bottom: 4px;
 }
 
 .team-card-role {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--color-accent);
   font-weight: 600;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .team-card-tags {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 8px;
-  margin-bottom: 16px;
+  gap: 6px;
+  margin-bottom: 14px;
 }
 
 .team-tag {
   background: rgba(184, 149, 108, 0.1);
-  padding: 6px 12px;
+  padding: 5px 10px;
   border-radius: 20px;
-  font-size: 12px;
+  font-size: 11px;
   color: var(--color-text-muted);
 }
 
 .team-card-specialization {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--color-text-muted);
-  line-height: 1.6;
-  margin-bottom: 20px;
+  line-height: 1.5;
+  margin-bottom: 16px;
 }
 
 .team-card-experience {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   background: linear-gradient(135deg, var(--color-accent), var(--color-accent-dark));
   color: #fff;
-  padding: 10px 24px;
+  padding: 8px 18px;
   border-radius: 30px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
 }
 
@@ -1236,4 +1237,78 @@
   background: linear-gradient(135deg, var(--color-accent), var(--color-accent-dark));
   border-color: transparent;
   color: #fff;
+}
+
+/* ========================================
+   RESPONSIVE - Team Grid
+   ======================================== */
+
+@media (max-width: 1200px) {
+  .team-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  
+  .team-card {
+    padding: 24px;
+  }
+  
+  .team-card-photo-wrapper {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .team-card-name {
+    font-size: 18px;
+  }
+  
+  .team-card-specialization {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  
+  .team-card {
+    padding: 28px;
+  }
+  
+  .team-card-photo-wrapper {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .team-card-name {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 900px) {
+  .team-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-top: 40px;
+  }
+
+  .team-card {
+    padding: 24px;
+  }
+
+  .team-card-photo-wrapper {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 20px;
+  }
+
+  .team-card-name {
+    font-size: 20px;
+  }
+
+  .team-card-specialization {
+    font-size: 13px;
+  }
 }
