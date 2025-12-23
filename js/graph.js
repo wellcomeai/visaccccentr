@@ -3,6 +3,7 @@
 // Desktop: Original working tooltip logic
 // Mobile: Vertical categories + Bottom Sheet + Enhanced UX
 // UPDATED: Added "Доп. услуги" category with bank cards and residence permits
+// UPDATED: VNJ node description includes Digital Nomad visa
 // ========================================
 
 // Twemoji flag URLs (Twitter emoji as SVG)
@@ -239,8 +240,8 @@ const nodesData = [
     type: 'service', 
     x: 85, 
     y: 88, 
-    description: 'Вид на жительство в Италии, Испании, Кипре, Франции. Стоимость и условия обсуждаются на встрече.', 
-    price: 'По запросу', 
+    description: 'ВНЖ и виза цифрового кочевника: Италия, Испания, Кипр, Франция', 
+    price: 'от €3 500', 
     icon: '🏠', 
     features: ['Италия', 'Испания', 'Кипр', 'Франция'], 
     category: 'extra' 
