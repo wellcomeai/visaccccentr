@@ -1,6 +1,6 @@
 // ========================================
 // VISANEWS2YOU - 3D Perspective Reviews Carousel
-// Touch-enabled, Auto-rotate, 9 image cards
+// Touch-enabled, Auto-rotate, Circular navigation
 // ========================================
 
 class ReviewsCarousel {
@@ -65,27 +65,32 @@ class ReviewsCarousel {
   }
 
   // ========================================
-  // POSITION CARDS
+  // POSITION CARDS - Circular Layout
   // ========================================
   updatePositions() {
+    const half = Math.floor(this.totalCards / 2);
+    
     this.cards.forEach((card, index) => {
-      // Вычисляем относительную позицию от центра
+      // Убираем класс hidden - управляем видимостью через data-position
+      card.classList.remove('hidden');
+      
+      // Вычисляем относительную позицию от центра (circular)
       let position = index - this.currentIndex;
 
       // Обработка кругового перехода
-      if (position > this.totalCards / 2) {
+      if (position > half) {
         position -= this.totalCards;
-      } else if (position < -this.totalCards / 2) {
+      } else if (position < -half) {
         position += this.totalCards;
       }
 
-      // Ограничиваем позицию для анимации (расширено для 9 карточек)
-      position = Math.max(-4, Math.min(4, position));
+      // Ограничиваем позицию для визуального отображения
+      const clampedPosition = Math.max(-5, Math.min(5, position));
 
-      card.dataset.position = position;
+      card.dataset.position = clampedPosition;
       
       // Управление pointer-events
-      if (position === 0) {
+      if (clampedPosition === 0) {
         card.style.pointerEvents = 'auto';
       } else {
         card.style.pointerEvents = 'none';
