@@ -1,9 +1,9 @@
 // ========================================
-// VISANEWS2U - Smart Graph Visualization v3.3
+// VISANEWS2U - Smart Graph Visualization v3.4
 // Desktop: Original working tooltip logic
 // Mobile: Vertical categories + Bottom Sheet + Enhanced UX
-// UPDATED: Added "Доп. услуги" category with bank cards and residence permits
-// UPDATED: VNJ node description includes Digital Nomad visa
+// UPDATED: All prices and descriptions updated per client requirements
+// UPDATED: Added Spain (Schengen) and Japan (Other countries)
 // ========================================
 
 // Twemoji flag URLs (Twitter emoji as SVG)
@@ -14,11 +14,12 @@ const flagUrls = {
   'DE': 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1e9-1f1ea.svg',
   'GR': 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1ec-1f1f7.svg',
   'HU': 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1ed-1f1fa.svg',
+  'ES': 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1ea-1f1f8.svg',
   'US': 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1fa-1f1f8.svg',
   'GB': 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1ec-1f1e7.svg',
   'CA': 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1e8-1f1e6.svg',
+  'JP': 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1ef-1f1f5.svg',
   'EU': 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1ea-1f1fa.svg',
-  'ES': 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1ea-1f1f8.svg',
   'CY': 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1e8-1f1fe.svg',
 };
 
@@ -60,11 +61,11 @@ const nodesData = [
     type: 'country', 
     x: 10, 
     y: 18, 
-    description: 'Туристическая виза в Португалию. Срок оформления от 7 дней.', 
-    price: '18 000 ₽', 
+    description: 'Туристическая виза. Оформление документов и запись в визовый центр.', 
+    price: '17 000 ₽', 
     icon: '🇵🇹', 
     flag: 'PT', 
-    features: ['Сборы включены', '7-14 дней'], 
+    features: ['Сборы оплачиваются отдельно', 'От 45 дней'], 
     tariff: 'gold', 
     category: 'schengen' 
   },
@@ -75,21 +76,26 @@ const nodesData = [
     type: 'country', 
     x: 8, 
     y: 38, 
-    description: 'Идеальный вариант для первого Шенгена. Виза для туризма и бизнеса.',
+    description: 'Туристическая или бизнес-виза',
     icon: '🇮🇹', 
     flag: 'IT',
     category: 'schengen',
     hasTariffs: true,
     tariffs: {
       gold: {
-        price: 'от 13 000 ₽',
-        description: 'Москва, СПб и СЗ регионы — от 13 000 ₽. Регионы — 25 000 ₽ + сервисный сбор.',
-        features: ['Первый Шенген', 'Личная подача', 'Сборы включены']
+        price: 'от 15 000 ₽',
+        description: 'Оформление документов и запись в визовый центр. Цена зависит от прописки.',
+        features: ['Первый Шенген', 'Личная подача', 'Сборы оплачиваются отдельно']
       },
       premium: {
         price: '55 000 ₽',
         description: 'Удалённая подача без вашего присутствия при наличии биометрии за 5 лет. Все сборы включены.',
         features: ['Удалённо', 'Всё включено', 'Доставка по РФ']
+      },
+      vip: {
+        price: '85 000 ₽',
+        description: 'Виза за 30 дней. Ускоренное оформление.',
+        features: ['Виза за 30 дней', 'Всё включено', 'Приоритет']
       }
     }
   },
@@ -100,7 +106,7 @@ const nodesData = [
     type: 'country', 
     x: 12, 
     y: 55, 
-    description: 'Виза во Францию с возможностью удалённой подачи.',
+    description: 'Туристическая или бизнес-виза',
     icon: '🇫🇷', 
     flag: 'FR',
     category: 'schengen',
@@ -108,8 +114,8 @@ const nodesData = [
     tariffs: {
       gold: {
         price: '27 000 ₽',
-        description: 'Стандартное оформление визы + сервисный сбор 35 евро.',
-        features: ['Туризм', 'Личная подача', 'Сборы включены']
+        description: 'Оформление документов и запись в визовый центр.',
+        features: ['Упрощённый пакет документов', 'На бизнес-визу поможем с приглашением', 'Сборы оплачиваются отдельно']
       },
       premium: {
         price: '55 000 ₽',
@@ -125,11 +131,11 @@ const nodesData = [
     type: 'country', 
     x: 25, 
     y: 12, 
-    description: 'Виза в Германию по приглашению. Необходимы выкупленные билеты.', 
+    description: 'Туристическая виза по приглашению или бизнес-виза', 
     price: '15 000 ₽', 
     icon: '🇩🇪', 
     flag: 'DE', 
-    features: ['15 дней', 'Сборы включены'], 
+    features: ['15-20 дней', 'Сборы оплачиваются отдельно'], 
     tariff: 'gold', 
     category: 'schengen' 
   },
@@ -140,11 +146,11 @@ const nodesData = [
     type: 'country', 
     x: 38, 
     y: 15, 
-    description: 'Быстрое оформление визы в Грецию. Необходимы выкупленные билеты.', 
+    description: 'Самое быстрое оформление.', 
     price: '15 000 ₽', 
     icon: '🇬🇷', 
     flag: 'GR', 
-    features: ['7 дней', 'Сборы включены'], 
+    features: ['7-10 дней', 'Сборы оплачиваются отдельно'], 
     tariff: 'gold', 
     category: 'schengen' 
   },
@@ -155,11 +161,26 @@ const nodesData = [
     type: 'country', 
     x: 40, 
     y: 35, 
-    description: 'Туристические и бизнес-визы. Необходимы выкупленные билеты и оплаченный отель.', 
+    description: 'Туристическая или бизнес-виза.', 
     price: '15 000 ₽', 
     icon: '🇭🇺', 
     flag: 'HU', 
-    features: ['Билеты + отель', 'Сборы включены'], 
+    features: ['15-20 дней', 'Сборы оплачиваются отдельно'], 
+    tariff: 'gold', 
+    category: 'schengen' 
+  },
+  { 
+    id: 'spain', 
+    label: 'Испания', 
+    labelShort: 'Испания', 
+    type: 'country', 
+    x: 5, 
+    y: 48, 
+    description: 'Туристическая виза', 
+    price: 'По запросу', 
+    icon: '🇪🇸', 
+    flag: 'ES', 
+    features: [], 
     tariff: 'gold', 
     category: 'schengen' 
   },
@@ -172,11 +193,11 @@ const nodesData = [
     type: 'premium', 
     x: 78, 
     y: 22, 
-    description: 'Полное сопровождение B1/B2, F1: документы, DS-160, подготовка к интервью. Консульский сбор $185 оплачивается отдельно.', 
+    description: 'Туристическая B1/B2 или студенческая виза F1. Консульский сбор $185 оплачивается отдельно.', 
     price: '35 000 ₽', 
     icon: '🇺🇸', 
     flag: 'US', 
-    features: ['На 3 года', 'Запись ботом', 'Подготовка к интервью'], 
+    features: ['На 3 года', 'Запись ботом'], 
     category: 'premium' 
   },
   { 
@@ -186,11 +207,11 @@ const nodesData = [
     type: 'premium', 
     x: 85, 
     y: 42, 
-    description: 'Виза в Великобританию. Перевод документов включён. Консульский сбор £127.', 
+    description: 'Туристическая виза. Консульский сбор оплачивается отдельно.', 
     price: '37 000 ₽', 
     icon: '🇬🇧', 
     flag: 'GB', 
-    features: ['До 2 лет', 'Перевод включён'], 
+    features: ['от 6 месяцев до 2 лет', 'Перевод включён'], 
     category: 'premium' 
   },
   { 
@@ -200,11 +221,25 @@ const nodesData = [
     type: 'premium', 
     x: 80, 
     y: 62, 
-    description: 'Туристическая виза в Канаду. Перевод документов включён. Консульский сбор CAD $100.', 
+    description: 'Туристическая виза. Консульский сбор оплачивается отдельно.', 
     price: '30 000 ₽', 
     icon: '🇨🇦', 
     flag: 'CA', 
     features: ['До 10 лет', 'Перевод включён'], 
+    category: 'premium' 
+  },
+  { 
+    id: 'japan', 
+    label: 'Япония', 
+    labelShort: 'Япония', 
+    type: 'premium', 
+    x: 92, 
+    y: 52, 
+    description: 'Туристическая виза', 
+    price: '14 000 ₽', 
+    icon: '🇯🇵', 
+    flag: 'JP', 
+    features: ['От 7 дней', 'Минимальный пакет документов'], 
     category: 'premium' 
   },
   
@@ -227,7 +262,7 @@ const nodesData = [
     type: 'service', 
     x: 60, 
     y: 88, 
-    description: 'Оформление карт иностранных банков для граждан РФ. Условия обсуждаются индивидуально.', 
+    description: 'Оформление иностранных карт банков СНГ. Тарифы и условия по запросу.', 
     price: 'По запросу', 
     icon: '💳', 
     features: ['Консультация', 'Сопровождение'], 
@@ -240,10 +275,10 @@ const nodesData = [
     type: 'service', 
     x: 85, 
     y: 88, 
-    description: 'ВНЖ и виза цифрового кочевника: Италия, Испания, Кипр, Франция', 
+    description: 'Виза цифрового кочевника Digital Nomad', 
     price: 'от €3 500', 
     icon: '🏠', 
-    features: ['Италия', 'Испания', 'Кипр', 'Франция'], 
+    features: ['Италия', 'Испания'], 
     category: 'extra' 
   },
   
@@ -315,6 +350,7 @@ const connections = [
   { from: 'center', to: 'usa' },
   { from: 'center', to: 'uk' },
   { from: 'center', to: 'canada' },
+  { from: 'center', to: 'japan' },
   { from: 'center', to: 'services' },
   { from: 'center', to: 'extra' },
   { from: 'schengen', to: 'portugal' },
@@ -323,6 +359,7 @@ const connections = [
   { from: 'schengen', to: 'germany' },
   { from: 'schengen', to: 'greece' },
   { from: 'schengen', to: 'hungary' },
+  { from: 'schengen', to: 'spain' },
   { from: 'services', to: 'forms' },
   { from: 'services', to: 'booking' },
   { from: 'services', to: 'translation' },
@@ -331,6 +368,7 @@ const connections = [
   { from: 'extra', to: 'vnj' },
   { from: 'usa', to: 'uk' },
   { from: 'uk', to: 'canada' },
+  { from: 'canada', to: 'japan' },
 ];
 
 // Categories for mobile layout
@@ -504,7 +542,7 @@ class SmartGraph {
     }
     
     if (node.price) {
-      price.textContent = node.price === 'По запросу' ? node.price : node.price + ' под ключ';
+      price.textContent = node.price;
       price.style.display = 'block';
     } else if (node.hasTariffs && node.tariffs?.gold?.price) {
       price.textContent = node.tariffs.gold.price;
@@ -528,7 +566,9 @@ class SmartGraph {
     }
     
     if (node.hasTariffs && node.tariffs) {
-      tariffs.innerHTML = `
+      let tariffsHtml = '';
+      
+      tariffsHtml += `
         <div class="bottom-sheet-tariff">
           <div class="bottom-sheet-tariff-header">
             <span class="bottom-sheet-tariff-name">⭐ Стандарт</span>
@@ -536,14 +576,33 @@ class SmartGraph {
           </div>
           <div class="bottom-sheet-tariff-desc">${node.tariffs.gold.description}</div>
         </div>
-        <div class="bottom-sheet-tariff bottom-sheet-tariff-premium">
-          <div class="bottom-sheet-tariff-header">
-            <span class="bottom-sheet-tariff-name">💎 Premium</span>
-            <span class="bottom-sheet-tariff-price">${node.tariffs.premium.price}</span>
-          </div>
-          <div class="bottom-sheet-tariff-desc">${node.tariffs.premium.description}</div>
-        </div>
       `;
+      
+      if (node.tariffs.premium) {
+        tariffsHtml += `
+          <div class="bottom-sheet-tariff bottom-sheet-tariff-premium">
+            <div class="bottom-sheet-tariff-header">
+              <span class="bottom-sheet-tariff-name">💎 Gold</span>
+              <span class="bottom-sheet-tariff-price">${node.tariffs.premium.price}</span>
+            </div>
+            <div class="bottom-sheet-tariff-desc">${node.tariffs.premium.description}</div>
+          </div>
+        `;
+      }
+      
+      if (node.tariffs.vip) {
+        tariffsHtml += `
+          <div class="bottom-sheet-tariff bottom-sheet-tariff-vip">
+            <div class="bottom-sheet-tariff-header">
+              <span class="bottom-sheet-tariff-name">👑 Premium</span>
+              <span class="bottom-sheet-tariff-price">${node.tariffs.vip.price}</span>
+            </div>
+            <div class="bottom-sheet-tariff-desc">${node.tariffs.vip.description}</div>
+          </div>
+        `;
+      }
+      
+      tariffs.innerHTML = tariffsHtml;
       tariffs.style.display = 'block';
     } else {
       tariffs.style.display = 'none';
@@ -803,7 +862,8 @@ class SmartGraph {
     let price, description, features;
     
     if (node.hasTariffs) {
-      const tariffData = node.tariffs[selectedTariff];
+      const tariffKey = selectedTariff === 'vip' ? 'vip' : (selectedTariff === 'premium' ? 'premium' : 'gold');
+      const tariffData = node.tariffs[tariffKey] || node.tariffs.gold;
       price = tariffData.price;
       description = tariffData.description;
       features = tariffData.features;
@@ -826,11 +886,16 @@ class SmartGraph {
       html += `
         <div class="tooltip-tariff-toggle" data-node-id="${node.id}">
           <button class="tariff-btn ${selectedTariff === 'gold' ? 'active' : ''}" data-tariff="gold">
-            <span class="tariff-icon">⭐</span> Gold
+            <span class="tariff-icon">⭐</span> Стандарт
           </button>
           <button class="tariff-btn ${selectedTariff === 'premium' ? 'active' : ''}" data-tariff="premium">
-            <span class="tariff-icon">💎</span> Premium
+            <span class="tariff-icon">💎</span> Gold
           </button>
+          ${node.tariffs.vip ? `
+          <button class="tariff-btn ${selectedTariff === 'vip' ? 'active' : ''}" data-tariff="vip">
+            <span class="tariff-icon">👑</span> Premium
+          </button>
+          ` : ''}
         </div>
       `;
     }
