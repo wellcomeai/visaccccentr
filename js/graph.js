@@ -85,19 +85,19 @@ const nodesData = [
       gold: {
         price: 'от 15 000 ₽',
         name: 'Стандарт',
-        description: 'Туристическая или бизнес-виза. Оформление документов и запись в ВЦ.',
+        description: 'Туристическая или бизнес-виза. Оформление документов и запись в визовый центр. Цена зависит от прописки.',
         features: ['Личная подача', 'Сборы отдельно']
       },
       premium: {
         price: '55 000 ₽',
         name: 'Gold',
-        description: 'Удалённая подача без присутствия. Все сборы включены.',
+        description: 'Удалённая подача без вашего присутствия при наличии биометрии за 5 лет. Все сборы включены.',
         features: ['Удалённо', 'Всё включено']
       },
       vip: {
         price: '85 000 ₽',
         name: 'Premium',
-        description: 'Виза за 30 дней.',
+        description: 'Виза за 30 дней. Ускоренное оформление.',
         features: ['Ускоренно', 'Приоритет']
       }
     }
@@ -179,8 +179,8 @@ const nodesData = [
     label: 'Испания', 
     labelShort: 'Испания', 
     type: 'country', 
-    x: 5, 
-    y: 28, 
+    x: 8, 
+    y: 68, 
     description: 'Туристическая виза', 
     price: 'По запросу', 
     icon: '🇪🇸', 
@@ -889,17 +889,21 @@ class SmartGraph {
     
     if (node.hasTariffs) {
       html += `
-        <div class="tooltip-tariff-toggle" data-node-id="${node.id}">
-          <button class="tariff-btn ${selectedTariff === 'gold' ? 'active' : ''}" data-tariff="gold">
-            <span class="tariff-icon">⭐</span> Стандарт
-          </button>
-          <button class="tariff-btn ${selectedTariff === 'premium' ? 'active' : ''}" data-tariff="premium">
-            <span class="tariff-icon">💎</span> Gold
-          </button>
+        <div class="tooltip-tariff-toggle" data-node-id="${node.id}" style="flex-direction: column; gap: 8px;">
+          <div class="tariff-row" style="display: flex; gap: 8px; width: 100%;">
+            <button class="tariff-btn ${selectedTariff === 'gold' ? 'active' : ''}" data-tariff="gold">
+              <span class="tariff-icon">⭐</span> Стандарт
+            </button>
+            <button class="tariff-btn ${selectedTariff === 'premium' ? 'active' : ''}" data-tariff="premium">
+              <span class="tariff-icon">💎</span> Gold
+            </button>
+          </div>
           ${node.tariffs.vip ? `
-          <button class="tariff-btn ${selectedTariff === 'vip' ? 'active' : ''}" data-tariff="vip">
-            <span class="tariff-icon">👑</span> Premium
-          </button>
+          <div class="tariff-row" style="display: flex; width: 100%;">
+            <button class="tariff-btn ${selectedTariff === 'vip' ? 'active' : ''}" data-tariff="vip" style="flex: 1;">
+              <span class="tariff-icon">👑</span> Premium
+            </button>
+          </div>
           ` : ''}
         </div>
       `;
